@@ -1,14 +1,38 @@
 module mux64
-(   input logic [2:0] Seletor, [63:0] A, [63:0] B, [63:0] C, [63:0] D,
-
+(   
+    input [2:0] Sel, 
+    input logic [63:0] A, 
+    input logic [63:0] B, 
+    input logic [63:0] C, 
+    input logic [63:0] D,
     output logic [63:0] Saida);
 
-    always_comb begin
-    case(Seletor)
-        3'd00: Saida = A;
-        3'd01: Saida = B;
-        3'd02: Saida = C;
-        3'd03: Saida = D;
-    endcase
+    reg [2:0] Seletor;
+    initial begin
+        Seletor = Sel;
+    end
+    always @(Sel)begin
+        Seletor = Sel;
+    end
+    
+    always @(Seletor) begin
+        
+        case(Seletor)
+            3'd00: begin
+                Saida = A;
+            end
+            3'd01: begin
+                Saida = B;
+            end
+            3'd02: begin
+                Saida = C;
+            end
+            3'd03: begin
+                Saida = D ;
+            end
+            default: begin
+                Saida = 64'd66;
+            end
+        endcase
     end
 endmodule

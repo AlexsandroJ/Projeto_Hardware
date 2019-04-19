@@ -28,14 +28,16 @@ module UC (
                     Seletor_Ula = 3'd1;
                     mux_A_seletor = 3'd0;
                     mux_B_seletor = 3'd1;
+                    register_Inst_wr = 1;
 
 
                 end
                 default :begin
                     PC_Write = 1;
                     Seletor_Ula = 3'd1;
-                    mux_A_seletor = 3'd3;
-                    mux_B_seletor = 3'd3;
+                    mux_A_seletor = 3'd0;
+                    mux_B_seletor = 3'd1;
+                    register_Inst_wr = 1;
                 end
             endcase
             //estado = estado.next;
