@@ -10,86 +10,86 @@ cModel Technology
 dD:/ProgramFiles/Quartus/intelFPGA/17.1
 vbancoReg
 Z0 DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
-Z1 !s110 1555682518
+Z1 !s110 1555688164
 !i10b 1
 !s100 a:<nhKC@mWB[nDSoijJPm3
-IPWSWDG;[N_m@S6Q0Ph@Eb0
+IR8emXYC`RM0:;Az5Wcz_91
 Z2 VDg1SIo80bB@j0V0VzS_@n1
 !s105 bancoReg_sv_unit
 S1
-Z3 dD:/Users/ajs6/Documents/Projeto
-w1555679269
-8D:/Users/ajs6/Documents/Projeto/bancoReg.sv
-FD:/Users/ajs6/Documents/Projeto/bancoReg.sv
+Z3 dD:/Users/ajs6/Documents/Projeto/Projeto_Hardware
+Z4 w1555684576
+8D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/bancoReg.sv
+FD:/Users/ajs6/Documents/Projeto/Projeto_Hardware/bancoReg.sv
 L0 1
-Z4 OV;L;10.5b;63
+Z5 OV;L;10.5b;63
 r1
 !s85 0
 31
-Z5 !s108 1555682518.000000
-!s107 D:/Users/ajs6/Documents/Projeto/bancoReg.sv|
-!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/bancoReg.sv|
+Z6 !s108 1555688164.000000
+!s107 D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/bancoReg.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/bancoReg.sv|
 !i113 1
-Z6 o-work work -sv
-Z7 tCvgOpt 0
+Z7 o-work work -sv
+Z8 tCvgOpt 0
 nbanco@reg
 vCPU
 R0
 R1
 !i10b 1
-!s100 T]MCJ3P:1`Gd`5AD8LF6C2
-I58QGVK@4>8]C3^g=9SO8A2
+!s100 =mFSSGCl]gXE=Y;m:7:HA1
+IKIZJF5fbeZ9fSo;7fnV4m2
 R2
 !s105 CPU_sv_unit
 S1
 R3
-w1555682482
-8D:/Users/ajs6/Documents/Projeto/CPU.sv
-FD:/Users/ajs6/Documents/Projeto/CPU.sv
+w1555688156
+8D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/CPU.sv
+FD:/Users/ajs6/Documents/Projeto/Projeto_Hardware/CPU.sv
 L0 2
-R4
+R5
 r1
 !s85 0
 31
-R5
-!s107 D:/Users/ajs6/Documents/Projeto/CPU.sv|
-!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/CPU.sv|
-!i113 1
 R6
+!s107 D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/CPU.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/CPU.sv|
+!i113 1
 R7
+R8
 n@c@p@u
 vDeslocamento
 R0
 R1
 !i10b 1
 !s100 EMH`UB_G1bTeiVdfJ^^>l1
-Ide8oCidKK_Y[?2UR0Z^DO0
+IPSUHCLh;XTzICWFNakb@V3
 R2
 !s105 Deslocamento_sv_unit
 S1
 R3
-Z8 w1555678179
-8D:/Users/ajs6/Documents/Projeto/Deslocamento.sv
-FD:/Users/ajs6/Documents/Projeto/Deslocamento.sv
-L0 1
 R4
+8D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Deslocamento.sv
+FD:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Deslocamento.sv
+L0 1
+R5
 r1
 !s85 0
 31
-R5
-!s107 D:/Users/ajs6/Documents/Projeto/Deslocamento.sv|
-!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/Deslocamento.sv|
-!i113 1
 R6
+!s107 D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Deslocamento.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Deslocamento.sv|
+!i113 1
 R7
+R8
 n@deslocamento
 Einstr_reg_risc_v
-R8
+R4
 Z9 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
 Z10 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
 R3
-Z11 8D:/Users/ajs6/Documents/Projeto/Instr_Reg_RISC_V.vhd
-Z12 FD:/Users/ajs6/Documents/Projeto/Instr_Reg_RISC_V.vhd
+Z11 8D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Instr_Reg_RISC_V.vhd
+Z12 FD:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Instr_Reg_RISC_V.vhd
 l0
 L49
 V7TD3cNADG8G:ODlTSzz?c1
@@ -98,9 +98,9 @@ Z13 OV;C;10.5b;63
 32
 R1
 !i10b 1
-R5
-Z14 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/Users/ajs6/Documents/Projeto/Instr_Reg_RISC_V.vhd|
-Z15 !s107 D:/Users/ajs6/Documents/Projeto/Instr_Reg_RISC_V.vhd|
+R6
+Z14 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Instr_Reg_RISC_V.vhd|
+Z15 !s107 D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Instr_Reg_RISC_V.vhd|
 !i113 1
 Z16 o-work work -2002 -explicit
 Z17 tExplicit 1 CvgOpt 0
@@ -116,7 +116,7 @@ R13
 32
 R1
 !i10b 1
-R5
+R6
 R14
 R15
 !i113 1
@@ -124,289 +124,314 @@ R16
 R17
 vMemoria32
 R0
-Z18 !s110 1555682517
+R1
 !i10b 1
 !s100 Q2gmKA>Pd1H;3=f[e^lb[3
-I3QbkAe[0:UIeDo7mTADM=2
+IHQK1m1:aS8dd77]gJHjJX2
 R2
 !s105 Memoria32_sv_unit
 S1
 R3
-R8
-8D:/Users/ajs6/Documents/Projeto/Memoria32.sv
-FD:/Users/ajs6/Documents/Projeto/Memoria32.sv
-Z19 L0 26
 R4
+8D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Memoria32.sv
+FD:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Memoria32.sv
+Z18 L0 26
+R5
 r1
 !s85 0
 31
-Z20 !s108 1555682517.000000
-!s107 D:/Users/ajs6/Documents/Projeto/Memoria32.sv|
-!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/Memoria32.sv|
-!i113 1
 R6
+!s107 D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Memoria32.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Memoria32.sv|
+!i113 1
 R7
+R8
 n@memoria32
 vMemoria64
 R0
-R18
+R1
 !i10b 1
 !s100 1fz3Mgbi`W1QjWk]9CgUO3
-IOOj9;Q:BMk9lEE`[:b@Z_2
+IXP=zIb:9Z4Z0NRD0LJJ_?0
 R2
 !s105 Memoria64_sv_unit
 S1
 R3
-R8
-8D:/Users/ajs6/Documents/Projeto/Memoria64.sv
-FD:/Users/ajs6/Documents/Projeto/Memoria64.sv
-R19
 R4
+8D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Memoria64.sv
+FD:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Memoria64.sv
+R18
+R5
 r1
 !s85 0
 31
-R20
-!s107 D:/Users/ajs6/Documents/Projeto/Memoria64.sv|
-!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/Memoria64.sv|
-!i113 1
 R6
+!s107 D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Memoria64.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Memoria64.sv|
+!i113 1
 R7
+R8
 n@memoria64
 vmux32
 R0
-R18
+R1
 !i10b 1
 !s100 zYG:357li1QYP:eF@Si<E1
-IHjke@dV9V<<cc`=84ViQ73
+IX@gC8OhgdV`:421`Am2CW3
 R2
 !s105 mux32_sv_unit
 S1
 R3
-R8
-8D:/Users/ajs6/Documents/Projeto/mux32.sv
-FD:/Users/ajs6/Documents/Projeto/mux32.sv
-L0 1
 R4
+8D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/mux32.sv
+FD:/Users/ajs6/Documents/Projeto/Projeto_Hardware/mux32.sv
+L0 1
+R5
 r1
 !s85 0
 31
-R20
-!s107 D:/Users/ajs6/Documents/Projeto/mux32.sv|
-!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/mux32.sv|
-!i113 1
 R6
+!s107 D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/mux32.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/mux32.sv|
+!i113 1
 R7
+R8
 vmux64
 R0
-R18
+Z19 !s110 1555688165
 !i10b 1
 !s100 O;l0lgzJC0JO4]7Q^6A8I3
-I6dASC5YKCoM6RhVN?E90>0
+I[i:3Q2FdBM29cF]TGjIC51
 R2
 !s105 mux64_sv_unit
 S1
 R3
-R8
-8D:/Users/ajs6/Documents/Projeto/mux64.sv
-FD:/Users/ajs6/Documents/Projeto/mux64.sv
-L0 1
 R4
+8D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/mux64.sv
+FD:/Users/ajs6/Documents/Projeto/Projeto_Hardware/mux64.sv
+L0 1
+R5
 r1
 !s85 0
 31
-R20
-!s107 D:/Users/ajs6/Documents/Projeto/mux64.sv|
-!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/mux64.sv|
-!i113 1
 R6
+!s107 D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/mux64.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/mux64.sv|
+!i113 1
 R7
+R8
 vmux64_PC
 R0
-R18
+R19
 !i10b 1
 !s100 IUjLDiKPekTb81NA8S<h;0
-IkYWn=F[^:cdX6mIm[=V?X0
+I8LS>z0m5O_H2HliH^ASLz1
 R2
 !s105 mux64_PC_sv_unit
 S1
 R3
-R8
-8D:/Users/ajs6/Documents/Projeto/mux64_PC.sv
-FD:/Users/ajs6/Documents/Projeto/mux64_PC.sv
+w1555685443
+8D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/mux64_PC.sv
+FD:/Users/ajs6/Documents/Projeto/Projeto_Hardware/mux64_PC.sv
 L0 1
-R4
+R5
 r1
 !s85 0
 31
-R20
-!s107 D:/Users/ajs6/Documents/Projeto/mux64_PC.sv|
-!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/mux64_PC.sv|
+Z20 !s108 1555688165.000000
+!s107 D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/mux64_PC.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/mux64_PC.sv|
 !i113 1
-R6
 R7
+R8
 nmux64_@p@c
 vramOnChip32
-R18
+R19
 !i10b 1
 !s100 ?cVfgbFYaCB@4255f4cUf3
-I<ZNe[WV?dGkNQzUAUD7[b1
+IKC?@0CbkWOF6L9cXn1c_b3
 R2
 R3
-R8
-8D:/Users/ajs6/Documents/Projeto/ramOnChip32.v
-FD:/Users/ajs6/Documents/Projeto/ramOnChip32.v
-Z21 L0 40
 R4
+8D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/ramOnChip32.v
+FD:/Users/ajs6/Documents/Projeto/Projeto_Hardware/ramOnChip32.v
+Z21 L0 40
+R5
 r1
 !s85 0
 31
 R20
-!s107 D:/Users/ajs6/Documents/Projeto/ramOnChip32.v|
-!s90 -reportprogress|300|-work|work|-stats=none|D:/Users/ajs6/Documents/Projeto/ramOnChip32.v|
+!s107 D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/ramOnChip32.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/ramOnChip32.v|
 !i113 1
 Z22 o-work work
-R7
+R8
 nram@on@chip32
 vramOnChip64
-R18
+R19
 !i10b 1
 !s100 cocMaFKEzGMH4F3EWeV]X1
-I5[_25k?Bif3Q2aWIL[zP<0
+I2FCk[SHEmdO8n4ZOebW[53
 R2
 R3
-R8
-8D:/Users/ajs6/Documents/Projeto/ramOnChip64.v
-FD:/Users/ajs6/Documents/Projeto/ramOnChip64.v
-R21
 R4
+8D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/ramOnChip64.v
+FD:/Users/ajs6/Documents/Projeto/Projeto_Hardware/ramOnChip64.v
+R21
+R5
 r1
 !s85 0
 31
 R20
-!s107 D:/Users/ajs6/Documents/Projeto/ramOnChip64.v|
-!s90 -reportprogress|300|-work|work|-stats=none|D:/Users/ajs6/Documents/Projeto/ramOnChip64.v|
+!s107 D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/ramOnChip64.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/ramOnChip64.v|
 !i113 1
 R22
-R7
+R8
 nram@on@chip64
 vReg_PC
 R0
-!s110 1555682519
+R19
 !i10b 1
 !s100 c:nTAm=lUhX?=:Y:l:SP_3
-IVYmb7X9O9jid?61B8MnTC3
+Ih_X>[c38N4^d<=ZICKBVR3
 R2
 !s105 Reg_PC_sv_unit
 S1
 R3
-w1555679949
-8D:/Users/ajs6/Documents/Projeto/Reg_PC.sv
-FD:/Users/ajs6/Documents/Projeto/Reg_PC.sv
-L0 1
 R4
+8D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Reg_PC.sv
+FD:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Reg_PC.sv
+L0 1
+R5
 r1
 !s85 0
 31
-!s108 1555682519.000000
-!s107 D:/Users/ajs6/Documents/Projeto/Reg_PC.sv|
-!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/Reg_PC.sv|
+R20
+!s107 D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Reg_PC.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Reg_PC.sv|
 !i113 1
-R6
 R7
+R8
 n@reg_@p@c
 vregister
 R0
-R1
+R19
 !i10b 1
 !s100 bYE8;I>5ooJ_Za^;]7VNI0
-I]A1TJB>Jgh9a68ADl9DSX1
+IU6e`zLT<L<AAIN2E50WHb1
 R2
 !s105 register_sv_unit
 S1
 R3
-w1555680123
-8D:/Users/ajs6/Documents/Projeto/register.sv
-FD:/Users/ajs6/Documents/Projeto/register.sv
-L0 1
 R4
+8D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/register.sv
+FD:/Users/ajs6/Documents/Projeto/Projeto_Hardware/register.sv
+L0 1
+R5
 r1
 !s85 0
 31
-R5
-!s107 D:/Users/ajs6/Documents/Projeto/register.sv|
-!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/register.sv|
+R20
+!s107 D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/register.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/register.sv|
 !i113 1
-R6
 R7
+R8
 vsimulcao_CPU
 R0
-R1
+R19
 !i10b 1
 !s100 dN[JLHI^nPLmZEDfMJCfd2
-Idc7ARG`=<2H9dTK@UD0nS2
+I^S[A1h2<m7:g@zc_8J8ne1
 R2
 !s105 simulacao_CPU_sv_unit
 S1
 R3
-R8
-8D:/Users/ajs6/Documents/Projeto/simulacao_CPU.sv
-FD:/Users/ajs6/Documents/Projeto/simulacao_CPU.sv
-L0 1
 R4
+8D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/simulacao_CPU.sv
+FD:/Users/ajs6/Documents/Projeto/Projeto_Hardware/simulacao_CPU.sv
+L0 1
+R5
 r1
 !s85 0
 31
-R5
-!s107 D:/Users/ajs6/Documents/Projeto/simulacao_CPU.sv|
-!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/simulacao_CPU.sv|
+R20
+!s107 D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/simulacao_CPU.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/simulacao_CPU.sv|
 !i113 1
-R6
 R7
+R8
 nsimulcao_@c@p@u
+vSinal_Extend
+R0
+R19
+!i10b 1
+!s100 DTbliDG8n^QXoza]`]eMR3
+I74GR8aA8f84M[AEM1F3mM1
+R2
+!s105 Seinal_Extend_sv_unit
+S1
+R3
+w1555685882
+8D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Seinal_Extend.sv
+FD:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Seinal_Extend.sv
+L0 1
+R5
+r1
+!s85 0
+31
+R20
+!s107 D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Seinal_Extend.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Seinal_Extend.sv|
+!i113 1
+R7
+R8
+n@sinal_@extend
 vUC
 R0
-R1
+R19
 !i10b 1
-!s100 a>HCaBn9`H[>Z^6hiaeMU0
-IAOOejBal<SD9NXLSNoNUa2
+!s100 XbWkK=:7EC`Ym?`nWT3Dk2
+IRaz4_fZA6`N@<4>;?SmD_3
 R2
 !s105 UC_sv_unit
 S1
 R3
-R8
-8D:/Users/ajs6/Documents/Projeto/UC.sv
-FD:/Users/ajs6/Documents/Projeto/UC.sv
+w1555687534
+8D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/UC.sv
+FD:/Users/ajs6/Documents/Projeto/Projeto_Hardware/UC.sv
 L0 1
-R4
+R5
 r1
 !s85 0
 31
-R5
-!s107 D:/Users/ajs6/Documents/Projeto/UC.sv|
-!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/UC.sv|
+R20
+!s107 D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/UC.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/UC.sv|
 !i113 1
-R6
 R7
+R8
 n@u@c
 Eula64
-R8
+R4
 Z23 DPx4 ieee 15 std_logic_arith 0 22 [G314=:2zXJ`VORJe1J@Z1
 R9
 R10
 R3
-Z24 8D:/Users/ajs6/Documents/Projeto/ula64.vhd
-Z25 FD:/Users/ajs6/Documents/Projeto/ula64.vhd
+Z24 8D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/ula64.vhd
+Z25 FD:/Users/ajs6/Documents/Projeto/Projeto_Hardware/ula64.vhd
 l0
 L54
 VNKCl_dCU9VZRibAm_Jh<Y0
 !s100 gXP0QOjWED7GdgGCHP44]0
 R13
 32
-R1
+R19
 !i10b 1
-R5
-Z26 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/Users/ajs6/Documents/Projeto/ula64.vhd|
-Z27 !s107 D:/Users/ajs6/Documents/Projeto/ula64.vhd|
+R20
+Z26 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/ula64.vhd|
+Z27 !s107 D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/ula64.vhd|
 !i113 1
 R16
 R17
@@ -421,9 +446,9 @@ V0bJGE`7Xojm<X>7FGncTL1
 !s100 DoJmkJ?1Y9Zk;7@A7oGLb2
 R13
 32
-R1
+R19
 !i10b 1
-R5
+R20
 R26
 R27
 !i113 1
