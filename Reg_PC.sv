@@ -13,7 +13,7 @@ begin
 	else
 	begin
 		if (regWrite) begin
-		    DadoOut[31:0] <= DadoIn[31:0];
+		    DadoOut <= DadoIn[31:0];
 		end
 	end		
 end

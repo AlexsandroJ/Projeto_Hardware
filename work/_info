@@ -10,7 +10,7 @@ cModel Technology
 dD:/ProgramFiles/Quartus/intelFPGA/17.1
 vbancoReg
 Z0 DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
-Z1 !s110 1555688164
+Z1 !s110 1555690318
 !i10b 1
 !s100 a:<nhKC@mWB[nDSoijJPm3
 IR8emXYC`RM0:;Az5Wcz_91
@@ -26,24 +26,24 @@ Z5 OV;L;10.5b;63
 r1
 !s85 0
 31
-Z6 !s108 1555688164.000000
+!s108 1555690317.000000
 !s107 D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/bancoReg.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/bancoReg.sv|
 !i113 1
-Z7 o-work work -sv
-Z8 tCvgOpt 0
+Z6 o-work work -sv
+Z7 tCvgOpt 0
 nbanco@reg
 vCPU
 R0
 R1
 !i10b 1
-!s100 =mFSSGCl]gXE=Y;m:7:HA1
-IKIZJF5fbeZ9fSo;7fnV4m2
+!s100 JKDaaMbE9S7KLRUl@>Yff0
+ITaJ7DoYWOWEC@9CWFl6^X3
 R2
 !s105 CPU_sv_unit
 S1
 R3
-w1555688156
+w1555690313
 8D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/CPU.sv
 FD:/Users/ajs6/Documents/Projeto/Projeto_Hardware/CPU.sv
 L0 2
@@ -51,12 +51,12 @@ R5
 r1
 !s85 0
 31
-R6
+Z8 !s108 1555690318.000000
 !s107 D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/CPU.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/CPU.sv|
 !i113 1
+R6
 R7
-R8
 n@c@p@u
 vDeslocamento
 R0
@@ -76,12 +76,12 @@ R5
 r1
 !s85 0
 31
-R6
+R8
 !s107 D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Deslocamento.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Deslocamento.sv|
 !i113 1
+R6
 R7
-R8
 n@deslocamento
 Einstr_reg_risc_v
 R4
@@ -98,7 +98,7 @@ Z13 OV;C;10.5b;63
 32
 R1
 !i10b 1
-R6
+R8
 Z14 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Instr_Reg_RISC_V.vhd|
 Z15 !s107 D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Instr_Reg_RISC_V.vhd|
 !i113 1
@@ -116,7 +116,7 @@ R13
 32
 R1
 !i10b 1
-R6
+R8
 R14
 R15
 !i113 1
@@ -140,12 +140,12 @@ R5
 r1
 !s85 0
 31
-R6
+R8
 !s107 D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Memoria32.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Memoria32.sv|
 !i113 1
+R6
 R7
-R8
 n@memoria32
 vMemoria64
 R0
@@ -165,24 +165,24 @@ R5
 r1
 !s85 0
 31
-R6
+R8
 !s107 D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Memoria64.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Memoria64.sv|
 !i113 1
+R6
 R7
-R8
 n@memoria64
 vmux32
 R0
 R1
 !i10b 1
-!s100 zYG:357li1QYP:eF@Si<E1
-IX@gC8OhgdV`:421`Am2CW3
+!s100 67O<5GkjMNY>YJdH=HlJl2
+I;>JVI=Xm>9T^2^Y`=5>SH3
 R2
 !s105 mux32_sv_unit
 S1
 R3
-R4
+w1555689159
 8D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/mux32.sv
 FD:/Users/ajs6/Documents/Projeto/Projeto_Hardware/mux32.sv
 L0 1
@@ -190,23 +190,23 @@ R5
 r1
 !s85 0
 31
-R6
+R8
 !s107 D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/mux32.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/mux32.sv|
 !i113 1
+R6
 R7
-R8
 vmux64
 R0
-Z19 !s110 1555688165
+R1
 !i10b 1
-!s100 O;l0lgzJC0JO4]7Q^6A8I3
-I[i:3Q2FdBM29cF]TGjIC51
+!s100 JfJ<Ol=cP1WF2CS`aFK7e2
+IE8U5WIQ3RS3RhELz4ohaX0
 R2
 !s105 mux64_sv_unit
 S1
 R3
-R4
+w1555689168
 8D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/mux64.sv
 FD:/Users/ajs6/Documents/Projeto/Projeto_Hardware/mux64.sv
 L0 1
@@ -214,23 +214,23 @@ R5
 r1
 !s85 0
 31
-R6
+R8
 !s107 D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/mux64.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/mux64.sv|
 !i113 1
+R6
 R7
-R8
 vmux64_PC
 R0
-R19
+R1
 !i10b 1
-!s100 IUjLDiKPekTb81NA8S<h;0
-I8LS>z0m5O_H2HliH^ASLz1
+!s100 4Fc<R:k>oeTH3CBW9<f8_3
+I^;i:@BMc`Xj8Rh4bd^bYC0
 R2
 !s105 mux64_PC_sv_unit
 S1
 R3
-w1555685443
+w1555689082
 8D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/mux64_PC.sv
 FD:/Users/ajs6/Documents/Projeto/Projeto_Hardware/mux64_PC.sv
 L0 1
@@ -238,15 +238,15 @@ R5
 r1
 !s85 0
 31
-Z20 !s108 1555688165.000000
+R8
 !s107 D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/mux64_PC.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/mux64_PC.sv|
 !i113 1
+R6
 R7
-R8
 nmux64_@p@c
 vramOnChip32
-R19
+R1
 !i10b 1
 !s100 ?cVfgbFYaCB@4255f4cUf3
 IKC?@0CbkWOF6L9cXn1c_b3
@@ -255,20 +255,20 @@ R3
 R4
 8D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/ramOnChip32.v
 FD:/Users/ajs6/Documents/Projeto/Projeto_Hardware/ramOnChip32.v
-Z21 L0 40
+Z19 L0 40
 R5
 r1
 !s85 0
 31
-R20
+R8
 !s107 D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/ramOnChip32.v|
 !s90 -reportprogress|300|-work|work|-stats=none|D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/ramOnChip32.v|
 !i113 1
-Z22 o-work work
-R8
+Z20 o-work work
+R7
 nram@on@chip32
 vramOnChip64
-R19
+Z21 !s110 1555690319
 !i10b 1
 !s100 cocMaFKEzGMH4F3EWeV]X1
 I2FCk[SHEmdO8n4ZOebW[53
@@ -277,29 +277,29 @@ R3
 R4
 8D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/ramOnChip64.v
 FD:/Users/ajs6/Documents/Projeto/Projeto_Hardware/ramOnChip64.v
-R21
+R19
 R5
 r1
 !s85 0
 31
-R20
+Z22 !s108 1555690319.000000
 !s107 D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/ramOnChip64.v|
 !s90 -reportprogress|300|-work|work|-stats=none|D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/ramOnChip64.v|
 !i113 1
-R22
-R8
+R20
+R7
 nram@on@chip64
 vReg_PC
 R0
-R19
+R21
 !i10b 1
-!s100 c:nTAm=lUhX?=:Y:l:SP_3
-Ih_X>[c38N4^d<=ZICKBVR3
+!s100 7z[]R8;J^W]UNEW;SZ;Om3
+I?Vhhj`?B9J6TcTS7>jV;=3
 R2
 !s105 Reg_PC_sv_unit
 S1
 R3
-R4
+w1555689273
 8D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Reg_PC.sv
 FD:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Reg_PC.sv
 L0 1
@@ -307,16 +307,16 @@ R5
 r1
 !s85 0
 31
-R20
+R22
 !s107 D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Reg_PC.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Reg_PC.sv|
 !i113 1
+R6
 R7
-R8
 n@reg_@p@c
 vregister
 R0
-R19
+R21
 !i10b 1
 !s100 bYE8;I>5ooJ_Za^;]7VNI0
 IU6e`zLT<L<AAIN2E50WHb1
@@ -332,15 +332,15 @@ R5
 r1
 !s85 0
 31
-R20
+R22
 !s107 D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/register.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/register.sv|
 !i113 1
+R6
 R7
-R8
 vsimulcao_CPU
 R0
-R19
+R21
 !i10b 1
 !s100 dN[JLHI^nPLmZEDfMJCfd2
 I^S[A1h2<m7:g@zc_8J8ne1
@@ -356,24 +356,24 @@ R5
 r1
 !s85 0
 31
-R20
+R22
 !s107 D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/simulacao_CPU.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/simulacao_CPU.sv|
 !i113 1
+R6
 R7
-R8
 nsimulcao_@c@p@u
 vSinal_Extend
 R0
-R19
+R21
 !i10b 1
-!s100 DTbliDG8n^QXoza]`]eMR3
-I74GR8aA8f84M[AEM1F3mM1
+!s100 96U6Gk5PH0aBD@OkW@PAK3
+IL?>`B>:9jSV=BHl8i6ee43
 R2
 !s105 Seinal_Extend_sv_unit
 S1
 R3
-w1555685882
+w1555688244
 8D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Seinal_Extend.sv
 FD:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Seinal_Extend.sv
 L0 1
@@ -381,24 +381,24 @@ R5
 r1
 !s85 0
 31
-R20
+R22
 !s107 D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Seinal_Extend.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Seinal_Extend.sv|
 !i113 1
+R6
 R7
-R8
 n@sinal_@extend
 vUC
 R0
-R19
+R21
 !i10b 1
-!s100 XbWkK=:7EC`Ym?`nWT3Dk2
-IRaz4_fZA6`N@<4>;?SmD_3
+!s100 QB3Oo?cgzZR>UNg]@_Wg31
+IhG^_@1C=X:YR]WI4dW7FL2
 R2
 !s105 UC_sv_unit
 S1
 R3
-w1555687534
+w1555689724
 8D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/UC.sv
 FD:/Users/ajs6/Documents/Projeto/Projeto_Hardware/UC.sv
 L0 1
@@ -406,12 +406,12 @@ R5
 r1
 !s85 0
 31
-R20
+R22
 !s107 D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/UC.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/UC.sv|
 !i113 1
+R6
 R7
-R8
 n@u@c
 Eula64
 R4
@@ -427,9 +427,9 @@ VNKCl_dCU9VZRibAm_Jh<Y0
 !s100 gXP0QOjWED7GdgGCHP44]0
 R13
 32
-R19
+R21
 !i10b 1
-R20
+R22
 Z26 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/ula64.vhd|
 Z27 !s107 D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/ula64.vhd|
 !i113 1
@@ -446,9 +446,9 @@ V0bJGE`7Xojm<X>7FGncTL1
 !s100 DoJmkJ?1Y9Zk;7@A7oGLb2
 R13
 32
-R19
+R21
 !i10b 1
-R20
+R22
 R26
 R27
 !i113 1

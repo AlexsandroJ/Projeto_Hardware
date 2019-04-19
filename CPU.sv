@@ -66,7 +66,7 @@ wire [63:0] Mux64_Ula_B_Out;
 wire [63:0] A;
 wire [63:0] B;
 wire [63:0] S;
-wire [3:0] Seletor_Ula;
+wire [2:0] Seletor;
 wire overFlow;
 wire negativo;
 wire z;
@@ -105,13 +105,13 @@ reg [63:0] Saida_da_Ula;
 										.Op(						Register_Intruction_Instr6_0	),
 										.reset(						reset							),
 										.PC_Write(					PC_Write						),
-										.Seletor(					Seletor_Ula							),
+										.Seletor_Ula(					Seletor						),
 										.mux_A_seletor(				Mux64_Ula_A_Seletor				),
     									.mux_B_seletor(				Mux64_Ula_B_Seletor				),
-										.load_ir(					load_ir							),
-										.Data_Memory_write(			Data_Memory_write				),
-										.bancoRegisters_write(		bancoRegisters_write			),
-										.Mux64_Banco_Reg_Seletor(	Mux64_Banco_Reg_Seletor			)
+										.register_Inst_wr(			load_ir							),
+										.Data_Memory_wr(			Data_Memory_write				),
+										.bancoRegisters_wr(			bancoRegisters_write			),
+										.Mux_Banco_Reg_Seletor(		Mux64_Banco_Reg_Seletor			)
 																									);
 //_____________________________________________________________________________________________________
 //_________________________________________Registrador PC [In 64 Bits ] [Out 32 Bits ]_________________
@@ -123,6 +123,25 @@ reg [63:0] Saida_da_Ula;
 																									);
 //_____________________________________________________________________________________________________
 //_________________________________________Memoria De Instrucao 32 Bits________________________________
+	Memoria32 Memory_Instruction( 			
+										.raddress(					PC_DadosOut						), 
+										.waddress(													), 
+										.Clk(						clock							), 
+										.Datain(													), 
+										.Dataout(					Memory_Instruction_DataOut		), 
+										.Wr(						0								)
+																									);															
+//_____________________________________________________________________________________________________
+//_________________________________________Memoria de Dados 64 Bits____________________________________
+	Memoria64 Data_Memory( 			
+										.raddress(					Reg_ULAOut_Out					), 
+										.waddress(													), 
+										.Clk(						clock							), 
+										.Datain(					Reg_B_Out						), 
+										.Dataout(					Data_Memory_Out					), 
+										.Wr(						Data_Memory_write				)
+																									);
+//_____________________________________________________________________________________________________
 //_________________________________________Registrador de Memoria de Dados 64 Bits_____________________
 	register Reg_Memory_Data( 			.clk(						clock							), 
 										.reset(						reset							), 
@@ -192,7 +211,7 @@ Instr_Reg_RISC_V Register_Intruction(	.Clk(						clock							),
 																									);
 //_____________________________________________________________________________________________________									
 //_________________________________________Mux Entrada A da Ula A 64 Bits _____________________________								
-	mux64_PC Mux64_Ula_A(				.Seletor(					Ula_Mux64_A_Seletor				),
+	mux64_PC Mux64_Ula_A(				.Seletor(					Mux64_Ula_A_Seletor				),
 										.A(							PC_DadosOut						),
 										.B(							Reg_A_Out						),
 										.C(															),
@@ -201,7 +220,7 @@ Instr_Reg_RISC_V Register_Intruction(	.Clk(						clock							),
 																									);											  
 //_____________________________________________________________________________________________________	
 //_________________________________________Mux Entrada B da Ula A 64 Bits _____________________________
-	mux64 Mux64_Ula_B(					.Seletor(					Ula_Mux64_B_Seletor				),
+	mux64 Mux64_Ula_B(					.Seletor(					Mux64_Ula_B_Seletor				),
 										.A(							Reg_B_Out						),
 										.B(							64'd4							),
 										.C(							Sinal_Extend_Out				),
@@ -212,7 +231,7 @@ Instr_Reg_RISC_V Register_Intruction(	.Clk(						clock							),
 //_________________________________________Ula_________________________________________________________	
 	ula64 ULA( 							.A(							Mux64_Ula_A_Out					),
 										.B( 						Mux64_Ula_B_Out					), 
-										.Seletor(					Seletor							), 
+										.Seletor(					Seletor						), 
 										.S(							S								), 
 										.overFlow(					overFlow						), 
 										.negativo(					negativo						), 

@@ -5,10 +5,10 @@ module mux32
 
     always_comb begin
     case(Seletor)
-        2'd00: Saida = A;
-        2'd01: Saida = B;
-        2'd02: Saida = C;
-        2'd03: Saida = D;
+        3'd00: Saida = A;
+        3'd01: Saida = B;
+        3'd02: Saida = C;
+        3'd03: Saida = D;
     endcase
     end
 endmodule
