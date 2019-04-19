@@ -118,7 +118,7 @@ reg [63:0] Saida_da_Ula;
 	Reg_PC PC( 							.clk(						clock							), 
 										.reset(						reset							), 
 										.regWrite(					PC_Write						), 
-										.DadoIn(					64'd100								), 
+										.DadoIn(					64'd100							), 
 										.DadoOut(					PC_DadosOut						)
 																									);
 //_____________________________________________________________________________________________________
