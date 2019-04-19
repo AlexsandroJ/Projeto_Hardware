@@ -1,0 +1,406 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dD:/ProgramFiles/Quartus/intelFPGA/17.1
+vbancoReg
+Z0 DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
+Z1 !s110 1555678356
+!i10b 1
+!s100 a:<nhKC@mWB[nDSoijJPm3
+IPWSWDG;[N_m@S6Q0Ph@Eb0
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+!s105 bancoReg_sv_unit
+S1
+Z3 dD:/Users/ajs6/Documents/Projeto
+Z4 w1555678179
+8D:/Users/ajs6/Documents/Projeto/bancoReg.sv
+FD:/Users/ajs6/Documents/Projeto/bancoReg.sv
+L0 1
+Z5 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z6 !s108 1555678356.000000
+!s107 D:/Users/ajs6/Documents/Projeto/bancoReg.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/bancoReg.sv|
+!i113 1
+Z7 o-work work -sv
+Z8 tCvgOpt 0
+nbanco@reg
+vCPU
+R0
+R1
+!i10b 1
+!s100 h0`nKM>67lO0]UdZ`zW4o0
+IX1nGT2dUCN=PgV3foISOJ1
+R2
+!s105 CPU_sv_unit
+S1
+R3
+R4
+8D:/Users/ajs6/Documents/Projeto/CPU.sv
+FD:/Users/ajs6/Documents/Projeto/CPU.sv
+L0 2
+R5
+r1
+!s85 0
+31
+R6
+!s107 D:/Users/ajs6/Documents/Projeto/CPU.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/CPU.sv|
+!i113 1
+R7
+R8
+n@c@p@u
+vDeslocamento
+R0
+R1
+!i10b 1
+!s100 EMH`UB_G1bTeiVdfJ^^>l1
+Ide8oCidKK_Y[?2UR0Z^DO0
+R2
+!s105 Deslocamento_sv_unit
+S1
+R3
+R4
+8D:/Users/ajs6/Documents/Projeto/Deslocamento.sv
+FD:/Users/ajs6/Documents/Projeto/Deslocamento.sv
+L0 1
+R5
+r1
+!s85 0
+31
+R6
+!s107 D:/Users/ajs6/Documents/Projeto/Deslocamento.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/Deslocamento.sv|
+!i113 1
+R7
+R8
+n@deslocamento
+Einstr_reg_risc_v
+R4
+Z9 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z10 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
+R3
+Z11 8D:/Users/ajs6/Documents/Projeto/Instr_Reg_RISC_V.vhd
+Z12 FD:/Users/ajs6/Documents/Projeto/Instr_Reg_RISC_V.vhd
+l0
+L49
+V7TD3cNADG8G:ODlTSzz?c1
+!s100 HF;HEc4<o>]o3`Jjc=WPJ2
+Z13 OV;C;10.5b;63
+32
+Z14 !s110 1555678357
+!i10b 1
+R6
+Z15 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/Users/ajs6/Documents/Projeto/Instr_Reg_RISC_V.vhd|
+Z16 !s107 D:/Users/ajs6/Documents/Projeto/Instr_Reg_RISC_V.vhd|
+!i113 1
+Z17 o-work work -2002 -explicit
+Z18 tExplicit 1 CvgOpt 0
+Abehavioral_arch
+R9
+R10
+DEx4 work 16 instr_reg_risc_v 0 22 7TD3cNADG8G:ODlTSzz?c1
+l68
+L65
+Vo8SZoo^`iHF7`CU3CnhD`1
+!s100 e?bWG@:SnkVC476;`5UQ[1
+R13
+32
+R14
+!i10b 1
+R6
+R15
+R16
+!i113 1
+R17
+R18
+vMemoria32
+R0
+Z19 !s110 1555678354
+!i10b 1
+!s100 Q2gmKA>Pd1H;3=f[e^lb[3
+I3QbkAe[0:UIeDo7mTADM=2
+R2
+!s105 Memoria32_sv_unit
+S1
+R3
+R4
+8D:/Users/ajs6/Documents/Projeto/Memoria32.sv
+FD:/Users/ajs6/Documents/Projeto/Memoria32.sv
+Z20 L0 26
+R5
+r1
+!s85 0
+31
+Z21 !s108 1555678354.000000
+!s107 D:/Users/ajs6/Documents/Projeto/Memoria32.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/Memoria32.sv|
+!i113 1
+R7
+R8
+n@memoria32
+vMemoria64
+R0
+R19
+!i10b 1
+!s100 1fz3Mgbi`W1QjWk]9CgUO3
+IOOj9;Q:BMk9lEE`[:b@Z_2
+R2
+!s105 Memoria64_sv_unit
+S1
+R3
+R4
+8D:/Users/ajs6/Documents/Projeto/Memoria64.sv
+FD:/Users/ajs6/Documents/Projeto/Memoria64.sv
+R20
+R5
+r1
+!s85 0
+31
+R21
+!s107 D:/Users/ajs6/Documents/Projeto/Memoria64.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/Memoria64.sv|
+!i113 1
+R7
+R8
+n@memoria64
+vmux32
+R0
+Z22 !s110 1555678355
+!i10b 1
+!s100 zYG:357li1QYP:eF@Si<E1
+IHjke@dV9V<<cc`=84ViQ73
+R2
+!s105 mux32_sv_unit
+S1
+R3
+R4
+8D:/Users/ajs6/Documents/Projeto/mux32.sv
+FD:/Users/ajs6/Documents/Projeto/mux32.sv
+L0 1
+R5
+r1
+!s85 0
+31
+Z23 !s108 1555678355.000000
+!s107 D:/Users/ajs6/Documents/Projeto/mux32.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/mux32.sv|
+!i113 1
+R7
+R8
+vmux64
+R0
+R22
+!i10b 1
+!s100 O;l0lgzJC0JO4]7Q^6A8I3
+I6dASC5YKCoM6RhVN?E90>0
+R2
+!s105 mux64_sv_unit
+S1
+R3
+R4
+8D:/Users/ajs6/Documents/Projeto/mux64.sv
+FD:/Users/ajs6/Documents/Projeto/mux64.sv
+L0 1
+R5
+r1
+!s85 0
+31
+R23
+!s107 D:/Users/ajs6/Documents/Projeto/mux64.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/mux64.sv|
+!i113 1
+R7
+R8
+vmux64_PC
+R0
+R22
+!i10b 1
+!s100 IUjLDiKPekTb81NA8S<h;0
+IkYWn=F[^:cdX6mIm[=V?X0
+R2
+!s105 mux64_PC_sv_unit
+S1
+R3
+R4
+8D:/Users/ajs6/Documents/Projeto/mux64_PC.sv
+FD:/Users/ajs6/Documents/Projeto/mux64_PC.sv
+L0 1
+R5
+r1
+!s85 0
+31
+R23
+!s107 D:/Users/ajs6/Documents/Projeto/mux64_PC.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/mux64_PC.sv|
+!i113 1
+R7
+R8
+nmux64_@p@c
+vramOnChip32
+R22
+!i10b 1
+!s100 ?cVfgbFYaCB@4255f4cUf3
+I<ZNe[WV?dGkNQzUAUD7[b1
+R2
+R3
+R4
+8D:/Users/ajs6/Documents/Projeto/ramOnChip32.v
+FD:/Users/ajs6/Documents/Projeto/ramOnChip32.v
+Z24 L0 40
+R5
+r1
+!s85 0
+31
+R23
+!s107 D:/Users/ajs6/Documents/Projeto/ramOnChip32.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/Users/ajs6/Documents/Projeto/ramOnChip32.v|
+!i113 1
+Z25 o-work work
+R8
+nram@on@chip32
+vramOnChip64
+R22
+!i10b 1
+!s100 cocMaFKEzGMH4F3EWeV]X1
+I5[_25k?Bif3Q2aWIL[zP<0
+R2
+R3
+R4
+8D:/Users/ajs6/Documents/Projeto/ramOnChip64.v
+FD:/Users/ajs6/Documents/Projeto/ramOnChip64.v
+R24
+R5
+r1
+!s85 0
+31
+R23
+!s107 D:/Users/ajs6/Documents/Projeto/ramOnChip64.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/Users/ajs6/Documents/Projeto/ramOnChip64.v|
+!i113 1
+R25
+R8
+nram@on@chip64
+vregister
+R0
+R22
+!i10b 1
+!s100 YI<615inn;4B<a>[PMUHN0
+In@WzZBI;fLa78oKaR]c]:0
+R2
+!s105 register_sv_unit
+S1
+R3
+R4
+8D:/Users/ajs6/Documents/Projeto/register.sv
+FD:/Users/ajs6/Documents/Projeto/register.sv
+L0 1
+R5
+r1
+!s85 0
+31
+R23
+!s107 D:/Users/ajs6/Documents/Projeto/register.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/register.sv|
+!i113 1
+R7
+R8
+vsimulcao_CPU
+R0
+R22
+!i10b 1
+!s100 dN[JLHI^nPLmZEDfMJCfd2
+Idc7ARG`=<2H9dTK@UD0nS2
+R2
+!s105 simulacao_CPU_sv_unit
+S1
+R3
+R4
+8D:/Users/ajs6/Documents/Projeto/simulacao_CPU.sv
+FD:/Users/ajs6/Documents/Projeto/simulacao_CPU.sv
+L0 1
+R5
+r1
+!s85 0
+31
+R23
+!s107 D:/Users/ajs6/Documents/Projeto/simulacao_CPU.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/simulacao_CPU.sv|
+!i113 1
+R7
+R8
+nsimulcao_@c@p@u
+vUC
+R0
+R22
+!i10b 1
+!s100 a>HCaBn9`H[>Z^6hiaeMU0
+IAOOejBal<SD9NXLSNoNUa2
+R2
+!s105 UC_sv_unit
+S1
+R3
+R4
+8D:/Users/ajs6/Documents/Projeto/UC.sv
+FD:/Users/ajs6/Documents/Projeto/UC.sv
+L0 1
+R5
+r1
+!s85 0
+31
+R23
+!s107 D:/Users/ajs6/Documents/Projeto/UC.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Projeto/UC.sv|
+!i113 1
+R7
+R8
+n@u@c
+Eula64
+R4
+Z26 DPx4 ieee 15 std_logic_arith 0 22 [G314=:2zXJ`VORJe1J@Z1
+R9
+R10
+R3
+Z27 8D:/Users/ajs6/Documents/Projeto/ula64.vhd
+Z28 FD:/Users/ajs6/Documents/Projeto/ula64.vhd
+l0
+L54
+VNKCl_dCU9VZRibAm_Jh<Y0
+!s100 gXP0QOjWED7GdgGCHP44]0
+R13
+32
+R1
+!i10b 1
+R6
+Z29 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/Users/ajs6/Documents/Projeto/ula64.vhd|
+Z30 !s107 D:/Users/ajs6/Documents/Projeto/ula64.vhd|
+!i113 1
+R17
+R18
+Abehavioral
+R26
+R9
+R10
+DEx4 work 5 ula64 0 22 NKCl_dCU9VZRibAm_Jh<Y0
+l80
+L70
+V0bJGE`7Xojm<X>7FGncTL1
+!s100 DoJmkJ?1Y9Zk;7@A7oGLb2
+R13
+32
+R1
+!i10b 1
+R6
+R29
+R30
+!i113 1
+R17
+R18
