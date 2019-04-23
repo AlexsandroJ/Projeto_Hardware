@@ -1,57 +1,53 @@
-D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/mux64_PC.sv {2 {vlog -work work -sv -stats=none D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/mux64_PC.sv
+C:/Users/zaon/Documents/Project/mux64_PC.sv {1 {vlog -work work -sv -stats=none C:/Users/zaon/Documents/Project/mux64_PC.sv
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
 -- Compiling module mux64_PC
-** Warning: D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/mux64_PC.sv(8): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
-** Warning: D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/mux64_PC.sv(15): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
-** Warning: D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/mux64_PC.sv(16): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
-** Warning: D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/mux64_PC.sv(17): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
 
 Top level modules:
 	mux64_PC
 
-} {} {}} D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Deslocamento.sv {1 {vlog -work work -sv -stats=none D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Deslocamento.sv
+} {} {}} C:/Users/zaon/Documents/Project/Deslocamento.sv {1 {vlog -work work -sv -stats=none C:/Users/zaon/Documents/Project/Deslocamento.sv
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
 -- Compiling module Deslocamento
 
 Top level modules:
 	Deslocamento
 
-} {} {}} D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Memoria32.sv {1 {vlog -work work -sv -stats=none D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Memoria32.sv
+} {} {}} C:/Users/zaon/Documents/Project/Memoria32.sv {1 {vlog -work work -sv -stats=none C:/Users/zaon/Documents/Project/Memoria32.sv
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
 -- Compiling module Memoria32
 
 Top level modules:
 	Memoria32
 
-} {} {}} D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/UC.sv {1 {vlog -work work -sv -stats=none D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/UC.sv
+} {} {}} C:/Users/zaon/Documents/Project/CPU.sv {1 {vlog -work work -sv -stats=none C:/Users/zaon/Documents/Project/CPU.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module CPU
+
+Top level modules:
+	CPU
+
+} {} {}} C:/Users/zaon/Documents/Project/UC.sv {1 {vlog -work work -sv -stats=none C:/Users/zaon/Documents/Project/UC.sv
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
 -- Compiling module UC
 
 Top level modules:
 	UC
 
-} {} {}} D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/ramOnChip64.v {1 {vlog -work work -stats=none D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/ramOnChip64.v
+} {} {}} C:/Users/zaon/Documents/Project/ramOnChip64.v {1 {vlog -work work -stats=none C:/Users/zaon/Documents/Project/ramOnChip64.v
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
 -- Compiling module ramOnChip64
 
 Top level modules:
 	ramOnChip64
 
-} {} {}} D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Seinal_Extend.sv {1 {vlog -work work -sv -stats=none D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Seinal_Extend.sv
+} {} {}} C:/Users/zaon/Documents/Project/Seinal_Extend.sv {1 {vlog -work work -sv -stats=none C:/Users/zaon/Documents/Project/Seinal_Extend.sv
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
 -- Compiling module Sinal_Extend
 
 Top level modules:
 	Sinal_Extend
 
-} {} {}} D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/ramOnChip32.v {1 {vlog -work work -stats=none D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/ramOnChip32.v
-Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
--- Compiling module ramOnChip32
-
-Top level modules:
-	ramOnChip32
-
-} {} {}} D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Instr_Reg_RISC_V.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Instr_Reg_RISC_V.vhd
+} {} {}} C:/Users/zaon/Documents/Project/Instr_Reg_RISC_V.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/zaon/Documents/Project/Instr_Reg_RISC_V.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -59,46 +55,49 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity Instr_Reg_RISC_V
 -- Compiling architecture behavioral_arch of Instr_Reg_RISC_V
 
-} {} {}} D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/mux64.sv {2 {vlog -work work -sv -stats=none D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/mux64.sv
+} {} {}} C:/Users/zaon/Documents/Project/ramOnChip32.v {1 {vlog -work work -stats=none C:/Users/zaon/Documents/Project/ramOnChip32.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module ramOnChip32
+
+Top level modules:
+	ramOnChip32
+
+} {} {}} C:/Users/zaon/Documents/Project/mux64.sv {1 {vlog -work work -sv -stats=none C:/Users/zaon/Documents/Project/mux64.sv
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
 -- Compiling module mux64
-** Warning: D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/mux64.sv(21): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
-** Warning: D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/mux64.sv(24): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
-** Warning: D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/mux64.sv(27): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
-** Warning: D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/mux64.sv(30): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
 
 Top level modules:
 	mux64
 
-} {} {}} D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Memoria64.sv {1 {vlog -work work -sv -stats=none D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Memoria64.sv
+} {} {}} C:/Users/zaon/Documents/Project/Memoria64.sv {1 {vlog -work work -sv -stats=none C:/Users/zaon/Documents/Project/Memoria64.sv
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
 -- Compiling module Memoria64
 
 Top level modules:
 	Memoria64
 
-} {} {}} D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/register.sv {1 {vlog -work work -sv -stats=none D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/register.sv
+} {} {}} C:/Users/zaon/Documents/Project/register.sv {1 {vlog -work work -sv -stats=none C:/Users/zaon/Documents/Project/register.sv
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
 -- Compiling module register
 
 Top level modules:
 	register
 
-} {} {}} D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Reg_PC.sv {1 {vlog -work work -sv -stats=none D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/Reg_PC.sv
+} {} {}} C:/Users/zaon/Documents/Project/Reg_PC.sv {1 {vlog -work work -sv -stats=none C:/Users/zaon/Documents/Project/Reg_PC.sv
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
 -- Compiling module Reg_PC
 
 Top level modules:
 	Reg_PC
 
-} {} {}} D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/bancoReg.sv {1 {vlog -work work -sv -stats=none D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/bancoReg.sv
+} {} {}} C:/Users/zaon/Documents/Project/bancoReg.sv {1 {vlog -work work -sv -stats=none C:/Users/zaon/Documents/Project/bancoReg.sv
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
 -- Compiling module bancoReg
 
 Top level modules:
 	bancoReg
 
-} {} {}} D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/ula64.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/ula64.vhd
+} {} {}} C:/Users/zaon/Documents/Project/ula64.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/zaon/Documents/Project/ula64.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -106,12 +105,5 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading package std_logic_arith
 -- Compiling entity Ula64
 -- Compiling architecture behavioral of Ula64
-
-} {} {}} D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/simulacao_CPU.sv {1 {vlog -work work -sv -stats=none D:/Users/ajs6/Documents/Projeto/Projeto_Hardware/simulacao_CPU.sv
-Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
--- Compiling module simulcao_CPU
-
-Top level modules:
-	simulcao_CPU
 
 } {} {}}

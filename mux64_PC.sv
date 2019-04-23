@@ -5,16 +5,16 @@ module mux64_PC
     
     always_comb begin
     case(Seletor)
-        3'd00: begin
+        3'd0: begin
 
             Saida[31:0] = A[31:0]; 
             Saida[63:32] = 32'd0;
 
         end
         
-        3'd01: Saida = B;
-        3'd02: Saida = C;
-        3'd03: Saida = D;
+        3'd1: Saida = B;
+        3'd2: Saida = C;
+        3'd3: Saida = D;
     endcase
     end
 endmodule
