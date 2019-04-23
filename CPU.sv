@@ -28,6 +28,12 @@ wire [63:0] Data_Memory_Out;
 // saidas registrador de dados da memoria
 wire [63:0]Reg_Memory_Data_Out;
 
+// Saida corte_antes
+wire [63:0]DadoIn_64;
+
+// Saida corte depois
+wire [63:0]Saida_Banco_Reg;
+
 // saida mux do banco de registrador 
 wire [2:0]	Mux64_Banco_Reg_Seletor;
 wire [63:0]	Mux64_Banco_Reg_Out;
@@ -45,6 +51,7 @@ wire [63:0] Sinal_Extend_Out;
 
 // saida Modulo de deslocamento
 wire [63:0]Shift_Left_Out;
+
 // saidas e controle banco de Registradores
 wire bancoRegisters_write;
 wire [63:0] bancoRegisters_DataOut_1;
@@ -56,6 +63,10 @@ wire reset_A;
 
 // saidas e controle registrador B
 wire [63:0] Reg_B_Out;
+
+// saidas e controle Deslocamento Funcional
+wire [1:0]Shift_Control;
+wire [63:0]Shift_Funcional_Out;
 
 // saidas e controle Mux A
 wire [2:0] Mux64_Ula_A_Seletor;
@@ -112,7 +123,6 @@ reg [63:0] Saida_da_Ula;
 										.Seletor_Ula(				Seletor							),
 										.mux_A_seletor(				Mux64_Ula_A_Seletor				),
     									.mux_B_seletor(				Mux64_Ula_B_Seletor				),
-										.register_Inst_wr(			load_ir							),
 										.Data_Memory_wr(			Data_Memory_write				),
 										.bancoRegisters_wr(			bancoRegisters_write			),
 										.Mux_Banco_Reg_Seletor(		Mux64_Banco_Reg_Seletor			),
@@ -120,7 +130,8 @@ reg [63:0] Saida_da_Ula;
 										.igual(		                igual                			),
 										.maior(		                maior                			),
 										.menor(		                menor                			),
-										.reset_A( 					reset_A							)
+										.reset_A( 					reset_A							),
+										.Shift_Control(				Shift_Control					)
 																									);
 //_____________________________________________________________________________________________________
 //_________________________________________Registrador PC [In 64 Bits ] [Out 32 Bits ]_________________
@@ -141,21 +152,35 @@ reg [63:0] Saida_da_Ula;
 										.Wr(						1'b0								)
 																									);															
 //_____________________________________________________________________________________________________
+//_________________________________________Diminuição do rd antes______________________________________
+/*	Battousai_Store corte_antes( 		
+										.Reg_B_Out(					Reg_B_Out						), //INPUT
+										.Register_Intruction_Instr31_0(Register_Intruction_Instr31_0), 
+										.DadoIn_64(					DadoIn_64						)
+																									);	
+//_____________________________________________________________________________________________________
 //_________________________________________Memoria de Dados 64 Bits____________________________________
-/*	Memoria64 Data_Memory( 			
+	Memoria64 Data_Memory( 			
 										.raddress(					Reg_ULAOut_Out					), 
 										.waddress(													), 
 										.Clk(						clock							), 
-										.Datain(					Reg_B_Out						), 
+										.Datain(					DadoIn_64						), 
 										.Dataout(					Data_Memory_Out					), 
 										.Wr(						Data_Memory_write				)
 																									);
+//_____________________________________________________________________________________________________
+//_________________________________________Diminuição do rd depois_____________________________________
+	Battousai_Load corte_depois( 		
+										.Dataout(					Data_Memory_Out					), //INPUT
+										.Register_Intruction_Instr31_0(Register_Intruction_Instr31_0), 
+										.Saida_Memory_Data(			Saida_Memory_Data				)
+																									);	
 //_____________________________________________________________________________________________________
 //_________________________________________Registrador de Memoria de Dados 64 Bits_____________________
 	register Reg_Memory_Data( 			.clk(						clock							), 
 										.reset(						reset							), 
 										.regWrite(					clock							), 
-										.DadoIn(					Data_Memory_Out					), 
+										.DadoIn(					Saida_Banco_Reg					), 
 										.DadoOut(					Reg_Memory_Data_Out				)
 																									);	
 //_____________________________________________________________________________________________________
@@ -203,11 +228,18 @@ Instr_Reg_RISC_V Register_Intruction(	.Clk(						clock							),
 									   	.dataout2(					bancoRegisters_DataOut_2		)			
 									   																);
 //_____________________________________________________________________________________________________
+//_________________________________________Delocamento de N Bits_______________________________________
+	Deslocamento deslocador_funcional(	.Shift(				Shift_Control							),
+										.Entrada(			bancoRegisters_DataOut_1				),
+										.N(					Register_Intruction_Instr31_0[25:20]	),
+										.Saida(				Shift_Funcional_Out						)
+																									);
+//_____________________________________________________________________________________________________
 //_________________________________________Registrador A 64 Bits_______________________________________
 	register Reg_A( 					.clk(						clock							), 
 										.reset(						reset_A							), 
 										.regWrite(					clock							), 
-										.DadoIn(					bancoRegisters_DataOut_1		), 
+										.DadoIn(					Shift_Funcional_Out				), 
 										.DadoOut(					Reg_A_Out						)
 																									);
 //_____________________________________________________________________________________________________
