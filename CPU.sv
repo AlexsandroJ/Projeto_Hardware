@@ -107,6 +107,9 @@ wire [63:0]mux64_B_D;
 
 reg [63:0] Saida_da_Ula;
 
+// Debugar codigo
+wire [2:0]Situacao;
+
 //_________________________________saidas da Unidade de Controle______________________________________
 //					PC_Write							: grava em PC
 //					Seletor_Ula 						: 3 Bits seleciona a operacao na ula
@@ -138,7 +141,8 @@ reg [63:0] Saida_da_Ula;
 										.reset_A( 					reset_A							),
 										.Shift_Control(				Shift_Control					),
 										.Reg_A_Write( 				Reg_A_Write						),
-										.Reg_B_Write( 				Reg_B_Write						)
+										.Reg_B_Write( 				Reg_B_Write						),
+										.Situacao(					Situacao						)
 																									);
 //_____________________________________________________________________________________________________
 //_________________________________________Registrador PC [In 64 Bits ] [Out 32 Bits ]_________________
@@ -303,7 +307,7 @@ Instr_Reg_RISC_V Register_Intruction(	.Clk(						clock							),
 	
 	  	ULA_Out <= Memory_Instruction_DataOut;
 	   	merda <= PC_DadosOut;
-	   //Pc_Out = PC_DadosOut;
+	   	STT = Situacao;
     end
 
 endmodule

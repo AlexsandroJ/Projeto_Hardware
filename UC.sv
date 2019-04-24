@@ -17,7 +17,7 @@ module UC (
     output logic [1:0]Shift_Control,
     output logic Reg_A_Write,
     output logic Reg_B_Write,
-    output logic [3:0] Situacao
+    output logic [2:0] Situacao
 
     );
     
@@ -37,9 +37,9 @@ module UC (
                     Seletor_Ula = 3'd1;
                     mux_A_seletor = 3'd0;
                     mux_B_seletor = 3'd1;
-                    estado = SELECAO;
                     Reg_A_Write = 0;
                     Reg_B_Write = 0;
+                    estado = SELECAO;
                     
 
                 end
