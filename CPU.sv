@@ -2,7 +2,8 @@
 module CPU
 (	input logic clock, reset,
 	output logic [63:0] ULA_Out,
-	output logic [31:0] merda
+	output logic [31:0] merda,
+	output logic [2:0]STT
 
 );
 //_________________________________Observacoes______________________________________________
@@ -60,9 +61,12 @@ wire [63:0] bancoRegisters_DataOut_2;
 // saidas e controle registrador A
 wire [63:0] Reg_A_Out;
 wire reset_A;
+wire Reg_A_Write;
 
 // saidas e controle registrador B
 wire [63:0] Reg_B_Out;
+wire Reg_B_Write;
+
 
 // saidas e controle Deslocamento Funcional
 wire [1:0]Shift_Control;
@@ -131,7 +135,9 @@ reg [63:0] Saida_da_Ula;
 										.maior(		                maior                			),
 										.menor(		                menor                			),
 										.reset_A( 					reset_A							),
-										.Shift_Control(				Shift_Control					)
+										.Shift_Control(				Shift_Control					),
+										.Reg_A_Write( 				Reg_A_Write						),
+										.Reg_B_Write( 				Reg_B_Write						)
 																									);
 //_____________________________________________________________________________________________________
 //_________________________________________Registrador PC [In 64 Bits ] [Out 32 Bits ]_________________
@@ -153,7 +159,7 @@ reg [63:0] Saida_da_Ula;
 																									);															
 //_____________________________________________________________________________________________________
 //_________________________________________Diminuição do rd antes______________________________________
-/*	Battousai_Store corte_antes( 		
+	Battousai_Store corte_antes( 		
 										.Reg_B_Out(					Reg_B_Out						), //INPUT
 										.Register_Intruction_Instr31_0(Register_Intruction_Instr31_0), 
 										.DadoIn_64(					DadoIn_64						)
@@ -229,16 +235,16 @@ Instr_Reg_RISC_V Register_Intruction(	.Clk(						clock							),
 									   																);
 //_____________________________________________________________________________________________________
 //_________________________________________Delocamento de N Bits_______________________________________
-	Deslocamento deslocador_funcional(	.Shift(				Shift_Control							),
-										.Entrada(			bancoRegisters_DataOut_1				),
-										.N(					Register_Intruction_Instr31_0[25:20]	),
-										.Saida(				Shift_Funcional_Out						)
+	Deslocamento deslocador_funcional(	.Shift(						Shift_Control							),
+										.Entrada(					bancoRegisters_DataOut_1				),
+										.N(							Register_Intruction_Instr31_0[25:20]	),
+										.Saida(						Shift_Funcional_Out						)
 																									);
 //_____________________________________________________________________________________________________
 //_________________________________________Registrador A 64 Bits_______________________________________
 	register Reg_A( 					.clk(						clock							), 
 										.reset(						reset_A							), 
-										.regWrite(					clock							), 
+										.regWrite(					Reg_A_Write						), 
 										.DadoIn(					Shift_Funcional_Out				), 
 										.DadoOut(					Reg_A_Out						)
 																									);
@@ -246,26 +252,26 @@ Instr_Reg_RISC_V Register_Intruction(	.Clk(						clock							),
 //_________________________________________Registrador B 64 Bits_______________________________________
 	register Reg_B( 					.clk(						clock							), 
 										.reset(						reset							), 
-										.regWrite(					clock							), 
+										.regWrite(					Reg_B_Write						), 
 										.DadoIn(					bancoRegisters_DataOut_2		), 
 										.DadoOut(					Reg_B_Out						)
 																									);
 //_____________________________________________________________________________________________________									
-*///_________________________________________Mux Entrada A da Ula A 64 Bits _____________________________								
+//_________________________________________Mux Entrada A da Ula A 64 Bits _____________________________								
 	mux64 Mux64_Ula_A(					.Seletor(					Mux64_Ula_A_Seletor				),
 										.A(							PC_DadosOut						),
-										.B(							64'd69							),
-										.C(							64'd69							),
-										.D(							64'd69							),
+										.B(							Reg_A_Out						),
+										.C(							64'd666							),
+										.D(							64'd666							),
 										.Saida(						Mux64_Ula_A_Out					)
 																									);											  
 //_____________________________________________________________________________________________________	
 //_________________________________________Mux Entrada B da Ula A 64 Bits _____________________________
 	mux64 Mux64_Ula_B(					.Seletor(					Mux64_Ula_B_Seletor				),
-										.A(							64'd1							),
+										.A(							Reg_B_Out						),
 										.B(							64'd4							),
-										.C(							64'd3							),
-										.D(							64'd4							),
+										.C(							Sinal_Extend_Out							),
+										.D(							Shift_Left_Out							),
 										.Saida(						Mux64_Ula_B_Out					)
 																									);	
 //_____________________________________________________________________________________________________	
@@ -282,15 +288,15 @@ Instr_Reg_RISC_V Register_Intruction(	.Clk(						clock							),
 										.menor(						menor							)
 																									);
 //_____________________________________________________________________________________________________
-/*//_________________________________________Registrador Saida da Ula____________________________________
+//_________________________________________Registrador Saida da Ula____________________________________
 	register Reg_ULAOut( 				.clk(						clock							), 
 										.reset(						reset							), 
-										.regWrite(					1							), 
+										.regWrite(					1								), 
 										.DadoIn(					S								), 
-										.DadoOut(					ULA_Out					)
+										.DadoOut(					ULA_Out							)
 																									);
 //_____________________________________________________________________________________________________
-*/
+
 	always_ff @(posedge clock or posedge reset) // sincrono
     begin
 	

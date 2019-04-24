@@ -14,31 +14,36 @@ module UC (
     output logic bancoRegisters_wr,
     output logic reset_A, //bit de sinal que zera(reseta) o registrador A
     output logic [2:0]Mux_Banco_Reg_Seletor,
-    output logic [1:0]Shift_Control
+    output logic [1:0]Shift_Control,
+    output logic Reg_A_Write,
+    output logic Reg_B_Write,
+    output logic [3:0] Situacao
 
     );
     
-    typedef enum  { busca = 1, selecao = 2 , salto = 3 , inicio = 0 } Esta;
-    Esta estado = estado.first;
+    enum logic [2:0]{ BUSCA = 3'd1, SELECAO = 3'd2 , SALTO = 3'd3 , INICIO = 3'd0 } estado;
     
-    always_ff @(posedge clock, posedge reset) //Síncrono
-    begin 
-        /*Seletor_Ula = 3'b001;
-        PC_Write = 1'b1;
-        mux_A_seletor = 3'b000;
-        mux_B_seletor = 3'b001;*/
-        if(reset) estado = inicio;
+    always_ff @(posedge clock, posedge reset) begin 
+        
+        if(reset) begin
+            estado = BUSCA;
+        end
         else begin
 
             case(estado)
-                busca:begin
+                BUSCA:begin
+
                     PC_Write = 1;
                     Seletor_Ula = 3'd1;
                     mux_A_seletor = 3'd0;
                     mux_B_seletor = 3'd1;
                     estado = selecao;
+                    Reg_A_Write = 0;
+                    Reg_B_Write = 0;
+                    
+
                 end
-                selecao:begin
+                SELECAO:begin
                     PC_Write = 0; //PC para de ler instrucao
                     case(Register_Intruction_Instr31_0[6:0])
                         7'd51: begin //tipo R
@@ -348,7 +353,7 @@ module UC (
                         end           
                     endcase
                 end            
-                salto:begin
+                SALTO:begin
                     case(Register_Intruction_Instr31_0[6:0])
                         7'd99: begin //beq rs1, rs2, imm
                             if(igual==1) begin                      //se rs1=rs2
@@ -409,7 +414,15 @@ module UC (
                     mux_B_seletor = 3'd3;
                 end
             endcase
-
         end
     end
+
+
+    always_ff @(posedge clock or posedge reset) // sincrono
+    begin
+	
+	  	Situacao <= estado;
+	   	
+    end
+
 endmodule

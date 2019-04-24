@@ -4,14 +4,16 @@ module simulcao_CPU;
     logic reset;
     logic [63:0]Ula_Out;
     logic [31:0]mem;
+    logic [2:0]STT;
  
 
 
-    CPU teste_CPU(      .clock(     clock           ),
-                        .reset(     reset           ),
-                        .ULA_Out(   Ula_Out         ),
-                        .merda(       mem            )
-                                                    );
+    CPU teste_CPU(      .clock(     clock               ),
+                        .reset(     reset               ),
+                        .ULA_Out(   Ula_Out             ),
+                        .merda(     mem                 ),
+                        .STT(       STT                 )
+                                                        );
     localparam CLKPERIODO = 10000;
     localparam CLKDELAY = CLKPERIODO/2;
     initial begin
@@ -24,6 +26,6 @@ module simulcao_CPU;
     always #(CLKDELAY) clock = ~clock;
 
     always_ff@(posedge clock or posedge reset)begin
-        $monitor($time," Instrucao = %d Clock :%b Reset:%b , PC = %d",Ula_Out,clock, reset,mem);
+        $monitor($time," Instrucao = %d Clock :%b Reset:%b , PC = %d Estado: %d",Ula_Out,clock, reset,mem,STT);
     end
 endmodule
