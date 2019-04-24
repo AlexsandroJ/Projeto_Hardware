@@ -23,26 +23,32 @@ module UC (
 
     );
     
-    enum logic [2:0]{ BUSCA = 3'd1, SELECAO = 3'd2 , SALTO = 3'd3 , INICIO = 3'd0 } estado;
+    enum logic [2:0]{ BUSCA = 3'd1, SELECAO = 3'd2 , SALTO = 3'd3 , MEM_INST = 3'd4 , INICIO = 3'd0 } estado;
     
     always_ff @(posedge clock, posedge reset) begin 
         
         if(reset) begin
             estado = BUSCA;
+            reset_A = 1;
         end
         else begin
 
             case(estado)
 
-                
 
                 BUSCA:begin
-
+                    Shift_Control = 2'd3;
+                    reset_A = 0;
                     PC_Write = 1;
                     Seletor_Ula = 3'd1;
+                    // Selecao de PC + 4
                     mux_A_seletor = 3'd0;
                     mux_B_seletor = 3'd1;
-                    Load_ir = 1;
+                    // Salvar Valores dos registadores das instrucoes
+                    Load_ir = 0;
+                    Reg_A_Write = 0;
+                    Reg_B_Write = 0;
+                    // Ir para proximo estado
                     estado = SELECAO;
                     
 
@@ -50,7 +56,12 @@ module UC (
                 SELECAO:begin
                      
                     PC_Write = 0;//PC para de ler instrucao
-                    Load_ir = 0;
+                    // nao ler instrucao, valores salvos nos registradores
+                    Load_ir = 1;
+                    Reg_A_Write = 1;
+                    Reg_B_Write = 1;
+                    
+
                     case(Register_Intruction_Instr31_0[6:0])
                         7'd51: begin //tipo R
                         
@@ -59,6 +70,7 @@ module UC (
                                 Seletor_Ula = 3'd1;        //Operação soma
                                 mux_A_seletor = 3'd1;      //Valor contido em rs1 sai do MUX de cima
                                 mux_B_seletor = 3'd0;      //Valor contido em rs2 sai do MUX de baixo
+                                estado = MEM_INST;
                                 Mux_Banco_Reg_Seletor = 0; //O resultado da operação(ALU_OUT) vai para datain no banco de registradores
                                 bancoRegisters_wr = 1;     //Permitirá ao banco de registradores escrever o resultado(datain) da operação em rd
                                 
@@ -66,9 +78,10 @@ module UC (
                             else begin
                                 if(Register_Intruction_Instr31_0[14:12]==3'd0 && Register_Intruction_Instr31_0[31:25]==7'd32) begin //sub rd, rs1, rs2
                                     Shift_Control = 2'd3;      //O deslocador_funcional não faz nada
-                                    Seletor_Ula = 3'd1;        //Operação subtração
+                                    Seletor_Ula = 3'd2;        //Operação subtração
                                     mux_A_seletor = 3'd1;      //Valor contido em rs1 sai do MUX de cima
                                     mux_B_seletor = 3'd0;      //Valor contido em rs2 sai do MUX de baixo
+                                    estado = MEM_INST;
                                     Mux_Banco_Reg_Seletor = 0; //O resultado da operação(ALU_OUT) vai para datain no banco de registradores
                                     bancoRegisters_wr = 1;     //Permitirá ao banco de registradores escrever o resultado(datain) da operação em rd
                                 end
@@ -78,6 +91,7 @@ module UC (
                                         Seletor_Ula = 3'd3;        //Operação AND
                                         mux_A_seletor = 3'd1;      //Valor contido em rs1 sai do MUX de cima
                                         mux_B_seletor = 3'd0;      //Valor contido em rs2 sai do MUX de baixo
+                                        estado = MEM_INST;
                                         Mux_Banco_Reg_Seletor = 0; //O resultado da operação(ALU_OUT) vai para datain no banco de registradores
                                         bancoRegisters_wr = 1;     //Permitirá ao banco de registradores escrever o resultado(datain) da operação em rd
                                     end
@@ -415,6 +429,9 @@ module UC (
                         end
                     endcase  
                     estado = BUSCA; //Volta à busca por instrução
+                end
+                MEM_INST:begin
+
                 end            
                 default :begin
                     PC_Write = 1;

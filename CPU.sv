@@ -4,7 +4,11 @@ module CPU
 	output logic [63:0] ULA_Out,
 	output logic [63:0] Pc_Out,
 	output logic [31:0] opcode,
-	output logic [2:0] STT
+	output logic [2:0] STT,
+	output logic [63:0] Registrador_A,
+	output logic [63:0] Registrador_B,
+	output logic [63:0] MUX_A_SAIDA,
+	output logic [63:0] MUX_B_SAIDA
 
 );
 //_________________________________Observacoes______________________________________________
@@ -206,7 +210,7 @@ wire [2:0]Situacao;
 
 //_________________________________________Mux 64 Bits da Entrada do banco de registradores____________
 	mux64 Mux64_Banco_Reg(				.Seletor(					Mux64_Banco_Reg_Seletor			),
-										.A(							Reg_ULAOut_Out					),
+										.A(							S					),
 										.B(							Reg_Memory_Data_Out				),
 										.C(							64'd666								),
 										.D(							64'd666								),
@@ -262,7 +266,7 @@ Instr_Reg_RISC_V Register_Intruction(	.Clk(						clock							),
 	register Reg_A( 					.clk(						clock							), 
 										.reset(						reset_A							), 
 										.regWrite(					Reg_A_Write						), 
-										.DadoIn(					bancoRegisters_DataOut_1		), 
+										.DadoIn(					Shift_Funcional_Out		), 
 										.DadoOut(					Reg_A_Out						)
 																									);
 //_____________________________________________________________________________________________________
@@ -318,10 +322,14 @@ Instr_Reg_RISC_V Register_Intruction(	.Clk(						clock							),
 	always_ff @(posedge clock or posedge reset) // sincrono
     begin
 	
-	  	ULA_Out <= S;
-	   	Pc_Out <= PC_DadosOut;
-		opcode <= Register_Intruction_Instr31_0;
-	   	STT <= Situacao;
+	  	ULA_Out 		<= S;
+	   	Pc_Out 			<= PC_DadosOut;
+		opcode 			<= Register_Intruction_Instr31_0;
+	   	STT 			<= Situacao;
+		Registrador_A	<=	Reg_A_Out;
+		Registrador_B	<=	Reg_B_Out;
+		MUX_A_SAIDA		<=	Mux64_Ula_A_Out;
+		MUX_B_SAIDA		<=	Mux64_Ula_B_Out;
     end
 
 endmodule
