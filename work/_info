@@ -10,7 +10,7 @@ cModel Technology
 dD:/ProgramFiles/Quartus/intelFPGA/17.1
 vbancoReg
 Z0 DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
-Z1 !s110 1556079574
+Z1 !s110 1556081667
 !i10b 1
 !s100 a:<nhKC@mWB[nDSoijJPm3
 I[FRK__mQFTEic0:iX`VY^1
@@ -26,7 +26,7 @@ Z5 OV;L;10.5b;63
 r1
 !s85 0
 31
-Z6 !s108 1556079574.000000
+Z6 !s108 1556081667.000000
 !s107 D:/Users/ajs6/Documents/Project/Projeto_Hardware/bancoReg.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Project/Projeto_Hardware/bancoReg.sv|
 !i113 1
@@ -60,7 +60,7 @@ R8
 n@battousai_@load
 vBattousai_Store
 R0
-R1
+Z9 !s110 1556081668
 !i10b 1
 !s100 oWmJm>m9>Xf^]UaKQZGdm2
 ID=8h6bDSH<ohc>L6E]n_^2
@@ -76,7 +76,7 @@ R5
 r1
 !s85 0
 31
-R6
+Z10 !s108 1556081668.000000
 !s107 D:/Users/ajs6/Documents/Project/Projeto_Hardware/Battousai_Store.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Project/Projeto_Hardware/Battousai_Store.sv|
 !i113 1
@@ -85,15 +85,15 @@ R8
 n@battousai_@store
 vCPU
 R0
-Z9 !s110 1556079575
+R9
 !i10b 1
-!s100 7Y4Xl<P^0Ra8Co]fg9oFW2
-I_4cX>OLF]GzJKC^ZS5JTV1
+!s100 ULm=^R3C:_;OBn;b?WV0N0
+I0?LR;CFf@3I[MBlC7e3Ki2
 R2
 !s105 CPU_sv_unit
 S1
 R3
-w1556079571
+w1556081629
 8D:/Users/ajs6/Documents/Project/Projeto_Hardware/CPU.sv
 FD:/Users/ajs6/Documents/Project/Projeto_Hardware/CPU.sv
 L0 2
@@ -101,7 +101,7 @@ R5
 r1
 !s85 0
 31
-Z10 !s108 1556079575.000000
+R10
 !s107 D:/Users/ajs6/Documents/Project/Projeto_Hardware/CPU.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Project/Projeto_Hardware/CPU.sv|
 !i113 1
@@ -341,7 +341,7 @@ R8
 nram@on@chip64
 vReg_PC
 R0
-R9
+Z23 !s110 1556081669
 !i10b 1
 !s100 7z[]R8;J^W]UNEW;SZ;Om3
 I5do^46XMk]m20A[L2J5n43
@@ -357,7 +357,7 @@ R5
 r1
 !s85 0
 31
-R10
+Z24 !s108 1556081669.000000
 !s107 D:/Users/ajs6/Documents/Project/Projeto_Hardware/Reg_PC.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Project/Projeto_Hardware/Reg_PC.sv|
 !i113 1
@@ -366,7 +366,7 @@ R8
 n@reg_@p@c
 vregister
 R0
-Z23 !s110 1556079576
+R23
 !i10b 1
 !s100 bYE8;I>5ooJ_Za^;]7VNI0
 I6bj?4H?E4bI]C^o9d_L=N1
@@ -382,7 +382,7 @@ R5
 r1
 !s85 0
 31
-R10
+R24
 !s107 D:/Users/ajs6/Documents/Project/Projeto_Hardware/register.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Project/Projeto_Hardware/register.sv|
 !i113 1
@@ -406,7 +406,7 @@ R5
 r1
 !s85 0
 31
-Z24 !s108 1556079576.000000
+R24
 !s107 D:/Users/ajs6/Documents/Project/Projeto_Hardware/simulacao_CPU.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Project/Projeto_Hardware/simulacao_CPU.sv|
 !i113 1
@@ -442,13 +442,13 @@ vUC
 R0
 R23
 !i10b 1
-!s100 bO>MGh@Ak8J3Hd:jCLoM31
-Ief[Toh_KnS8E^GI2Nc3Z70
+!s100 abNf8:lZC>fFm`bRiQnko0
+IHChA27z>J<<7CCh9U;QBi2
 R2
 !s105 UC_sv_unit
 S1
 R3
-w1556079570
+w1556081655
 8D:/Users/ajs6/Documents/Project/Projeto_Hardware/UC.sv
 FD:/Users/ajs6/Documents/Project/Projeto_Hardware/UC.sv
 L0 1

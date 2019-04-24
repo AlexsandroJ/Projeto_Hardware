@@ -29,6 +29,7 @@ wire [63:0] Data_Memory_Out;
 
 // saidas registrador de dados da memoria
 wire [63:0]Reg_Memory_Data_Out;
+wire Reg_Memory_Data_wr;
 
 // Saida corte_antes
 wire [63:0]DadoIn_64;
@@ -144,7 +145,8 @@ wire [2:0]Situacao;
 										.Shift_Control(				Shift_Control					),
 										.Reg_A_Write( 				Reg_A_Write						),
 										.Reg_B_Write( 				Reg_B_Write						),
-										.Situacao(					Situacao						)
+										.Situacao(					Situacao						),
+										.Reg_Memory_Data_wr(		Reg_Memory_Data_wr				)	
 																									);
 //_____________________________________________________________________________________________________
 //_________________________________________Registrador PC [In 64 Bits ] [Out 32 Bits ]_________________
@@ -177,10 +179,10 @@ wire [2:0]Situacao;
 
 //_________________________________________Memoria de Dados 64 Bits____________________________________
 	Memoria64 Data_Memory( 			
-										.raddress(					Reg_ULAOut_Out					), 
-										.waddress(					64'd0								), 
+										.raddress(					S								), 
+										.waddress(					S						), 
 										.Clk(						clock							), 
-										.Datain(					DadoIn_64						), 
+										.Datain(					Reg_B_Out						), 
 										.Dataout(					Data_Memory_Out					), 
 										.Wr(						Data_Memory_write				)
 																									);
@@ -196,7 +198,7 @@ wire [2:0]Situacao;
 //_________________________________________Registrador de Memoria de Dados 64 Bits_____________________
 	register Reg_Memory_Data( 			.clk(						clock							), 
 										.reset(						reset							), 
-										.regWrite(					clock							), 
+										.regWrite(					Reg_Memory_Data_wr							), 
 										.DadoIn(					Saida_Memory_Data				), 
 										.DadoOut(					Reg_Memory_Data_Out				)
 																									);	
@@ -260,7 +262,7 @@ Instr_Reg_RISC_V Register_Intruction(	.Clk(						clock							),
 	register Reg_A( 					.clk(						clock							), 
 										.reset(						reset_A							), 
 										.regWrite(					Reg_A_Write						), 
-										.DadoIn(					Shift_Funcional_Out				), 
+										.DadoIn(					bancoRegisters_DataOut_1		), 
 										.DadoOut(					Reg_A_Out						)
 																									);
 //_____________________________________________________________________________________________________
