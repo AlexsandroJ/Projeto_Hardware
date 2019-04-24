@@ -30,6 +30,6 @@ module simulcao_CPU;
     always #(CLKDELAY) clock = ~clock;
 
     always_ff@(posedge clock or posedge reset)begin
-        $monitor($time," OpCode = %d Clock :%b Reset:%b PC = %d Estado: %d Ula = %d",opcode,clock, reset,Pc_Out,STT, Ula_Out);
+        $monitor($time," OpCode = %b Clock :%b Reset:%b PC = %d Estado: %d Ula = %d",opcode[6:0],clock, reset,Pc_Out,STT, Ula_Out);
     end
 endmodule

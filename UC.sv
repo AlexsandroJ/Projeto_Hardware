@@ -417,6 +417,7 @@ module UC (
                 end            
                 default :begin
                     PC_Write = 1;
+                    Load_ir = 1;
                     Seletor_Ula = 3'd1;
                     mux_A_seletor = 3'd2;
                     mux_B_seletor = 3'd1;

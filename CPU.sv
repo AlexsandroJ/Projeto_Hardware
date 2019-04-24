@@ -243,7 +243,8 @@ Instr_Reg_RISC_V Register_Intruction(	.Clk(						clock							),
 										.regreader1(				Register_Intruction_Instr19_15	),
 									  	.regreader2(				Register_Intruction_Instr24_20	),
 									   	.regwriteaddress(			Register_Intruction_Instr11_7	),
-									  	.dataout1(					bancoRegisters_DataOut_1		),
+									  	.datain(					Mux64_Banco_Reg_Out				),
+										.dataout1(					bancoRegisters_DataOut_1		),
 									   	.dataout2(					bancoRegisters_DataOut_2		)			
 									   																);
 //_____________________________________________________________________________________________________
