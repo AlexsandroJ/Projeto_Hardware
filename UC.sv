@@ -37,7 +37,7 @@ module UC (
                     Seletor_Ula = 3'd1;
                     mux_A_seletor = 3'd0;
                     mux_B_seletor = 3'd1;
-                    estado = selecao;
+                    estado = SELECAO;
                     Reg_A_Write = 0;
                     Reg_B_Write = 0;
                     
@@ -99,11 +99,11 @@ module UC (
                                     end
                                 end            
                             end
-                            estado = busca; //Volta à busca por instrução
+                            estado = BUSCA; //Volta à busca por instrução
                         end
                         7'd19: begin //tipo I
                             if(Register_Intruction_Instr31_0[31:7]==25'd0) begin //nop
-                                estado = estado.first;
+                                estado = BUSCA;
                             end
                             else begin
                                 if(Register_Intruction_Instr31_0[14:12]==3'd0) begin //addi rd, rs1, immediate
@@ -166,12 +166,12 @@ module UC (
                                     end    
                                 end
                             end
-                            estado = busca; //Volta à busca por instrução
+                            estado = BUSCA; //Volta à busca por instrução
                         end
                         7'd115: begin //tipo I -> break
                             mux_A_seletor = 3'd0;      //Valor contido em PC sai do MUX de cima
                             Seletor_Ula = 3'd0;        //Operação carregar A(PC)
-                            estado = busca; //Volta à busca por instrução
+                            estado = BUSCA; //Volta à busca por instrução
                         end                                
                         7'd3: begin //tipo I
                             if(Register_Intruction_Instr31_0[14:12]==3'd3) begin //ld rd, imm(rs1)
@@ -249,7 +249,7 @@ module UC (
                                     end
                                 end
                             end
-                            estado = busca; //Volta à busca por instrução
+                            estado = BUSCA; //Volta à busca por instrução
                         end
                         7'd35: begin //tipo S
                             if(Register_Intruction_Instr31_0[14:12]==3'd7) begin //sd rs2, imm(rs1)
@@ -286,7 +286,7 @@ module UC (
                                     end    
                                 end    
                             end
-                            estado = busca; //Volta à busca por instrução 
+                            estado = BUSCA; //Volta à busca por instrução 
                         end
                         7'd99: begin //tipo SB
                             if(Register_Intruction_Instr31_0[14:12]==3'd0) begin //beq rs1, rs2, imm
@@ -294,7 +294,7 @@ module UC (
                                 Seletor_Ula = 3'd7;    //Operação comparação
                                 mux_A_seletor = 3'd1;  //Valor contido em rs1 sai do MUX de cima
                                 mux_B_seletor = 3'd0;  //Valor contido em rs2 sai do MUX de baixo
-                                estado = salto;        //Outra operação vai acontecer na ULA
+                                estado = SALTO;        //Outra operação vai acontecer na ULA
                             end
                         end
                         7'd103: begin //tipo SB ou tipo I
@@ -303,7 +303,7 @@ module UC (
                                 Seletor_Ula = 3'd7;    //Operação comparação
                                 mux_A_seletor = 3'd1;  //Valor contido em rs1 sai do MUX de cima
                                 mux_B_seletor = 3'd0;  //Valor contido em rs2 sai do MUX de baixo
-                                estado = salto;        //Outra operação vai acontecer na ULA
+                                estado = SALTO;        //Outra operação vai acontecer na ULA
                             end
                             else begin
                                 if(Register_Intruction_Instr31_0[14:12]==3'd0) begin //jalr rd, rs1, imm
@@ -312,7 +312,7 @@ module UC (
                                     mux_A_seletor = 3'd0;      //Valor contido em PC sai do MUX de cima
                                     Mux_Banco_Reg_Seletor = 0; //O resultado da operação(ALU_OUT) vai para datain no banco de registradores
                                     bancoRegisters_wr = 1;     //Permitirá ao banco de registradores escrever o resultado(datain) da operação em rd
-                                    estado = salto;            //Outra operação vai acontecer na ULA
+                                    estado = SALTO;            //Outra operação vai acontecer na ULA
                                 end
                                 else begin
                                     if(Register_Intruction_Instr31_0[14:12]==3'd5) begin //bge rs1, rs2, imm
@@ -320,7 +320,7 @@ module UC (
                                         Seletor_Ula = 3'd7;    //Operação comparação
                                         mux_A_seletor = 3'd1;  //Valor contido em rs1 sai do MUX de cima
                                         mux_B_seletor = 3'd0;  //Valor contido em rs2 sai do MUX de baixo
-                                        estado = salto;        //Outra operação vai acontecer na ULA   
+                                        estado = SALTO;        //Outra operação vai acontecer na ULA   
                                     end
                                     else begin
                                         if(Register_Intruction_Instr31_0[14:12]==3'd4) begin //blt rs1, rs2, imm
@@ -328,7 +328,7 @@ module UC (
                                             Seletor_Ula = 3'd7;    //Operação comparação
                                             mux_A_seletor = 3'd1;  //Valor contido em rs1 sai do MUX de cima
                                             mux_B_seletor = 3'd0;  //Valor contido em rs2 sai do MUX de baixo
-                                            estado = salto;        //Outra operação vai acontecer na ULA
+                                            estado = SALTO;        //Outra operação vai acontecer na ULA
                                         end        
                                     end     
                                 end
@@ -341,7 +341,7 @@ module UC (
                             mux_B_seletor = 3'd2;      //Valor contido em immediate[31:12] com o lado direito[11:0] zerado e com sinal extendido sai do MUX de baixo
                             Mux_Banco_Reg_Seletor = 0; //O valor que sai da ALU vai para datain no banco de registradores
                             bancoRegisters_wr = 1;     //Permitirá ao banco de registradores escrever o valor(datain) em rd
-                            estado = busca; //Volta à busca por instrução
+                            estado = BUSCA; //Volta à busca por instrução
                         end
                         7'd111: begin //tipo UJ -> jal rd, imm
                             //rd = PC
@@ -349,7 +349,7 @@ module UC (
                             mux_A_seletor = 3'd0;      //Endereço contido em PC sai do MUX de cima
                             Mux_Banco_Reg_Seletor = 0; //O resultado da operação(ALU_OUT) vai para datain no banco de registradores
                             bancoRegisters_wr = 1;     //Permitirá ao banco de registradores escrever o resultado(datain) da operação em rd
-                            estado = salto;            //Outra operação vai acontecer na ULA
+                            estado = SALTO;            //Outra operação vai acontecer na ULA
                         end           
                     endcase
                 end            
@@ -405,7 +405,7 @@ module UC (
                             mux_B_seletor = 3'd3;      //Endereço contido em immediate sai do MUX de baixo
                         end
                     endcase   
-                    estado = busca; //Volta à busca por instrução
+                    estado = BUSCA; //Volta à busca por instrução
                 end            
                 default :begin
                     PC_Write = 1;

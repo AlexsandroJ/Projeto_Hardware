@@ -33,7 +33,8 @@ wire [63:0]Reg_Memory_Data_Out;
 wire [63:0]DadoIn_64;
 
 // Saida corte depois
-wire [63:0]Saida_Banco_Reg;
+wire [63:0]Saida_Memory_Data;
+
 
 // saida mux do banco de registrador 
 wire [2:0]	Mux64_Banco_Reg_Seletor;
@@ -186,7 +187,7 @@ reg [63:0] Saida_da_Ula;
 	register Reg_Memory_Data( 			.clk(						clock							), 
 										.reset(						reset							), 
 										.regWrite(					clock							), 
-										.DadoIn(					Saida_Banco_Reg					), 
+										.DadoIn(					Saida_Memory_Data				), 
 										.DadoOut(					Reg_Memory_Data_Out				)
 																									);	
 //_____________________________________________________________________________________________________
