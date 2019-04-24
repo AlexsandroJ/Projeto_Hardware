@@ -10,7 +10,7 @@ cModel Technology
 dD:/ProgramFiles/Quartus/intelFPGA/17.1
 vbancoReg
 Z0 DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
-Z1 !s110 1556067949
+Z1 !s110 1556077911
 !i10b 1
 !s100 a:<nhKC@mWB[nDSoijJPm3
 I[FRK__mQFTEic0:iX`VY^1
@@ -26,7 +26,7 @@ Z5 OV;L;10.5b;63
 r1
 !s85 0
 31
-Z6 !s108 1556067949.000000
+Z6 !s108 1556077911.000000
 !s107 D:/Users/ajs6/Documents/Project/Projeto_Hardware/bancoReg.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Project/Projeto_Hardware/bancoReg.sv|
 !i113 1
@@ -87,13 +87,13 @@ vCPU
 R0
 R1
 !i10b 1
-!s100 eIh?AURQI3]:cD_@0zV2Q3
-In95n7VO7ZJk7RK=Cal=X91
+!s100 ;GQ1BYJM9iYf_lmRCC05F1
+IbenP=mSbM^Se;Efb?iRdA2
 R2
 !s105 CPU_sv_unit
 S1
 R3
-w1556067945
+w1556077141
 8D:/Users/ajs6/Documents/Project/Projeto_Hardware/CPU.sv
 FD:/Users/ajs6/Documents/Project/Projeto_Hardware/CPU.sv
 L0 2
@@ -199,7 +199,7 @@ R8
 n@memoria32
 vMemoria64
 R0
-Z19 !s110 1556067950
+R1
 !i10b 1
 !s100 1fz3Mgbi`W1QjWk]9CgUO3
 I9UhHh:9ojE=HUFM5K4Ujf3
@@ -248,7 +248,7 @@ R7
 R8
 vmux64
 R0
-R19
+R1
 !i10b 1
 !s100 JA<zgUlZ^Em<eGiV:LIli3
 If3G1Wl<`NRTiY@Db`9e8O3
@@ -264,7 +264,7 @@ R5
 r1
 !s85 0
 31
-Z20 !s108 1556067950.000000
+R6
 !s107 D:/Users/ajs6/Documents/Project/Projeto_Hardware/mux64.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Project/Projeto_Hardware/mux64.sv|
 !i113 1
@@ -272,7 +272,7 @@ R7
 R8
 vmux64_PC
 R0
-R19
+Z19 !s110 1556077912
 !i10b 1
 !s100 _?Nk:nR6eDC40W;IV]FH72
 I3h_;Hd^YQeMZL?[FVEIV40
@@ -288,7 +288,7 @@ R5
 r1
 !s85 0
 31
-R20
+R6
 !s107 D:/Users/ajs6/Documents/Project/Projeto_Hardware/mux64_PC.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Project/Projeto_Hardware/mux64_PC.sv|
 !i113 1
@@ -305,12 +305,12 @@ R3
 R4
 8D:/Users/ajs6/Documents/Project/Projeto_Hardware/ramOnChip32.v
 FD:/Users/ajs6/Documents/Project/Projeto_Hardware/ramOnChip32.v
-Z21 L0 40
+Z20 L0 40
 R5
 r1
 !s85 0
 31
-R20
+Z21 !s108 1556077912.000000
 !s107 D:/Users/ajs6/Documents/Project/Projeto_Hardware/ramOnChip32.v|
 !s90 -reportprogress|300|-work|work|-stats=none|D:/Users/ajs6/Documents/Project/Projeto_Hardware/ramOnChip32.v|
 !i113 1
@@ -327,12 +327,12 @@ R3
 R4
 8D:/Users/ajs6/Documents/Project/Projeto_Hardware/ramOnChip64.v
 FD:/Users/ajs6/Documents/Project/Projeto_Hardware/ramOnChip64.v
-R21
+R20
 R5
 r1
 !s85 0
 31
-R20
+R21
 !s107 D:/Users/ajs6/Documents/Project/Projeto_Hardware/ramOnChip64.v|
 !s90 -reportprogress|300|-work|work|-stats=none|D:/Users/ajs6/Documents/Project/Projeto_Hardware/ramOnChip64.v|
 !i113 1
@@ -357,7 +357,7 @@ R5
 r1
 !s85 0
 31
-R20
+R21
 !s107 D:/Users/ajs6/Documents/Project/Projeto_Hardware/Reg_PC.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Project/Projeto_Hardware/Reg_PC.sv|
 !i113 1
@@ -382,7 +382,7 @@ R5
 r1
 !s85 0
 31
-R20
+R21
 !s107 D:/Users/ajs6/Documents/Project/Projeto_Hardware/register.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Project/Projeto_Hardware/register.sv|
 !i113 1
@@ -392,13 +392,13 @@ vsimulcao_CPU
 R0
 R19
 !i10b 1
-!s100 Sz=OaVm3VFXkA18n:@Q[i3
-IQd;BO8:c3E07Kk4^MWX[01
+!s100 Ne_:7]MX0lo3YzP?81Xk41
+IYI7=i4<:R9AjSFkBf^bQ53
 R2
 !s105 simulacao_CPU_sv_unit
 S1
 R3
-w1556067346
+w1556077837
 8D:/Users/ajs6/Documents/Project/Projeto_Hardware/simulacao_CPU.sv
 FD:/Users/ajs6/Documents/Project/Projeto_Hardware/simulacao_CPU.sv
 L0 2
@@ -406,7 +406,7 @@ R5
 r1
 !s85 0
 31
-R20
+R21
 !s107 D:/Users/ajs6/Documents/Project/Projeto_Hardware/simulacao_CPU.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Project/Projeto_Hardware/simulacao_CPU.sv|
 !i113 1
@@ -431,7 +431,7 @@ R5
 r1
 !s85 0
 31
-R20
+R21
 !s107 D:/Users/ajs6/Documents/Project/Projeto_Hardware/Seinal_Extend.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Project/Projeto_Hardware/Seinal_Extend.sv|
 !i113 1
@@ -442,13 +442,13 @@ vUC
 R0
 R19
 !i10b 1
-!s100 QQU2o2eieV0?=b6P;^=D41
-I?z44T^gE>`3kS]=E6:5YH1
+!s100 Q?YBFa]l]9I@<R:g<4`162
+I7lZgS:n44nEjo=AeSQV=23
 R2
 !s105 UC_sv_unit
 S1
 R3
-w1556067819
+w1556077907
 8D:/Users/ajs6/Documents/Project/Projeto_Hardware/UC.sv
 FD:/Users/ajs6/Documents/Project/Projeto_Hardware/UC.sv
 L0 1
@@ -456,7 +456,7 @@ R5
 r1
 !s85 0
 31
-R20
+R21
 !s107 D:/Users/ajs6/Documents/Project/Projeto_Hardware/UC.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ajs6/Documents/Project/Projeto_Hardware/UC.sv|
 !i113 1
@@ -479,7 +479,7 @@ R13
 32
 R19
 !i10b 1
-R20
+R21
 Z26 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/Users/ajs6/Documents/Project/Projeto_Hardware/ula64.vhd|
 Z27 !s107 D:/Users/ajs6/Documents/Project/Projeto_Hardware/ula64.vhd|
 !i113 1
@@ -498,7 +498,7 @@ R13
 32
 R19
 !i10b 1
-R20
+R21
 R26
 R27
 !i113 1

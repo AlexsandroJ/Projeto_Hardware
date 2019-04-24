@@ -8,6 +8,7 @@ module UC (
     input logic menor,  //flag que indica se A<B
     output logic PC_Write,
     output logic [2:0]Seletor_Ula,
+    output logic Load_ir,
     output logic [2:0]mux_A_seletor,
     output logic [2:0]mux_B_seletor,
     output logic Data_Memory_wr,
@@ -31,22 +32,27 @@ module UC (
         else begin
 
             case(estado)
+
+                
+
                 BUSCA:begin
 
                     PC_Write = 1;
                     Seletor_Ula = 3'd1;
                     mux_A_seletor = 3'd0;
                     mux_B_seletor = 3'd1;
-                    Reg_A_Write = 0;
-                    Reg_B_Write = 0;
+                    Load_ir = 1;
                     estado = SELECAO;
                     
 
                 end
                 SELECAO:begin
-                    PC_Write = 0; //PC para de ler instrucao
+                     
+                    PC_Write = 0;//PC para de ler instrucao
+                    Load_ir = 0;
                     case(Register_Intruction_Instr31_0[6:0])
                         7'd51: begin //tipo R
+                        
                             if(Register_Intruction_Instr31_0[14:12]==3'd0 && Register_Intruction_Instr31_0[31:25]==7'd0) begin //add rd, rs1, rs2
                                 Shift_Control = 2'd3;      //O deslocador_funcional não faz nada
                                 Seletor_Ula = 3'd1;        //Operação soma
@@ -54,6 +60,7 @@ module UC (
                                 mux_B_seletor = 3'd0;      //Valor contido em rs2 sai do MUX de baixo
                                 Mux_Banco_Reg_Seletor = 0; //O resultado da operação(ALU_OUT) vai para datain no banco de registradores
                                 bancoRegisters_wr = 1;     //Permitirá ao banco de registradores escrever o resultado(datain) da operação em rd
+                                
                             end
                             else begin
                                 if(Register_Intruction_Instr31_0[14:12]==3'd0 && Register_Intruction_Instr31_0[31:25]==7'd32) begin //sub rd, rs1, rs2
@@ -352,6 +359,7 @@ module UC (
                             estado = SALTO;            //Outra operação vai acontecer na ULA
                         end           
                     endcase
+                    
                 end            
                 SALTO:begin
                     case(Register_Intruction_Instr31_0[6:0])
@@ -404,14 +412,14 @@ module UC (
                             mux_A_seletor = 3'd0;      //Endereço contido em PC sai do MUX de cima
                             mux_B_seletor = 3'd3;      //Endereço contido em immediate sai do MUX de baixo
                         end
-                    endcase   
+                    endcase  
                     estado = BUSCA; //Volta à busca por instrução
                 end            
                 default :begin
                     PC_Write = 1;
                     Seletor_Ula = 3'd1;
-                    mux_A_seletor = 3'd3;
-                    mux_B_seletor = 3'd3;
+                    mux_A_seletor = 3'd2;
+                    mux_B_seletor = 3'd1;
                 end
             endcase
         end

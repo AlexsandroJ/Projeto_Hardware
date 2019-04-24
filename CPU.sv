@@ -2,8 +2,9 @@
 module CPU
 (	input logic clock, reset,
 	output logic [63:0] ULA_Out,
-	output logic [31:0] merda,
-	output logic [2:0]STT
+	output logic [63:0] Pc_Out,
+	output logic [31:0] opcode,
+	output logic [2:0] STT
 
 );
 //_________________________________Observacoes______________________________________________
@@ -129,6 +130,7 @@ wire [2:0]Situacao;
 										.reset(						reset							),
 										.PC_Write(					PC_Write						),
 										.Seletor_Ula(				Seletor							),
+										.Load_ir(					load_ir							),
 										.mux_A_seletor(				Mux64_Ula_A_Seletor				),
     									.mux_B_seletor(				Mux64_Ula_B_Seletor				),
 										.Data_Memory_wr(			Data_Memory_write				),
@@ -153,16 +155,18 @@ wire [2:0]Situacao;
 										.DadoOut(					PC_DadosOut						)
 																									);
 //_____________________________________________________________________________________________________
+
 //_________________________________________Memoria De Instrucao 32 Bits________________________________
 	Memoria32 Memory_Instruction( 			
 										.raddress(					PC_DadosOut[31:0]				), 
-										.waddress(					32'd0			     			), 
+										.waddress(					64'd0				     			), 
 										.Clk(						clock							), 
-										.Datain(					32'd0				     		), 
+										.Datain(					64'd0						     		), 
 										.Dataout(					Memory_Instruction_DataOut		), 
-										.Wr(						1'b0								)
+										.Wr(						1'd0							)
 																									);															
 //_____________________________________________________________________________________________________
+
 //_________________________________________Diminuição do rd antes______________________________________
 	Battousai_Store corte_antes( 		
 										.Reg_B_Out(					Reg_B_Out						), //INPUT
@@ -170,10 +174,11 @@ wire [2:0]Situacao;
 										.DadoIn_64(					DadoIn_64						)
 																									);	
 //_____________________________________________________________________________________________________
+
 //_________________________________________Memoria de Dados 64 Bits____________________________________
 	Memoria64 Data_Memory( 			
 										.raddress(					Reg_ULAOut_Out					), 
-										.waddress(													), 
+										.waddress(					64'd0								), 
 										.Clk(						clock							), 
 										.Datain(					DadoIn_64						), 
 										.Dataout(					Data_Memory_Out					), 
@@ -187,6 +192,7 @@ wire [2:0]Situacao;
 										.Saida_Memory_Data(			Saida_Memory_Data				)
 																									);	
 //_____________________________________________________________________________________________________
+
 //_________________________________________Registrador de Memoria de Dados 64 Bits_____________________
 	register Reg_Memory_Data( 			.clk(						clock							), 
 										.reset(						reset							), 
@@ -195,15 +201,17 @@ wire [2:0]Situacao;
 										.DadoOut(					Reg_Memory_Data_Out				)
 																									);	
 //_____________________________________________________________________________________________________
+
 //_________________________________________Mux 64 Bits da Entrada do banco de registradores____________
 	mux64 Mux64_Banco_Reg(				.Seletor(					Mux64_Banco_Reg_Seletor			),
 										.A(							Reg_ULAOut_Out					),
 										.B(							Reg_Memory_Data_Out				),
-										.C(															),
-										.D(															),
-										.Saida(						Mux64_Ula_B_Out					)
+										.C(							64'd666								),
+										.D(							64'd666								),
+										.Saida(						Mux64_Banco_Reg_Out					)
 																									);																								
 //_____________________________________________________________________________________________________
+
 //_________________________________________Registrador de Instruções 32 Bits___________________________
 Instr_Reg_RISC_V Register_Intruction(	.Clk(						clock							), 
 										.Reset(						reset							), 
@@ -246,6 +254,7 @@ Instr_Reg_RISC_V Register_Intruction(	.Clk(						clock							),
 										.Saida(						Shift_Funcional_Out						)
 																									);
 //_____________________________________________________________________________________________________
+
 //_________________________________________Registrador A 64 Bits_______________________________________
 	register Reg_A( 					.clk(						clock							), 
 										.reset(						reset_A							), 
@@ -261,7 +270,8 @@ Instr_Reg_RISC_V Register_Intruction(	.Clk(						clock							),
 										.DadoIn(					bancoRegisters_DataOut_2		), 
 										.DadoOut(					Reg_B_Out						)
 																									);
-//_____________________________________________________________________________________________________									
+//_____________________________________________________________________________________________________	
+								
 //_________________________________________Mux Entrada A da Ula A 64 Bits _____________________________								
 	mux64 Mux64_Ula_A(					.Seletor(					Mux64_Ula_A_Seletor				),
 										.A(							PC_DadosOut						),
@@ -275,8 +285,8 @@ Instr_Reg_RISC_V Register_Intruction(	.Clk(						clock							),
 	mux64 Mux64_Ula_B(					.Seletor(					Mux64_Ula_B_Seletor				),
 										.A(							Reg_B_Out						),
 										.B(							64'd4							),
-										.C(							Sinal_Extend_Out							),
-										.D(							Shift_Left_Out							),
+										.C(							Sinal_Extend_Out				),
+										.D(							Shift_Left_Out					),
 										.Saida(						Mux64_Ula_B_Out					)
 																									);	
 //_____________________________________________________________________________________________________	
@@ -298,16 +308,17 @@ Instr_Reg_RISC_V Register_Intruction(	.Clk(						clock							),
 										.reset(						reset							), 
 										.regWrite(					1								), 
 										.DadoIn(					S								), 
-										.DadoOut(					ULA_Out							)
+										.DadoOut(												)
 																									);
 //_____________________________________________________________________________________________________
 
 	always_ff @(posedge clock or posedge reset) // sincrono
     begin
 	
-	  	ULA_Out <= Memory_Instruction_DataOut;
-	   	merda <= PC_DadosOut;
-	   	STT = Situacao;
+	  	ULA_Out <= S;
+	   	Pc_Out <= PC_DadosOut;
+		opcode <= Register_Intruction_Instr31_0;
+	   	STT <= Situacao;
     end
 
 endmodule
