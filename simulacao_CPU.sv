@@ -10,6 +10,7 @@ module simulcao_CPU;
 	logic [63:0] Registrador_B;
 	logic [63:0] MUX_A_SAIDA;
 	logic [63:0] MUX_B_SAIDA;
+    logic [63:0] Mux64_Banco_Reg_Out;
  
     
     CPU teste_CPU(      .clock(         clock                   ),
@@ -21,7 +22,8 @@ module simulcao_CPU;
                         .Registrador_A( Registrador_A           ),
                         .Registrador_B( Registrador_B           ),
                         .MUX_A_SAIDA(   MUX_A_SAIDA             ),
-                        .MUX_B_SAIDA(   MUX_B_SAIDA             )
+                        .MUX_B_SAIDA(   MUX_B_SAIDA             ),
+                        .MUX_Banco_Reg_Out( Mux64_Banco_Reg_Out )
                                                                 );
     localparam CLKPERIODO = 10000;
     localparam CLKDELAY = CLKPERIODO/2;
@@ -40,7 +42,7 @@ module simulcao_CPU;
         
         if($time < 300000 ) begin
             
-            $monitor($time," OpCode = %d Clock :%b Reset:%b PC = %d Estado: %d Reg A:%d Reg B:%d Mux A :%d Mux B :%d Ula = %d",opcode[6:0],clock, reset,Pc_Out,STT, Registrador_A, Registrador_B, MUX_A_SAIDA, MUX_B_SAIDA , Ula_Out);
+            $monitor("OpCode:%d Clock:%b Reset:%b PC:%d Estado:%d A:%d B:%d MuxA:%d MuxB:%d Ula:%d MuxReg:%d",opcode[6:0],clock, reset,Pc_Out,STT, Registrador_A, Registrador_B, MUX_A_SAIDA, MUX_B_SAIDA , Ula_Out,Mux64_Banco_Reg_Out);
             
         end
         else begin
