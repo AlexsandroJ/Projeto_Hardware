@@ -49,7 +49,7 @@ module UC (
                     // Ir para proximo estado
                     estado = SELECAO;
                     bancoRegisters_wr = 0; //Para de receber valor do mux
-                    
+                    Mux_Banco_Reg_Seletor = 3'd1;
 
                 end
                 SELECAO:begin
@@ -367,7 +367,7 @@ module UC (
                     estado = BUSCA; //Volta à busca por instrução
                 end
                 MEM_INST:begin                  //escreve no rd o que vem da entrada 0(ULA) do mux
-                    Mux_Banco_Reg_Seletor = 0;  //O resultado da operação(ALU_OUT) vai para datain no banco de registradores
+                    Mux_Banco_Reg_Seletor = 3'd0;  //O resultado da operação(ALU_OUT) vai para datain no banco de registradores
                     bancoRegisters_wr = 1;      //Permitirá ao banco de registradores escrever o resultado(datain) da operação em rd
                     if((Register_Intruction_Instr31_0[14:12]==3'd0 && Register_Intruction_Instr31_0[6:0]==7'd103) || Register_Intruction_Instr31_0[6:0]==7'd111) begin //Se a instrução for jalr ou jal
                         estado = SALTO;         //Vai fazer o salto
@@ -377,7 +377,7 @@ module UC (
                     end
                 end
                 MEM_INST_2:begin                //escreve no rd o que vem da entrada 1(Memória de Dados) do mux
-                    Mux_Banco_Reg_Seletor = 1;  //O valor lido da memória de dados vai para datain no banco de registradores
+                    Mux_Banco_Reg_Seletor = 3'd1;  //O valor lido da memória de dados vai para datain no banco de registradores
                     bancoRegisters_wr = 1;      //Permitirá ao banco de registradores escrever o valor(datain) lido da memória de dados em rd
                     estado = BUSCA;             //Volta à busca por instrução
                 end
@@ -406,13 +406,7 @@ module UC (
                     Data_Memory_wr = 1;    //Permite a memória de dados guardar valor de rs2 no endereço rs1+immediate
                     estado = BUSCA;        //Volta à busca por instrução
                 end                 
-                /*default :begin
-                    PC_Write = 1;
-                    Load_ir = 1;
-                    Seletor_Ula = 3'd1;
-                    mux_A_seletor = 3'd2;
-                    mux_B_seletor = 3'd1;
-                end*/
+
             endcase
         end
     end

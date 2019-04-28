@@ -8,7 +8,9 @@ module CPU
 	output logic [63:0] Registrador_A,
 	output logic [63:0] Registrador_B,
 	output logic [63:0] MUX_A_SAIDA,
-	output logic [63:0] MUX_B_SAIDA
+	output logic [63:0] MUX_B_SAIDA,
+	output logic [63:0] MUX_Banco_Reg_Out,
+	output logic [63:0] Memoria64_Out
 
 );
 //_________________________________Observacoes______________________________________________
@@ -330,6 +332,8 @@ Instr_Reg_RISC_V Register_Intruction(	.Clk(						clock							),
 		Registrador_B	<=	Reg_B_Out;
 		MUX_A_SAIDA		<=	Mux64_Ula_A_Out;
 		MUX_B_SAIDA		<=	Mux64_Ula_B_Out;
+		MUX_Banco_Reg_Out <= Mux64_Banco_Reg_Out;
+		Memoria64_Out <= Data_Memory_Out;
     end
 
 endmodule
