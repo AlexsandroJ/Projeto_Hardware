@@ -136,7 +136,6 @@ wire [2:0]Situacao;
 										.reset(						reset							),
 										.PC_Write(					PC_Write						),
 										.Seletor_Ula(				Seletor							),
-										.Load_ir(					load_ir							),
 										.mux_A_seletor(				Mux64_Ula_A_Seletor				),
     									.mux_B_seletor(				Mux64_Ula_B_Seletor				),
 										.Data_Memory_wr(			Data_Memory_write				),
@@ -222,7 +221,7 @@ wire [2:0]Situacao;
 //_________________________________________Registrador de Instruções 32 Bits___________________________
 Instr_Reg_RISC_V Register_Intruction(	.Clk(						clock							), 
 										.Reset(						reset							), 
-										.Load_ir(					load_ir							), 
+										.Load_ir(					1'd1							), 
 										.Entrada(					Memory_Instruction_DataOut		), 
 										.Instr19_15(				Register_Intruction_Instr19_15  ), 
 										.Instr24_20(				Register_Intruction_Instr24_20	),

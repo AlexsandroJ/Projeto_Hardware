@@ -8,7 +8,6 @@ module UC (
     input logic menor,  //flag que indica se A<B
     output logic PC_Write,
     output logic [2:0]Seletor_Ula,
-    output logic Load_ir,
     output logic [2:0]mux_A_seletor,
     output logic [2:0]mux_B_seletor,
     output logic Data_Memory_wr,
@@ -45,7 +44,6 @@ module UC (
                     mux_A_seletor = 3'd0;
                     mux_B_seletor = 3'd1;
                     // Salvar Valores dos registadores das instrucoes
-                    Load_ir = 0;
                     Reg_A_Write = 0;
                     Reg_B_Write = 0;
                     // Ir para proximo estado
@@ -58,7 +56,6 @@ module UC (
                      
                     PC_Write = 0;//PC para de ler instrucao
                     // nao ler instrucao, valores salvos nos registradores
-                    Load_ir = 1;
                     Reg_A_Write = 1;
                     Reg_B_Write = 1;
                     
