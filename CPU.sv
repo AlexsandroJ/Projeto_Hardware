@@ -101,6 +101,7 @@ wire menor;
 
 // saidas registrador da saida da ula
 wire [63:0]Reg_ULAOut_Out;
+wire Reg_ULAOut_Write;
 
 // Outros Fios usados
 wire load_ir;
@@ -165,9 +166,9 @@ wire [2:0]Situacao;
 //_________________________________________Memoria De Instrucao 32 Bits________________________________
 	Memoria32 Memory_Instruction( 			
 										.raddress(					PC_DadosOut[31:0]				), 
-										.waddress(					64'd0				     			), 
+										.waddress(					32'd0				     		), 
 										.Clk(						clock							), 
-										.Datain(					64'd0						     		), 
+										.Datain(					32'd0					 		), 
 										.Dataout(					Memory_Instruction_DataOut		), 
 										.Wr(						1'd0							)
 																									);															
@@ -184,7 +185,7 @@ wire [2:0]Situacao;
 //_________________________________________Memoria de Dados 64 Bits____________________________________
 	Memoria64 Data_Memory( 			
 										.raddress(					S								), 
-										.waddress(					S						), 
+										.waddress(					S								), 
 										.Clk(						clock							), 
 										.Datain(					Reg_B_Out						), 
 										.Dataout(					Data_Memory_Out					), 
@@ -202,7 +203,7 @@ wire [2:0]Situacao;
 //_________________________________________Registrador de Memoria de Dados 64 Bits_____________________
 	register Reg_Memory_Data( 			.clk(						clock							), 
 										.reset(						reset							), 
-										.regWrite(					Reg_Memory_Data_wr							), 
+										.regWrite(					Reg_Memory_Data_wr				), 
 										.DadoIn(					Saida_Memory_Data				), 
 										.DadoOut(					Reg_Memory_Data_Out				)
 																									);	
@@ -210,11 +211,11 @@ wire [2:0]Situacao;
 
 //_________________________________________Mux 64 Bits da Entrada do banco de registradores____________
 	mux64 Mux64_Banco_Reg(				.Seletor(					Mux64_Banco_Reg_Seletor			),
-										.A(							S					),
+										.A(							S								),
 										.B(							Reg_Memory_Data_Out				),
-										.C(							64'd666								),
-										.D(							64'd666								),
-										.Saida(						Mux64_Banco_Reg_Out					)
+										.C(							64'd666							),
+										.D(							64'd666							),
+										.Saida(						Mux64_Banco_Reg_Out				)
 																									);																								
 //_____________________________________________________________________________________________________
 
@@ -266,7 +267,7 @@ Instr_Reg_RISC_V Register_Intruction(	.Clk(						clock							),
 	register Reg_A( 					.clk(						clock							), 
 										.reset(						reset_A							), 
 										.regWrite(					Reg_A_Write						), 
-										.DadoIn(					Shift_Funcional_Out		), 
+										.DadoIn(					Shift_Funcional_Out				), 
 										.DadoOut(					Reg_A_Out						)
 																									);
 //_____________________________________________________________________________________________________
@@ -313,9 +314,9 @@ Instr_Reg_RISC_V Register_Intruction(	.Clk(						clock							),
 //_________________________________________Registrador Saida da Ula____________________________________
 	register Reg_ULAOut( 				.clk(						clock							), 
 										.reset(						reset							), 
-										.regWrite(					1								), 
+										.regWrite(					Reg_ULAOut_Write				), 
 										.DadoIn(					S								), 
-										.DadoOut(												)
+										.DadoOut(													)
 																									);
 //_____________________________________________________________________________________________________
 

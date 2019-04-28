@@ -23,7 +23,7 @@ module UC (
 
     );
     
-    enum logic [2:0]{ BUSCA = 3'd1, SELECAO = 3'd2 , SALTO = 3'd3 , MEM_INST = 3'd4 , INICIO = 3'd0 } estado;
+    enum logic [3:0]{ BUSCA = 4'd1 , SELECAO = 4'd2 , SALTO = 4'd3 , MEM_INST = 4'd4 , MEM_INST_2 = 4'd5 , FLAG = 4'd6 , MEM_DATA = 4'd7 , MEM_DATA_2 = 4'd8 , INICIO = 4'd0 } estado;
     
     always_ff @(posedge clock, posedge reset) begin 
         
@@ -37,8 +37,8 @@ module UC (
 
 
                 BUSCA:begin
-                    Shift_Control = 2'd3;
                     reset_A = 0;
+                    Reg_Memory_Data_wr = 0;
                     PC_Write = 1;
                     Seletor_Ula = 3'd1;
                     // Selecao de PC + 4
@@ -50,6 +50,7 @@ module UC (
                     Reg_B_Write = 0;
                     // Ir para proximo estado
                     estado = SELECAO;
+                    bancoRegisters_wr = 0; //Para de receber valor do mux
                     
 
                 end
@@ -71,9 +72,6 @@ module UC (
                                 mux_A_seletor = 3'd1;      //Valor contido em rs1 sai do MUX de cima
                                 mux_B_seletor = 3'd0;      //Valor contido em rs2 sai do MUX de baixo
                                 estado = MEM_INST;
-                                Mux_Banco_Reg_Seletor = 0; //O resultado da operação(ALU_OUT) vai para datain no banco de registradores
-                                bancoRegisters_wr = 1;     //Permitirá ao banco de registradores escrever o resultado(datain) da operação em rd
-                                
                             end
                             else begin
                                 if(Register_Intruction_Instr31_0[14:12]==3'd0 && Register_Intruction_Instr31_0[31:25]==7'd32) begin //sub rd, rs1, rs2
@@ -82,8 +80,6 @@ module UC (
                                     mux_A_seletor = 3'd1;      //Valor contido em rs1 sai do MUX de cima
                                     mux_B_seletor = 3'd0;      //Valor contido em rs2 sai do MUX de baixo
                                     estado = MEM_INST;
-                                    Mux_Banco_Reg_Seletor = 0; //O resultado da operação(ALU_OUT) vai para datain no banco de registradores
-                                    bancoRegisters_wr = 1;     //Permitirá ao banco de registradores escrever o resultado(datain) da operação em rd
                                 end
                                 else begin
                                     if(Register_Intruction_Instr31_0[14:12]==3'd7 && Register_Intruction_Instr31_0[31:25]==7'd0) begin //and rd, rs1, rs2
@@ -91,9 +87,7 @@ module UC (
                                         Seletor_Ula = 3'd3;        //Operação AND
                                         mux_A_seletor = 3'd1;      //Valor contido em rs1 sai do MUX de cima
                                         mux_B_seletor = 3'd0;      //Valor contido em rs2 sai do MUX de baixo
-                                        estado = MEM_INST;
-                                        Mux_Banco_Reg_Seletor = 0; //O resultado da operação(ALU_OUT) vai para datain no banco de registradores
-                                        bancoRegisters_wr = 1;     //Permitirá ao banco de registradores escrever o resultado(datain) da operação em rd
+                                        estado = MEM_INST;            
                                     end
                                     else begin
                                         if(Register_Intruction_Instr31_0[14:12]==3'd2 && Register_Intruction_Instr31_0[31:25]==7'd0) begin //slt rd, rs1, rs2
@@ -101,27 +95,11 @@ module UC (
                                             Seletor_Ula = 3'd7;        //Operação comparação
                                             mux_A_seletor = 3'd1;      //Valor contido em rs1 sai do MUX de cima
                                             mux_B_seletor = 3'd0;      //Valor contido em rs2 sai do MUX de baixo
-                                            if(menor==1) begin             //Se rs1<rs2
-                                                Seletor_Ula = 3'd4;        //Operação incremento de A
-                                                reset_A = 1;               //A gente tem que zerar o registrador A
-                                                mux_A_seletor = 3'd1;      //Valor contido em A(A=1) sai do MUX de cima
-                                                Mux_Banco_Reg_Seletor = 0; //O resultado da operação(ALU_OUT) vai para datain no banco de registradores
-                                                bancoRegisters_wr = 1;     //Permitirá ao banco de registradores escrever o resultado(datain) da operação em rd
-                                            end
-                                            else begin
-                                                if(menor==0) begin             //Se rs1>=rs2
-                                                    Seletor_Ula = 3'd0;        //Operação carregar A
-                                                    reset_A = 1;               //A gente tem que zerar o registrador A
-                                                    mux_A_seletor = 3'd1;      //Valor contido em A(A=0) sai do MUX de cima
-                                                    Mux_Banco_Reg_Seletor = 0; //O resultado da operação(ALU_OUT) vai para datain no banco de registradores
-                                                    bancoRegisters_wr = 1;     //Permitirá ao banco de registradores escrever o resultado(datain) da operação em rd 
-                                                end
-                                            end         
+                                            estado = FLAG;         
                                         end
                                     end
                                 end            
                             end
-                            estado = BUSCA; //Volta à busca por instrução
                         end
                         7'd19: begin //tipo I
                             if(Register_Intruction_Instr31_0[31:7]==25'd0) begin //nop
@@ -132,9 +110,8 @@ module UC (
                                     Shift_Control = 2'd3;      //O deslocador_funcional não faz nada
                                     Seletor_Ula = 3'd1;        //Operação soma(com constante)
                                     mux_A_seletor = 3'd1;      //Valor contido em rs1 sai do MUX de cima
-                                    mux_B_seletor = 3'd2;      //Valor contido em immediate sai do MUX de baixo
-                                    Mux_Banco_Reg_Seletor = 0; //O resultado da operação(ALU_OUT) vai para datain no banco de registradores
-                                    bancoRegisters_wr = 1;     //Permitirá ao banco de registradores escrever o resultado(datain) da operação em rd
+                                    mux_B_seletor = 3'd2;      //Valor contido em immediate sai do MUX de baixo  
+                                    estado = MEM_INST;                      
                                 end
                                 else begin
                                     if(Register_Intruction_Instr31_0[14:12]==3'd2) begin //slti rd, rs1, immediate
@@ -142,68 +119,45 @@ module UC (
                                         Seletor_Ula = 3'd7;        //Operação comparação
                                         mux_A_seletor = 3'd1;      //Valor contido em rs1 sai do MUX de cima
                                         mux_B_seletor = 3'd2;      //Valor immediate sai do MUX de baixo
-                                        if(menor==1) begin             //Se rs1<immediate
-                                            Seletor_Ula = 3'd4;        //Operação incremento de A
-                                            reset_A = 1;               //A gente tem que zerar o registrador A
-                                            mux_A_seletor = 3'd1;      //Valor contido em A(A=1) sai do MUX de cima
-                                            Mux_Banco_Reg_Seletor = 0; //O resultado da operação(ALU_OUT) vai para datain no banco de registradores
-                                            bancoRegisters_wr = 1;     //Permitirá ao banco de registradores escrever o resultado(datain) da operação em rd
-                                        end
-                                        else begin
-                                            if(menor==0) begin             //Se rs1>=immediate
-                                                Seletor_Ula = 3'd0;        //Operação carregar A
-                                                reset_A = 1;               //A gente tem que zerar o registrador A
-                                                mux_A_seletor = 3'd1;      //Valor contido em A(A=0) sai do MUX de cima
-                                                Mux_Banco_Reg_Seletor = 0; //O resultado da operação(ALU_OUT) vai para datain no banco de registradores
-                                                bancoRegisters_wr = 1;     //Permitirá ao banco de registradores escrever o resultado(datain) da operação em rd
-                                            end
-                                        end
+                                        estado = FLAG;                                        
                                     end
                                     else begin //tipo I(shifts)
                                          if(Register_Intruction_Instr31_0[14:12]==3'd5 && Register_Intruction_Instr31_0[31:26]==6'd0) begin //srli rd, rs1, shamt
                                             Shift_Control = 2'd1;      //Shift a direita lógico
                                             Seletor_Ula = 3'd0;        //Operação carregar A
                                             mux_A_seletor = 3'd1;      //Valor contido em A sai do MUX de cima
-                                            Mux_Banco_Reg_Seletor = 0; //O resultado da operação(ALU_OUT) vai para datain no banco de registradores
-                                            bancoRegisters_wr = 1;     //Permitirá ao banco de registradores escrever o resultado(datain) da operação em rd
+                                            estado = MEM_INST;
                                          end
                                          else begin
                                             if(Register_Intruction_Instr31_0[14:12]==3'd5 && Register_Intruction_Instr31_0[31:26]==6'd16) begin //srai rd, rs1, shamt
                                                 Shift_Control = 2'd2;      //Shift a direita aritmético
                                                 Seletor_Ula = 3'd0;        //Operação carregar A
                                                 mux_A_seletor = 3'd1;      //Valor contido em A sai do MUX de cima
-                                                Mux_Banco_Reg_Seletor = 0; //O resultado da operação(ALU_OUT) vai para datain no banco de registradores
-                                                bancoRegisters_wr = 1;     //Permitirá ao banco de registradores escrever o resultado(datain) da operação em rd
+                                                estado = MEM_INST;
                                             end
                                             else begin
                                                 if(Register_Intruction_Instr31_0[14:12]==3'd1 && Register_Intruction_Instr31_0[31:26]==6'd0) begin //slli rd, rs1, shamt
                                                     Shift_Control = 2'd0;      //Shift a esquerda lógico
                                                     Seletor_Ula = 3'd0;        //Operação carregar A
                                                     mux_A_seletor = 3'd1;      //Valor contido em A sai do MUX de cima
-                                                    Mux_Banco_Reg_Seletor = 0; //O resultado da operação(ALU_OUT) vai para datain no banco de registradores
-                                                    bancoRegisters_wr = 1;     //Permitirá ao banco de registradores escrever o resultado(datain) da operação em rd
+                                                    estado = MEM_INST;
                                                 end
                                             end    
                                         end
                                     end    
                                 end
                             end
-                            estado = BUSCA; //Volta à busca por instrução
                         end
-                        7'd115: begin //tipo I -> break
-                            mux_A_seletor = 3'd0;      //Valor contido em PC sai do MUX de cima
-                            Seletor_Ula = 3'd0;        //Operação carregar A(PC)
-                            estado = BUSCA; //Volta à busca por instrução
+                        7'd115: begin //tipo I -> break                         
+                            estado = SELECAO; //Loop
                         end                                
                         7'd3: begin //tipo I
                             if(Register_Intruction_Instr31_0[14:12]==3'd3) begin //ld rd, imm(rs1)
                                 Shift_Control = 2'd3;      //O deslocador_funcional não faz nada
-                                Seletor_Ula = 3'd1;         //Operação soma(com constante e endereço)
-                                mux_A_seletor = 3'd1;       //Endereço contido em rs1 sai do MUX de cima
-                                mux_B_seletor = 3'd2;       //Valor contido em immediate sai do MUX de baixo
-                                Data_Memory_wr = 0;         //Permite que o valor no endereço rs1+immediate(ALU_OUT) seja lido
-                                Mux_Banco_Reg_Seletor = 1;  //O valor lido da memória de dados vai para datain no banco de registradores
-                                bancoRegisters_wr = 1;      //Permitirá ao banco de registradores escrever o valor(datain) lido da memória de dados em rd
+                                Seletor_Ula = 3'd1;        //Operação soma(com constante e endereço)
+                                mux_A_seletor = 3'd1;      //Endereço contido em rs1 sai do MUX de cima
+                                mux_B_seletor = 3'd2;      //Valor contido em immediate sai do MUX de baixo
+                                estado = MEM_DATA;
                             end
                             else begin//a gente tem que ligar a memória a um extensor de sinal adicional só pra pra lidar com esses loads 
                                 if(Register_Intruction_Instr31_0[14:12]==3'd0) begin //lb rd, imm(rs1)
@@ -211,9 +165,7 @@ module UC (
                                     Seletor_Ula = 3'd1;         //Operação soma(com constante e endereço)
                                     mux_A_seletor = 3'd1;       //Endereço contido em rs1 sai do MUX de cima
                                     mux_B_seletor = 3'd2;       //Valor contido em immediate sai do MUX de baixo
-                                    Data_Memory_wr = 0;         //Permite que o valor no endereço rs1+immediate(ALU_OUT) seja lido
-                                    Mux_Banco_Reg_Seletor = 1;  //O valor lido da memória de dados vai para datain no banco de registradores
-                                    bancoRegisters_wr = 1;      //Permitirá ao banco de registradores escrever o valor(datain) lido da memória de dados em rd[7:0]
+                                    estado = MEM_DATA;
                                 end
                                 else begin
                                     if(Register_Intruction_Instr31_0[14:12]==3'd1) begin //lh rd, imm(rs1)
@@ -221,9 +173,7 @@ module UC (
                                         Seletor_Ula = 3'd1;         //Operação soma(com constante e endereço)
                                         mux_A_seletor = 3'd1;       //Endereço contido em rs1 sai do MUX de cima
                                         mux_B_seletor = 3'd2;       //Valor contido em immediate sai do MUX de baixo
-                                        Data_Memory_wr = 0;         //Permite que o valor no endereço rs1+immediate(ALU_OUT) seja lido
-                                        Mux_Banco_Reg_Seletor = 1;  //O valor lido da memória de dados vai para datain no banco de registradores
-                                        bancoRegisters_wr = 1;      //Permitirá ao banco de registradores escrever o valor(datain) lido da memória de dados em rd[15:0]
+                                        estado = MEM_DATA;
                                     end
                                     else begin
                                         if(Register_Intruction_Instr31_0[14:12]==3'd2) begin //lw rd, imm(rs1)
@@ -231,9 +181,7 @@ module UC (
                                             Seletor_Ula = 3'd1;         //Operação soma(com constante e endereço)
                                             mux_A_seletor = 3'd1;       //Endereço contido em rs1 sai do MUX de cima
                                             mux_B_seletor = 3'd2;       //Valor contido em immediate sai do MUX de baixo
-                                            Data_Memory_wr = 0;         //Permite que o valor no endereço rs1+immediate(ALU_OUT) seja lido
-                                            Mux_Banco_Reg_Seletor = 1;  //O valor lido da memória de dados vai para datain no banco de registradores
-                                            bancoRegisters_wr = 1;      //Permitirá ao banco de registradores escrever o valor(datain) lido da memória de dados em rd[31:0]
+                                            estado = MEM_DATA;
                                         end
                                         else begin
                                             if(Register_Intruction_Instr31_0[14:12]==3'd4) begin //lbu rd, imm(rs1)
@@ -241,9 +189,7 @@ module UC (
                                                 Seletor_Ula = 3'd1;         //Operação soma(com constante e endereço)
                                                 mux_A_seletor = 3'd1;       //Endereço contido em rs1 sai do MUX de cima
                                                 mux_B_seletor = 3'd2;       //Valor contido em immediate sai do MUX de baixo
-                                                Data_Memory_wr = 0;         //Permite que o valor no endereço rs1+immediate(ALU_OUT) seja lido
-                                                Mux_Banco_Reg_Seletor = 1;  //O valor lido da memória de dados vai para datain no banco de registradores
-                                                bancoRegisters_wr = 1;      //Permitirá ao banco de registradores escrever o valor(datain) lido da memória de dados em rd[7:0]
+                                                estado = MEM_DATA;
                                             end
                                             else begin
                                                 if(Register_Intruction_Instr31_0[14:12]==3'd5) begin //lhu rd, imm(rs1)
@@ -251,9 +197,7 @@ module UC (
                                                     Seletor_Ula = 3'd1;         //Operação soma(com constante e endereço)
                                                     mux_A_seletor = 3'd1;       //Endereço contido em rs1 sai do MUX de cima
                                                     mux_B_seletor = 3'd2;       //Valor contido em immediate sai do MUX de baixo
-                                                    Data_Memory_wr = 0;         //Permite que o valor no endereço rs1+immediate(ALU_OUT) seja lido
-                                                    Mux_Banco_Reg_Seletor = 1;  //O valor lido da memória de dados vai para datain no banco de registradores
-                                                    bancoRegisters_wr = 1;      //Permitirá ao banco de registradores escrever o valor(datain) lido da memória de dados em rd[15:0]
+                                                    estado = MEM_DATA;
                                                 end
                                                 else begin
                                                     if(Register_Intruction_Instr31_0[14:12]==3'd6) begin //lwu rd, imm(rs1)
@@ -261,9 +205,7 @@ module UC (
                                                         Seletor_Ula = 3'd1;         //Operação soma(com constante e endereço)
                                                         mux_A_seletor = 3'd1;       //Endereço contido em rs1 sai do MUX de cima
                                                         mux_B_seletor = 3'd2;       //Valor contido em immediate sai do MUX de baixo
-                                                        Data_Memory_wr = 0;         //Permite que o valor no endereço rs1+immediate(ALU_OUT) seja lido
-                                                        Mux_Banco_Reg_Seletor = 1;  //O valor lido da memória de dados vai para datain no banco de registradores
-                                                        bancoRegisters_wr = 1;      //Permitirá ao banco de registradores escrever o valor(datain) lido da memória de dados em rd[31:0]
+                                                        estado = MEM_DATA;
                                                     end
                                                 end
                                             end    
@@ -278,8 +220,8 @@ module UC (
                                 Shift_Control = 2'd3;  //O deslocador_funcional não faz nada
                                 Seletor_Ula = 3'd1;    //Operação soma(com constante e endereço)
                                 mux_A_seletor = 3'd1;  //Endereço contido em rs1 sai do MUX de cima
-                                mux_B_seletor = 3'd2;  //Valor contido em immediate sai do MUX de baixo
-                                Data_Memory_wr = 1;    //Permite a memória de dados guardar valor de rs2 no endereço rs1+immediate
+                                mux_B_seletor = 3'd2;  //Valor contido em immediate sai do MUX de baixo 
+                                estado = MEM_DATA_2;                               
                             end
                             else begin
                                 if(Register_Intruction_Instr31_0[14:12]==3'd2) begin //sw rs2, imm(rs1)
@@ -287,7 +229,7 @@ module UC (
                                     Seletor_Ula = 3'd1;    //Operação soma(com constante e endereço)
                                     mux_A_seletor = 3'd1;  //Endereço contido em rs1 sai do MUX de cima
                                     mux_B_seletor = 3'd2;  //Valor contido em immediate sai do MUX de baixo
-                                    Data_Memory_wr = 1;    //Permite a memória de dados guardar valor de rs2[31:0] no endereço rs1+immediate
+                                    estado = MEM_DATA_2;
                                 end
                                 else begin
                                     if(Register_Intruction_Instr31_0[14:12]==3'd1) begin //sh rs2, imm(rs1)
@@ -295,7 +237,7 @@ module UC (
                                         Seletor_Ula = 3'd1;    //Operação soma(com constante e endereço)
                                         mux_A_seletor = 3'd1;  //Endereço contido em rs1 sai do MUX de cima
                                         mux_B_seletor = 3'd2;  //Valor contido em immediate sai do MUX de baixo
-                                        Data_Memory_wr = 1;    //Permite a memória de dados guardar valor de rs2[15:0] no endereço rs1+immediate
+                                        estado = MEM_DATA_2;
                                     end
                                     else begin
                                         if(Register_Intruction_Instr31_0[14:12]==3'd0) begin //sb rs2, imm(rs1)
@@ -303,12 +245,11 @@ module UC (
                                             Seletor_Ula = 3'd1;    //Operação soma(com constante e endereço)
                                             mux_A_seletor = 3'd1;  //Endereço contido em rs1 sai do MUX de cima
                                             mux_B_seletor = 3'd2;  //Valor contido em immediate sai do MUX de baixo
-                                            Data_Memory_wr = 1;    //Permite a memória de dados guardar valor de rs2[7:0] no endereço rs1+immediate
+                                            estado = MEM_DATA_2;
                                         end
                                     end    
                                 end    
-                            end
-                            estado = BUSCA; //Volta à busca por instrução 
+                            end                             
                         end
                         7'd99: begin //tipo SB
                             if(Register_Intruction_Instr31_0[14:12]==3'd0) begin //beq rs1, rs2, imm
@@ -331,10 +272,8 @@ module UC (
                                 if(Register_Intruction_Instr31_0[14:12]==3'd0) begin //jalr rd, rs1, imm
                                     //rd = PC
                                     Seletor_Ula = 3'd0;        //Operação carregar A
-                                    mux_A_seletor = 3'd0;      //Valor contido em PC sai do MUX de cima
-                                    Mux_Banco_Reg_Seletor = 0; //O resultado da operação(ALU_OUT) vai para datain no banco de registradores
-                                    bancoRegisters_wr = 1;     //Permitirá ao banco de registradores escrever o resultado(datain) da operação em rd
-                                    estado = SALTO;            //Outra operação vai acontecer na ULA
+                                    mux_A_seletor = 3'd0;      //Valor contido em PC sai do MUX de cima                                    
+                                    estado = MEM_INST;         //Outra operação vai acontecer na ULA
                                 end
                                 else begin
                                     if(Register_Intruction_Instr31_0[14:12]==3'd5) begin //bge rs1, rs2, imm
@@ -357,21 +296,21 @@ module UC (
                             end    
                         end
                         7'd55: begin //tipo U -> lui rd, imm
+                            reset_A = 1;
                             Shift_Control = 2'd3;      //O deslocador_funcional não faz nada
                             Seletor_Ula = 3'd1;        //Operação soma
                             mux_A_seletor = 3'd1;      //Valor contido em rs1(zerado) sai do MUX de cima
                             mux_B_seletor = 3'd2;      //Valor contido em immediate[31:12] com o lado direito[11:0] zerado e com sinal extendido sai do MUX de baixo
-                            Mux_Banco_Reg_Seletor = 0; //O valor que sai da ALU vai para datain no banco de registradores
-                            bancoRegisters_wr = 1;     //Permitirá ao banco de registradores escrever o valor(datain) em rd
-                            estado = BUSCA; //Volta à busca por instrução
+                            estado = MEM_INST;
                         end
                         7'd111: begin //tipo UJ -> jal rd, imm
                             //rd = PC
                             Seletor_Ula = 3'd0;        //Operação carregar A
                             mux_A_seletor = 3'd0;      //Endereço contido em PC sai do MUX de cima
-                            Mux_Banco_Reg_Seletor = 0; //O resultado da operação(ALU_OUT) vai para datain no banco de registradores
-                            bancoRegisters_wr = 1;     //Permitirá ao banco de registradores escrever o resultado(datain) da operação em rd
-                            estado = SALTO;            //Outra operação vai acontecer na ULA
+                            estado = MEM_INST;
+                        end
+                        default: begin
+                            estado = BUSCA;
                         end           
                     endcase
                     
@@ -430,16 +369,53 @@ module UC (
                     endcase  
                     estado = BUSCA; //Volta à busca por instrução
                 end
-                MEM_INST:begin
-
-                end            
-                default :begin
+                MEM_INST:begin                  //escreve no rd o que vem da entrada 0(ULA) do mux
+                    Mux_Banco_Reg_Seletor = 0;  //O resultado da operação(ALU_OUT) vai para datain no banco de registradores
+                    bancoRegisters_wr = 1;      //Permitirá ao banco de registradores escrever o resultado(datain) da operação em rd
+                    if((Register_Intruction_Instr31_0[14:12]==3'd0 && Register_Intruction_Instr31_0[6:0]==7'd103) || Register_Intruction_Instr31_0[6:0]==7'd111) begin //Se a instrução for jalr ou jal
+                        estado = SALTO;         //Vai fazer o salto
+                    end
+                    else begin
+                        estado = BUSCA;         //Volta à busca por instrução
+                    end
+                end
+                MEM_INST_2:begin                //escreve no rd o que vem da entrada 1(Memória de Dados) do mux
+                    Mux_Banco_Reg_Seletor = 1;  //O valor lido da memória de dados vai para datain no banco de registradores
+                    bancoRegisters_wr = 1;      //Permitirá ao banco de registradores escrever o valor(datain) lido da memória de dados em rd
+                    estado = BUSCA;             //Volta à busca por instrução
+                end
+                FLAG:begin                         //análise de flags é feita aqui, exceto quando se trata de instrução de salto
+                    if(menor==1) begin             //Se rs1<rs2
+                        reset_A = 1;               //A gente tem que zerar o registrador A
+                        Seletor_Ula = 3'd4;        //Operação incremento de A                        
+                        mux_A_seletor = 3'd1;      //Valor contido em A(A=1) sai do MUX de cima
+                        estado = MEM_INST;                                            
+                    end
+                    else begin
+                        if(menor==0) begin         //Se rs1>=rs2
+                        reset_A = 1;               //A gente tem que zerar o registrador A
+                        Seletor_Ula = 3'd0;        //Operação carregar A                        
+                        mux_A_seletor = 3'd1;      //Valor contido em A(A=0) sai do MUX de cima
+                        estado = MEM_INST;
+                        end
+                    end
+                end
+                MEM_DATA:begin              //Loads
+                    Data_Memory_wr = 0;     //Permite que o valor no endereço rs1+immediate(ALU_OUT) seja lido
+                    Reg_Memory_Data_wr = 1; //Registrador de memória de dados vai receber o valor saído da memória
+                    estado = MEM_INST_2;
+                end
+                MEM_DATA_2:begin           //Stores
+                    Data_Memory_wr = 1;    //Permite a memória de dados guardar valor de rs2 no endereço rs1+immediate
+                    estado = BUSCA;        //Volta à busca por instrução
+                end                 
+                /*default :begin
                     PC_Write = 1;
                     Load_ir = 1;
                     Seletor_Ula = 3'd1;
                     mux_A_seletor = 3'd2;
                     mux_B_seletor = 3'd1;
-                end
+                end*/
             endcase
         end
     end

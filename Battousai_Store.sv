@@ -1,6 +1,6 @@
 module Battousai_Store (	
 					input logic [63:0] Reg_B_Out,
-					input logic signed [63:0] Register_Intruction_Instr31_0,
+					input logic signed [31:0] Register_Intruction_Instr31_0,
 					output logic [63:0] DadoIn_64
 					);
 
