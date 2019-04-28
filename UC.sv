@@ -154,6 +154,7 @@ module UC (
                                 Seletor_Ula = 3'd1;        //Operação soma(com constante e endereço)
                                 mux_A_seletor = 3'd1;      //Endereço contido em rs1 sai do MUX de cima
                                 mux_B_seletor = 3'd2;      //Valor contido em immediate sai do MUX de baixo
+                                Reg_Memory_Data_wr = 1; //Registrador de memória de dados vai receber o valor saído da memória
                                 estado = MEM_DATA;
                             end
                             else begin//a gente tem que ligar a memória a um extensor de sinal adicional só pra pra lidar com esses loads 
@@ -162,6 +163,7 @@ module UC (
                                     Seletor_Ula = 3'd1;         //Operação soma(com constante e endereço)
                                     mux_A_seletor = 3'd1;       //Endereço contido em rs1 sai do MUX de cima
                                     mux_B_seletor = 3'd2;       //Valor contido em immediate sai do MUX de baixo
+                                    Reg_Memory_Data_wr = 1; //Registrador de memória de dados vai receber o valor saído da memória
                                     estado = MEM_DATA;
                                 end
                                 else begin
@@ -170,6 +172,7 @@ module UC (
                                         Seletor_Ula = 3'd1;         //Operação soma(com constante e endereço)
                                         mux_A_seletor = 3'd1;       //Endereço contido em rs1 sai do MUX de cima
                                         mux_B_seletor = 3'd2;       //Valor contido em immediate sai do MUX de baixo
+                                        Reg_Memory_Data_wr = 1; //Registrador de memória de dados vai receber o valor saído da memória
                                         estado = MEM_DATA;
                                     end
                                     else begin
@@ -178,6 +181,7 @@ module UC (
                                             Seletor_Ula = 3'd1;         //Operação soma(com constante e endereço)
                                             mux_A_seletor = 3'd1;       //Endereço contido em rs1 sai do MUX de cima
                                             mux_B_seletor = 3'd2;       //Valor contido em immediate sai do MUX de baixo
+                                            Reg_Memory_Data_wr = 1; //Registrador de memória de dados vai receber o valor saído da memória
                                             estado = MEM_DATA;
                                         end
                                         else begin
@@ -186,6 +190,7 @@ module UC (
                                                 Seletor_Ula = 3'd1;         //Operação soma(com constante e endereço)
                                                 mux_A_seletor = 3'd1;       //Endereço contido em rs1 sai do MUX de cima
                                                 mux_B_seletor = 3'd2;       //Valor contido em immediate sai do MUX de baixo
+                                                Reg_Memory_Data_wr = 1; //Registrador de memória de dados vai receber o valor saído da memória
                                                 estado = MEM_DATA;
                                             end
                                             else begin
@@ -194,6 +199,7 @@ module UC (
                                                     Seletor_Ula = 3'd1;         //Operação soma(com constante e endereço)
                                                     mux_A_seletor = 3'd1;       //Endereço contido em rs1 sai do MUX de cima
                                                     mux_B_seletor = 3'd2;       //Valor contido em immediate sai do MUX de baixo
+                                                    Reg_Memory_Data_wr = 1; //Registrador de memória de dados vai receber o valor saído da memória
                                                     estado = MEM_DATA;
                                                 end
                                                 else begin
@@ -202,6 +208,7 @@ module UC (
                                                         Seletor_Ula = 3'd1;         //Operação soma(com constante e endereço)
                                                         mux_A_seletor = 3'd1;       //Endereço contido em rs1 sai do MUX de cima
                                                         mux_B_seletor = 3'd2;       //Valor contido em immediate sai do MUX de baixo
+                                                        Reg_Memory_Data_wr = 1; //Registrador de memória de dados vai receber o valor saído da memória
                                                         estado = MEM_DATA;
                                                     end
                                                 end
@@ -315,10 +322,11 @@ module UC (
                 SALTO:begin
                     case(Register_Intruction_Instr31_0[6:0])
                         7'd99: begin //beq rs1, rs2, imm
-                            if(igual==1) begin                      //se rs1=rs2
+                            if(igual==1) begin                      //se rs1=rs2                                
                                 Seletor_Ula = 3'd1;                 //Operação soma
                                 mux_A_seletor = 3'd0;               //Endereço contido em PC sai do MUX de cima
                                 mux_B_seletor = 3'd3;               //Endereço contido em immediate sai do MUX de baixo
+                                PC_Write = 1;
                             end
                         end
                         7'd103:begin
@@ -327,6 +335,7 @@ module UC (
                                     Seletor_Ula = 3'd1;    //Operação soma
                                     mux_A_seletor = 3'd0;  //Endereço contido em PC sai do MUX de cima
                                     mux_B_seletor = 3'd3;  //Endereço contido em immediate sai do MUX de baixo
+                                    PC_Write = 1;
                                 end
                             end
                             else begin
@@ -335,6 +344,7 @@ module UC (
                                         Seletor_Ula = 3'd1;    //Operação soma
                                         mux_A_seletor = 3'd0;  //Endereço contido em PC sai do MUX de cima
                                         mux_B_seletor = 3'd3;  //Endereço contido em immediate sai do MUX de baixo
+                                        PC_Write = 1;
                                     end 
                                 end
                                 else begin
@@ -343,6 +353,7 @@ module UC (
                                             Seletor_Ula = 3'd1;    //Operação soma
                                             mux_A_seletor = 3'd0;  //Endereço contido em PC sai do MUX de cima
                                             mux_B_seletor = 3'd3;  //Endereço contido em immediate sai do MUX de baixo
+                                            PC_Write = 1;
                                         end 
                                     end
                                     else begin
@@ -352,6 +363,7 @@ module UC (
                                         Seletor_Ula = 3'd1;        //Operação soma
                                         mux_A_seletor = 3'd1;      //Valor contido em rs1 sai do MUX de cima
                                         mux_B_seletor = 3'd2;      //Valor contido em immediate sai do MUX de baixo
+                                        PC_Write = 1;
                                         end
                                     end
                                 end
@@ -362,6 +374,7 @@ module UC (
                             Seletor_Ula = 3'd1;        //Operação soma
                             mux_A_seletor = 3'd0;      //Endereço contido em PC sai do MUX de cima
                             mux_B_seletor = 3'd3;      //Endereço contido em immediate sai do MUX de baixo
+                            PC_Write = 1;
                         end
                     endcase  
                     estado = BUSCA; //Volta à busca por instrução
@@ -399,7 +412,6 @@ module UC (
                 end
                 MEM_DATA:begin              //Loads
                     Data_Memory_wr = 0;     //Permite que o valor no endereço rs1+immediate(ALU_OUT) seja lido
-                    Reg_Memory_Data_wr = 1; //Registrador de memória de dados vai receber o valor saído da memória
                     estado = MEM_INST_2;
                 end
                 MEM_DATA_2:begin           //Stores
