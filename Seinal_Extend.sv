@@ -15,12 +15,12 @@ module Sinal_Extend(
                         Sinal_Out = { 52'd0, Sinal_In[31:20] };
                     end
                     else begin
-                        Sinal_Out = { 52'd1, Sinal_In[31:20] };
+                        Sinal_Out = { 52'd4503599627370495, Sinal_In[31:20] };
                     end    
                 end
             end
             else begin
-                if(Sinal_In[6:0]==7'd35) begin //tipo S(extensão signed)
+                if(Sinal_In[6:0]==7'd35) begin //tipo S(extensão unsigned)
                     Sinal_Out = { 52'd0, Sinal_In[31:25], Sinal_In[11:7] };                      
                 end
                 else begin
@@ -37,7 +37,7 @@ module Sinal_Extend(
                                     Sinal_Out = { 32'd0, Sinal_In[31:12], 12'd0 };
                                 end
                                 else begin
-                                    Sinal_Out = { 32'd1, Sinal_In[31:12], 12'd0 };
+                                    Sinal_Out = { 32'd4294967295, Sinal_In[31:12], 12'd0 };
                                 end
                             end
                             else begin
@@ -46,7 +46,7 @@ module Sinal_Extend(
                                         Sinal_Out = { 43'd0, Sinal_In[31], Sinal_In[19:12], Sinal_In[20], Sinal_In[30:21], 1'd0 };
                                     end
                                     else begin
-                                        Sinal_Out = { 43'd1, Sinal_In[31], Sinal_In[19:12], Sinal_In[20], Sinal_In[30:21], 1'd0 };
+                                        Sinal_Out = { 43'd8796093022207, Sinal_In[31], Sinal_In[19:12], Sinal_In[20], Sinal_In[30:21], 1'd0 };
                                     end
                                 end
                             end

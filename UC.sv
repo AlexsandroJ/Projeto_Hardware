@@ -23,7 +23,7 @@ module UC (
 
     );
     
-    enum logic [3:0]{ BUSCA = 4'd1 , SELECAO = 4'd2 , SALTO = 4'd3 , MEM_INST = 4'd4 , MEM_INST_2 = 4'd5 , FLAG = 4'd6 , MEM_DATA = 4'd7 , MEM_DATA_2 = 4'd8 , INICIO = 4'd0 } estado;
+    enum logic [3:0]{ BUSCA = 4'd1 , SELECAO = 4'd2 , SALTO = 4'd3 , MEM_INST = 4'd4 , MEM_INST_2 = 4'd5 , FLAG = 4'd6 , MEM_DATA = 4'd7 , MEM_DATA_2 = 4'd8 , CORRECAO_PC = 4'd9 , INICIO = 4'd0 } estado;
     
     always_ff @(posedge clock, posedge reset) begin 
         
@@ -64,7 +64,7 @@ module UC (
 
                     case(Register_Intruction_Instr31_0[6:0])
                         7'd51: begin //tipo R
-                        
+                            Load_ir = 0;    //Registrador de Instrução tem que estar travado
                             if(Register_Intruction_Instr31_0[14:12]==3'd0 && Register_Intruction_Instr31_0[31:25]==7'd0) begin //add rd, rs1, rs2
                                 Shift_Control = 2'd3;      //O deslocador_funcional não faz nada
                                 Seletor_Ula = 3'd1;        //Operação soma
@@ -101,6 +101,7 @@ module UC (
                             end
                         end
                         7'd19: begin //tipo I
+                            Load_ir = 0;    //Registrador de Instrução tem que estar travado
                             if(Register_Intruction_Instr31_0[31:7]==25'd0) begin //nop
                                 estado = BUSCA;
                             end
@@ -147,7 +148,8 @@ module UC (
                                 end
                             end
                         end
-                        7'd115: begin //tipo I -> break                         
+                        7'd115: begin //tipo I -> break  
+                            Load_ir = 0;    //Registrador de Instrução tem que estar travado                       
                             estado = SELECAO; //Loop
                         end                                
                         7'd3: begin //tipo I
@@ -259,6 +261,7 @@ module UC (
                             end                             
                         end
                         7'd99: begin //tipo SB
+                            Load_ir = 0;    //Registrador de Instrução tem que estar travado
                             if(Register_Intruction_Instr31_0[14:12]==3'd0) begin //beq rs1, rs2, imm
                                 Shift_Control = 2'd3;  //O deslocador_funcional não faz nada
                                 Seletor_Ula = 3'd7;    //Operação comparação
@@ -268,6 +271,7 @@ module UC (
                             end
                         end
                         7'd103: begin //tipo SB ou tipo I
+                            Load_ir = 0;    //Registrador de Instrução tem que estar travado
                             if(Register_Intruction_Instr31_0[14:12]==3'd1) begin //bne rs1, rs2, imm
                                 Shift_Control = 2'd3;  //O deslocador_funcional não faz nada
                                 Seletor_Ula = 3'd7;    //Operação comparação
@@ -303,6 +307,7 @@ module UC (
                             end    
                         end
                         7'd55: begin //tipo U -> lui rd, imm
+                            Load_ir = 0;    //Registrador de Instrução tem que estar travado
                             reset_A = 1;
                             Shift_Control = 2'd3;      //O deslocador_funcional não faz nada
                             Seletor_Ula = 3'd1;        //Operação soma
@@ -312,6 +317,7 @@ module UC (
                         end
                         7'd111: begin //tipo UJ -> jal rd, imm
                             //rd = PC
+                            Load_ir = 0;    //Registrador de Instrução tem que estar travado
                             Seletor_Ula = 3'd0;        //Operação carregar A
                             mux_A_seletor = 3'd0;      //Endereço contido em PC sai do MUX de cima
                             estado = MEM_INST;
@@ -379,9 +385,8 @@ module UC (
                             mux_B_seletor = 3'd3;      //Endereço contido em immediate sai do MUX de baixo
                             PC_Write = 1;
                         end
-                    endcase
-                    Load_ir = 1;  
-                    estado = BUSCA; //Volta à busca por instrução
+                    endcase                      
+                    estado = CORRECAO_PC; //Vai subtrair 4 unidades de PC
                 end
                 MEM_INST:begin                  //escreve no rd o que vem da entrada 0(ULA) do mux
                     Mux_Banco_Reg_Seletor = 3'd0;  //O resultado da operação(ALU_OUT) vai para datain no banco de registradores
@@ -424,6 +429,14 @@ module UC (
                     Data_Memory_wr = 1;    //Permite a memória de dados guardar valor de rs2 no endereço rs1+immediate
                     Load_ir = 1;
                     estado = BUSCA;        //Volta à busca por instrução
+                end
+                CORRECAO_PC:begin
+                    Seletor_Ula = 3'd2; //Operação subtração
+                    // Selecao de PC - 4
+                    mux_A_seletor = 3'd0;
+                    mux_B_seletor = 3'd1;
+                    Load_ir = 1;
+                    estado = BUSCA;
                 end                
 
             endcase
