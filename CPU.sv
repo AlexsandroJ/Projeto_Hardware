@@ -3,6 +3,7 @@ module CPU
 (	input logic clock, reset,
 	output logic [63:0] ULA_Out,
 	output logic [63:0] Pc_Out,
+	output logic [63:0] Instruction,
 	output logic [31:0] opcode,
 	output logic [4:0] Estado,
 	output logic [63:0] Registrador_A,
@@ -330,6 +331,7 @@ Instr_Reg_RISC_V Register_Intruction(	.Clk(						clock							),
 	
 	  	ULA_Out 		<= S;
 	   	Pc_Out 			<= PC_DadosOut;
+		Instruction 	<= Memory_Instruction_DataOut;
 		opcode 			<= Register_Intruction_Instr31_0;
 	   	Estado 			<= Situacao;
 		Registrador_A	<=	Reg_A_Out;

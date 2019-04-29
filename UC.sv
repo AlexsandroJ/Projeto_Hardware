@@ -46,8 +46,8 @@ module UC (
                     mux_A_seletor = 3'd0;
                     mux_B_seletor = 3'd1;
                     // Salvar Valores dos registadores das instrucoes
-                    Reg_A_Write = 0;
-                    Reg_B_Write = 0;
+                    Reg_A_Write = 1;
+                    Reg_B_Write = 1;
                     // Ir para proximo estado
                     estado = SELECAO;
                     bancoRegisters_wr = 0; //Para de receber valor do mux
@@ -389,6 +389,7 @@ module UC (
                     estado = CORRECAO_PC; //Vai subtrair 4 unidades de PC
                 end
                 MEM_INST:begin                  //escreve no rd o que vem da entrada 0(ULA) do mux
+                    Load_ir = 1;
                     Mux_Banco_Reg_Seletor = 3'd0;  //O resultado da operação(ALU_OUT) vai para datain no banco de registradores
                     bancoRegisters_wr = 1;      //Permitirá ao banco de registradores escrever o resultado(datain) da operação em rd
                     if((Register_Intruction_Instr31_0[14:12]==3'd0 && Register_Intruction_Instr31_0[6:0]==7'd103) || Register_Intruction_Instr31_0[6:0]==7'd111) begin //Se a instrução for jalr ou jal

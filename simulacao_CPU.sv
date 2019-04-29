@@ -15,6 +15,7 @@ module simulcao_CPU;
     logic igual_Ula;
 	logic menor_Ula;
     logic maior_Ula;
+    logic [63:0] Instruction;
  
     
     CPU teste_CPU(      .clock(         clock                   ),
@@ -22,6 +23,7 @@ module simulcao_CPU;
                         .ULA_Out(       Ula_Out                 ),
                         .Pc_Out(        Pc_Out                  ),
                         .opcode(        opcode                  ),
+                        .Instruction(   Instruction             ),
                         .Estado(        Estado                  ),
                         .Registrador_A( Registrador_A           ),
                         .Registrador_B( Registrador_B           ),
@@ -50,7 +52,7 @@ module simulcao_CPU;
         
         if($time < 300000 ) begin
             
-            $monitor("OpCode:%d Clock:%b Reset:%b PC:%d Estado:%d A:%d B:%d MuxA:%d MuxB:%d Ula:%d igual:%d Menor:%d Maior:%d Mem64:%d MuxReg:%d",opcode[6:0],clock, reset,Pc_Out,Estado, Registrador_A, Registrador_B, MUX_A_SAIDA, MUX_B_SAIDA , Ula_Out,igual_Ula,menor_Ula,maior_Ula, Memoria64_Out, Mux64_Banco_Reg_Out);
+            $monitor("Mem_Inst:%d OpCode:%d Clock:%b Reset:%b PC:%d Estado:%d A:%d B:%d MuxA:%d MuxB:%d Ula:%d igual:%d Menor:%d Maior:%d Mem64:%d MuxReg:%d",Instruction[6:0],opcode[6:0],clock, reset,Pc_Out[31:0],Estado, Registrador_A[31:0], Registrador_B[31:0], MUX_A_SAIDA[31:0], MUX_B_SAIDA[31:0], Ula_Out[31:0],igual_Ula,menor_Ula,maior_Ula, Memoria64_Out, Mux64_Banco_Reg_Out[31:0]);
             
         end
         else begin
