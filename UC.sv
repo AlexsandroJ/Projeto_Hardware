@@ -22,7 +22,7 @@ module UC (
 
     );
     
-    enum logic [3:0]{ BUSCA = 4'd1 , SELECAO = 4'd2 , SALTO = 4'd3 , MEM_INST = 4'd4 , MEM_INST_2 = 4'd5 , FLAG = 4'd6 , MEM_DATA = 4'd7 , MEM_DATA_2 = 4'd8 , INICIO = 4'd0 } estado;
+    enum logic [3:0]{ BUSCA = 4'd1 , SELECAO = 4'd2 , SALTO = 4'd3 , MEM_INST = 4'd4 , MEM_INST_2 = 4'd5 , FLAG = 4'd6 , MEM_DATA = 4'd7 , MEM_DATA_2 = 4'd8 , ESPERA = 4'd9 , INICIO = 4'd0 } estado;
     
     always_ff @(posedge clock, posedge reset) begin 
         
@@ -217,7 +217,6 @@ module UC (
                                     end
                                 end
                             end
-                            estado = BUSCA; //Volta à busca por instrução
                         end
                         7'd35: begin //tipo S
                             if(Register_Intruction_Instr31_0[14:12]==3'd7) begin //sd rs2, imm(rs1)
@@ -390,9 +389,9 @@ module UC (
                     end
                 end
                 MEM_INST_2:begin                //escreve no rd o que vem da entrada 1(Memória de Dados) do mux
-                    Mux_Banco_Reg_Seletor = 3'd1;  //O valor lido da memória de dados vai para datain no banco de registradores
-                    bancoRegisters_wr = 1;      //Permitirá ao banco de registradores escrever o valor(datain) lido da memória de dados em rd
-                    estado = BUSCA;             //Volta à busca por instrução
+                    Mux_Banco_Reg_Seletor = 3'd1;   //O valor lido da memória de dados vai para datain no banco de registradores
+                    bancoRegisters_wr = 1;          //Permitirá ao banco de registradores escrever o valor(datain) lido da memória de dados em rd
+                    estado = ESPERA;                //Delay para o valor ser carregado no registrador correto
                 end
                 FLAG:begin                         //análise de flags é feita aqui, exceto quando se trata de instrução de salto
                     if(menor==1) begin             //Se rs1<rs2
@@ -417,6 +416,9 @@ module UC (
                 MEM_DATA_2:begin           //Stores
                     Data_Memory_wr = 1;    //Permite a memória de dados guardar valor de rs2 no endereço rs1+immediate
                     estado = BUSCA;        //Volta à busca por instrução
+                end
+                ESPERA:begin
+                    estado = BUSCA;
                 end                 
 
             endcase
