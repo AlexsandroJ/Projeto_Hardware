@@ -18,17 +18,19 @@ module UC (
     output logic Reg_A_Write,
     output logic Reg_B_Write,
     output logic [2:0] Situacao,
-    output logic Reg_Memory_Data_wr
+    output logic Reg_Memory_Data_wr,
+    output logic Load_ir
 
     );
     
-    enum logic [3:0]{ BUSCA = 4'd1 , SELECAO = 4'd2 , SALTO = 4'd3 , MEM_INST = 4'd4 , MEM_INST_2 = 4'd5 , FLAG = 4'd6 , MEM_DATA = 4'd7 , MEM_DATA_2 = 4'd8 , ESPERA = 4'd9 , INICIO = 4'd0 } estado;
+    enum logic [3:0]{ BUSCA = 4'd1 , SELECAO = 4'd2 , SALTO = 4'd3 , MEM_INST = 4'd4 , MEM_INST_2 = 4'd5 , FLAG = 4'd6 , MEM_DATA = 4'd7 , MEM_DATA_2 = 4'd8 , INICIO = 4'd0 } estado;
     
     always_ff @(posedge clock, posedge reset) begin 
         
         if(reset) begin
             estado = BUSCA;
             reset_A = 1;
+            Load_ir = 1; //Lê instrução vinda de PC
         end
         else begin
 
@@ -53,7 +55,7 @@ module UC (
 
                 end
                 SELECAO:begin
-                     
+ 
                     PC_Write = 0;//PC para de ler instrucao
                     // nao ler instrucao, valores salvos nos registradores
                     Reg_A_Write = 1;
@@ -149,6 +151,7 @@ module UC (
                             estado = SELECAO; //Loop
                         end                                
                         7'd3: begin //tipo I
+                            Load_ir = 0;    //Registrador de Instrução tem que estar travado
                             if(Register_Intruction_Instr31_0[14:12]==3'd3) begin //ld rd, imm(rs1)
                                 Shift_Control = 2'd3;      //O deslocador_funcional não faz nada
                                 Seletor_Ula = 3'd1;        //Operação soma(com constante e endereço)
@@ -219,6 +222,7 @@ module UC (
                             end
                         end
                         7'd35: begin //tipo S
+                            Load_ir = 0;    //Registrador de Instrução tem que estar travado
                             if(Register_Intruction_Instr31_0[14:12]==3'd7) begin //sd rs2, imm(rs1)
                                 Shift_Control = 2'd3;  //O deslocador_funcional não faz nada
                                 Seletor_Ula = 3'd1;    //Operação soma(com constante e endereço)
@@ -375,7 +379,8 @@ module UC (
                             mux_B_seletor = 3'd3;      //Endereço contido em immediate sai do MUX de baixo
                             PC_Write = 1;
                         end
-                    endcase  
+                    endcase
+                    Load_ir = 1;  
                     estado = BUSCA; //Volta à busca por instrução
                 end
                 MEM_INST:begin                  //escreve no rd o que vem da entrada 0(ULA) do mux
@@ -385,13 +390,15 @@ module UC (
                         estado = SALTO;         //Vai fazer o salto
                     end
                     else begin
+                        Load_ir = 1;
                         estado = BUSCA;         //Volta à busca por instrução
                     end
                 end
                 MEM_INST_2:begin                //escreve no rd o que vem da entrada 1(Memória de Dados) do mux
                     Mux_Banco_Reg_Seletor = 3'd1;   //O valor lido da memória de dados vai para datain no banco de registradores
                     bancoRegisters_wr = 1;          //Permitirá ao banco de registradores escrever o valor(datain) lido da memória de dados em rd
-                    estado = ESPERA;                //Delay para o valor ser carregado no registrador correto
+                    Load_ir = 1;
+                    estado = BUSCA;                 //Delay para o valor ser carregado no registrador correto
                 end
                 FLAG:begin                         //análise de flags é feita aqui, exceto quando se trata de instrução de salto
                     if(menor==1) begin             //Se rs1<rs2
@@ -415,11 +422,9 @@ module UC (
                 end
                 MEM_DATA_2:begin           //Stores
                     Data_Memory_wr = 1;    //Permite a memória de dados guardar valor de rs2 no endereço rs1+immediate
+                    Load_ir = 1;
                     estado = BUSCA;        //Volta à busca por instrução
-                end
-                ESPERA:begin
-                    estado = BUSCA;
-                end                 
+                end                
 
             endcase
         end

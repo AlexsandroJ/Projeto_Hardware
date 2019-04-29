@@ -1,6 +1,6 @@
 module Battousai_Load (	
 					input logic [63:0] Dataout,
-					input logic signed [31:0] Register_Intruction_Instr31_0,
+					input logic [31:0] Register_Intruction_Instr31_0,
 					output logic [63:0]Saida_Memory_Data
 					);
 
