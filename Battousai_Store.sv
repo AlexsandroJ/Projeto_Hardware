@@ -12,7 +12,7 @@ module Battousai_Store (
                         DadoIn_64 = { 56'd0, Reg_B_Out[7:0] };
                     end
                     else begin
-                        DadoIn_64 = { 56'd1, Reg_B_Out[7:0] };
+                        DadoIn_64 = { 56'd72057594037927935, Reg_B_Out[7:0] };
                     end    
                 end
                 else begin
@@ -21,7 +21,7 @@ module Battousai_Store (
                             DadoIn_64 = { 48'd0, Reg_B_Out[15:0] };
                         end
                         else begin
-                            DadoIn_64 = { 48'd1, Reg_B_Out[15:0] };
+                            DadoIn_64 = { 48'd281474976710655, Reg_B_Out[15:0] };
                         end    
                     end
                     else begin
@@ -30,7 +30,7 @@ module Battousai_Store (
                                 DadoIn_64 = { 32'd0, Reg_B_Out[31:0] };
                             end
                             else begin
-                                DadoIn_64 = { 32'd1, Reg_B_Out[31:0] };
+                                DadoIn_64 = { 32'd4294967295, Reg_B_Out[31:0] };
                             end
                         end
                         else begin //sd rd, imm(rs1)
@@ -38,9 +38,7 @@ module Battousai_Store (
                         end
                     end
                 end
-            end    
-            default:
-                DadoIn_64 = Reg_B_Out;
+            end
         endcase
     end
 

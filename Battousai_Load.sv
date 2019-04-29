@@ -24,7 +24,7 @@ module Battousai_Load (
                                     Saida_Memory_Data = { 56'd0, Dataout[7:0] };
                                 end
                                 else begin
-                                    Saida_Memory_Data = { 56'd1, Dataout[7:0] };
+                                    Saida_Memory_Data = { 56'd72057594037927935, Dataout[7:0] };
                                 end    
                             end
                             else begin
@@ -33,7 +33,7 @@ module Battousai_Load (
                                         Saida_Memory_Data = { 48'd0, Dataout[15:0] };
                                     end
                                     else begin
-                                        Saida_Memory_Data = { 48'd1, Dataout[15:0] };
+                                        Saida_Memory_Data = { 48'd281474976710655, Dataout[15:0] };
                                     end    
                                 end
                                 else begin
@@ -42,7 +42,7 @@ module Battousai_Load (
                                             Saida_Memory_Data = { 32'd0, Dataout[31:0] };
                                         end
                                         else begin
-                                            Saida_Memory_Data = { 32'd1, Dataout[31:0] };
+                                            Saida_Memory_Data = { 32'd4294967295, Dataout[31:0] };
                                         end    
                                     end
                                     else begin //ld rd, imm(rs1)

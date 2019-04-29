@@ -188,7 +188,7 @@ wire [2:0]Situacao;
 										.raddress(					S								), 
 										.waddress(					S								), 
 										.Clk(						clock							), 
-										.Datain(					Reg_B_Out						), 
+										.Datain(					DadoIn_64						), 
 										.Dataout(					Data_Memory_Out					), 
 										.Wr(						Data_Memory_write				)
 																									);
