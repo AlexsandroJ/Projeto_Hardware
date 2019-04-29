@@ -17,7 +17,7 @@ module UC (
     output logic [1:0]Shift_Control,
     output logic Reg_A_Write,
     output logic Reg_B_Write,
-    output logic [2:0] Situacao,
+    output logic [4:0] Situacao,
     output logic Reg_Memory_Data_wr,
     output logic Load_ir
 

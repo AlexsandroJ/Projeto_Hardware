@@ -1,0 +1,5 @@
+addi x12,x0,88
+addi x13,x0,658
+addi x14,x0,88
+beq x12,x14,600
+addi x15,x0,55
