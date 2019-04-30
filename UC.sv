@@ -75,7 +75,8 @@ module UC (
 
                     BUSCA:begin
                         reset_A                     = 0;
-                        Reg_Memory_Data_wr          = 0;                        
+                        Reg_Memory_Data_wr          = 0;
+                        bancoRegisters_wr = 0; //Para de receber valor do mux                        
                         PC_Write                    = 1;
                         Seletor_Ula                 = 3'd1;
                         // Selecao de PC + 4
