@@ -23,7 +23,7 @@ module UC (
 
     );
     
-    enum logic [3:0]{ BUSCA = 4'd1 , SELECAO = 4'd2 , SALTO = 4'd3 , MEM_INST = 4'd4 , MEM_INST_2 = 4'd5 , FLAG = 4'd6 , MEM_DATA = 4'd7 , MEM_DATA_2 = 4'd8 , CORRECAO_PC = 4'd9 , INICIO = 4'd0 } estado;
+    enum logic [3:0]{ BUSCA = 4'd1 , SELECAO = 4'd2 , SALTO = 4'd3 , MEM_INST = 4'd4 , MEM_INST_2 = 4'd5 , FLAG = 4'd6 , MEM_DATA = 4'd7 , MEM_DATA_2 = 4'd8 , CORRECAO_PC = 4'd9, NOP = 4'd10 , INICIO = 4'd0 } estado;
     
     always_ff @(posedge clock, posedge reset) begin 
         
@@ -103,7 +103,12 @@ module UC (
                         7'd19: begin //tipo I
                             Load_ir = 0;    //Registrador de Instrução tem que estar travado
                             if(Register_Intruction_Instr31_0[31:7]==25'd0) begin //nop
-                                estado = BUSCA;
+                                
+                            
+                                bancoRegisters_wr   = 0;
+                                Reg_Memory_Data_wr  = 0;
+                                estado              = NOP;
+
                             end
                             else begin
                                 if(Register_Intruction_Instr31_0[14:12]==3'd0) begin //addi rd, rs1, immediate
@@ -438,7 +443,11 @@ module UC (
                     mux_B_seletor = 3'd1;
                     Load_ir = 1;
                     estado = BUSCA;
-                end                
+                end    
+                NOP:begin
+                    Load_ir             = 1;
+                    estado              = BUSCA;
+                end            
 
             endcase
         end
