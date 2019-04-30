@@ -113,16 +113,25 @@ wire Reg_ULAOut_Write;
 // Outros Fios usados
 wire load_ir;
 
-wire [63:0]mux64_A_C;
-wire [63:0]mux64_A_D;
+// saidas e controle EPC
+wire EPC_wr;
+wire [63:0] EPC_Out;
 
-wire [63:0]mux64_B_C;
-wire [63:0]mux64_B_D;
+// saidas e Registrador de causa
+wire Reg_Causa_wr;
+wire [63:0] Reg_Causa_Out;
+wire [63:0] Reg_Causa_Dados_In;
 
-reg [63:0] Saida_da_Ula;
+// Saida Estensor de sinal 8 para 32
+wire [63:0] Saida_Extend_8_32_Out;
+
+// Saida e controle Mux da entrada de PC para estensao de sinal
+wire [63:0] Mux64_PC_Extend_Out;
+wire [2:0] Mux64_PC_Extend_Seletor;
 
 // Debugar codigo
-wire [2:0]Situacao;
+wire [4:0]Situacao;
+wire desgraca;
 
 //_________________________________saidas da Unidade de Controle______________________________________
 //					PC_Write							: grava em PC
@@ -153,12 +162,18 @@ wire [2:0]Situacao;
 										.igual(		                igual                			),
 										.maior(		                maior                			),
 										.menor(		                menor                			),
+										.overFlow(					overFlow						),
 										.reset_A( 					reset_A							),
 										.Shift_Control(				Shift_Control					),
 										.Reg_A_Write( 				Reg_A_Write						),
 										.Reg_B_Write( 				Reg_B_Write						),
-										.Situacao(					Estado						),
-										.Reg_Memory_Data_wr(		Reg_Memory_Data_wr				)	
+										.Situacao(					Situacao							),
+										.Reg_Memory_Data_wr(		Reg_Memory_Data_wr				),
+										.EPC_wr(					EPC_wr							),
+										.Reg_Causa_wr(				Reg_Causa_wr					),
+										.Reg_Causa_Dados_In(		Reg_Causa_Dados_In				),
+										.flag_overFlow(				desgraca						),		
+										.Mux64_PC_Extend_Seletor(	Mux64_PC_Extend_Seletor		)	
 																									);
 //_____________________________________________________________________________________________________
 //_________________________________________Registrador PC [In 64 Bits ] [Out 32 Bits ]_________________
@@ -290,8 +305,8 @@ Instr_Reg_RISC_V Register_Intruction(	.Clk(						clock							),
 	mux64 Mux64_Ula_A(					.Seletor(					Mux64_Ula_A_Seletor				),
 										.A(							PC_DadosOut						),
 										.B(							Reg_A_Out						),
-										.C(							64'd666							),
-										.D(							64'd666							),
+										.C(							64'd254							),
+										.D(							64'd255							),
 										.Saida(						Mux64_Ula_A_Out					)
 																									);											  
 //_____________________________________________________________________________________________________	
@@ -326,6 +341,39 @@ Instr_Reg_RISC_V Register_Intruction(	.Clk(						clock							),
 																									);
 //_____________________________________________________________________________________________________
 
+
+
+									
+//_________________________________________Mux Entrada de PC 64 Bits _____________________________								
+	mux64 Mux64_PC_Exctend(				.Seletor(					Mux64_PC_Extend_Seletor			),
+										.A(							S								),
+										.B(							Saida_Extend_8_32_Out			),
+										.C(							64'd666							),
+										.D(							64'd666							),
+										.Saida(						Mux64_PC_Extend_Out			)
+																									);	
+
+	Sinal_Extend_8_32 Sina_8_32(		.Entrada_8_bits(			Reg_Memory_Data_Out[7:0]		),
+										.Saida_32(					Saida_Extend_8_32_Out			)
+																									);
+
+	register EPC( 						.clk(						clock							), 
+										.reset(						reset							), 
+										.regWrite(					EPC_wr							), 
+										.DadoIn(					ULA_Out							), 
+										.DadoOut(					EPC_Out							)
+																									);
+//_____________________________________________________________________________________________________
+
+
+	register Reg_Causa( 				.clk(						clock							), 
+										.reset(						reset							), 
+										.regWrite(					Reg_Causa_wr					), 
+										.DadoIn(					Reg_Causa_Dados_In				), 
+										.DadoOut(					Reg_Causa_Out					)
+																									);
+//_____________________________________________________________________________________________________
+
 	always_ff @(posedge clock or posedge reset) // sincrono
     begin
 	
@@ -342,7 +390,7 @@ Instr_Reg_RISC_V Register_Intruction(	.Clk(						clock							),
 		Memoria64_Out <= Data_Memory_Out;
 		igual_Ula		<= igual;
 		menor_Ula		<= menor;
-		maior_Ula		<= maior;
+		maior_Ula		<= desgraca;
     end
 
 endmodule
