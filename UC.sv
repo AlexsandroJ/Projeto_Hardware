@@ -25,7 +25,9 @@ module UC (
     output logic Reg_Causa_wr,
     output logic [63:0] Reg_Causa_Dados_In,
     output logic [2:0] Mux64_PC_Extend_Seletor,
-    output logic flag_overFlow
+    output logic flag_overFlow,
+    output logic Reg_ULAOut_Out
+  
     );
     
     enum logic [4:0]{   BUSCA                   = 5'd1 ,
@@ -35,8 +37,7 @@ module UC (
                         MEM_INST_2              = 5'd5 , 
                         FLAG                    = 5'd6 , 
                         MEM_DATA                = 5'd7 , 
-                        MEM_DATA_2              = 5'd8 , 
-                        CORRECAO_PC             = 5'd9, 
+                        MEM_DATA_2              = 5'd8 ,
                         NOP                     = 5'd10, 
                         EXECECAO                = 5'd11, 
                         EXECECAO_OVEFLOW        = 5'd12 , 
@@ -491,13 +492,13 @@ module UC (
                                 Seletor_Ula = 3'd1;        //Operação soma
                                 mux_A_seletor = 3'd0;      //Endereço contido em PC sai do MUX de cima
                                 mux_B_seletor = 3'd3;      //Endereço contido em immediate sai do MUX de baixo
-                                PC_Write = 1;
+                                PC_Write = 1;                                                              
                             end
-                        endcase                      
-                        estado = CORRECAO_PC; //Vai subtrair 4 unidades de PC
+                        endcase
+                        Load_ir = 1;                        
+                        estado = BUSCA;
                     end
-                    MEM_INST:begin                  //escreve no rd o que vem da entrada 0(ULA) do mux
-                        Load_ir = 1;
+                    MEM_INST:begin                  //escreve no rd o que vem da entrada 0(ULA) do mux                        
                         Mux_Banco_Reg_Seletor = 3'd0;  //O resultado da operação(ALU_OUT) vai para datain no banco de registradores
                         bancoRegisters_wr = 1;      //Permitirá ao banco de registradores escrever o resultado(datain) da operação em rd
                         if((Register_Intruction_Instr31_0[14:12]==3'd0 && Register_Intruction_Instr31_0[6:0]==7'd103) || Register_Intruction_Instr31_0[6:0]==7'd111) begin //Se a instrução for jalr ou jal
@@ -539,27 +540,32 @@ module UC (
                         Load_ir = 1;
                         estado = BUSCA;        //Volta à busca por instrução
                     end
-                    CORRECAO_PC:begin
+                    /*CORRECAO_PC:begin
                         Seletor_Ula = 3'd2; //Operação subtração
                         // Selecao de PC - 4
                         mux_A_seletor = 3'd0;
                         mux_B_seletor = 3'd1;
                         Load_ir = 1;
                         estado = BUSCA;
-                    end    
+                    end    */
                     NOP:begin
                         Load_ir             = 1;
                         estado              = BUSCA;
                     end   
 
                     EXECECAO:begin
+                        Mux64_PC_Extend_Seletor     = 3'd1;
+                        Mux_Banco_Reg_Seletor       = 3'd1;
                         Load_ir             = 0;
                         PC_Write            = 0;
                         EPC_wr              = 1;
-                        Reg_Causa_wr        = 1;
+                        Reg_Causa_wr        = 0;
+                        bancoRegisters_wr   = 0;
                         Seletor_Ula         = 3'd2;
                         mux_A_seletor       = 3'd0;
                         mux_B_seletor       = 3'd1;
+                        Data_Memory_wr      = 0;
+                        Reg_Memory_Data_wr  = 0;   
                         estado              = WAIT_EPC_SOMA;
                         
                     end
@@ -569,6 +575,7 @@ module UC (
                             flag_overFlow2      = 0;
                             estado              = EXECECAO_OVEFLOW;
                             Reg_Causa_wr        = 1;
+                            Data_Memory_wr      = 1;
                             Reg_Causa_Dados_In  = 64'd1;
                             
 
@@ -577,6 +584,7 @@ module UC (
                             
                             estado              = EXECECAO_INEXISTENTE;
                             Reg_Causa_wr        = 1;
+                            Data_Memory_wr      = 1;
                             Reg_Causa_Dados_In  = 64'd0;
 
                         end
@@ -587,7 +595,7 @@ module UC (
                         mux_A_seletor       = 3'd3; // selecionando o endereco 255
                         Seletor_Ula         = 3'd0;
                         Data_Memory_wr      = 1;
-                        Reg_Memory_Data_wr  = 1;
+                        Reg_Memory_Data_wr  = 0;
                         estado              = WAIT_MEM;
                         
                     end         
@@ -597,26 +605,29 @@ module UC (
                         mux_A_seletor       = 3'd2; // selecionando o endereco 254
                         Seletor_Ula         = 3'd0;
                         Data_Memory_wr      = 1;
-                        Reg_Memory_Data_wr  = 1;
+                        Reg_Memory_Data_wr  = 0;
                         estado              = WAIT_MEM;
                         
                     end
                     WAIT_MEM:begin
+                        Data_Memory_wr      = 0;
+                        Reg_Memory_Data_wr  = 1;
                         EPC_wr              = 0; 
                         Reg_Causa_wr        = 0;
                         estado              = WAIT_EXTEND;
                     end
                     WAIT_EXTEND:begin
-                        PC_Write                = 1;
-                        Load_ir                 = 0;
-                        Mux64_PC_Extend_Seletor = 3'd1;
-                        Data_Memory_wr          = 0;
                         Reg_Memory_Data_wr      = 0;
+                        Data_Memory_wr          = 0;
+                        PC_Write                = 1;
+                        Mux64_PC_Extend_Seletor = 3'd1;
                         estado                  = WAIT_PC;
                         
                     end
                     WAIT_PC:begin
-                        Mux64_PC_Extend_Seletor     = 3'd1;
+                        Data_Memory_wr          = 0;
+                        Reg_Memory_Data_wr      = 0;
+                        Mux64_PC_Extend_Seletor = 3'd1;
                         PC_Write                = 1;
                         estado                  = BUSCA;
                     end
@@ -625,7 +636,7 @@ module UC (
             end
             
         end
-
+    
     end
 
     always_ff @(overFlow)begin

@@ -14,8 +14,15 @@ module CPU
 	output logic [63:0] Memoria64_Out,
 	output logic igual_Ula,
 	output logic menor_Ula,
-	output logic maior_Ula
-
+	output logic maior_Ula,
+	output logic overFlow_Ula,
+	output logic [63:0] Reg_EPC,
+	output logic [63:0] Reg_Caua,
+	output logic [63:0] Reg_ULAOut_,
+	output logic [63:0] Reg_Memory_Data_,
+	output logic memoria_wr,
+	output logic reg_wr,
+	output logic Ld_ir
 
 );
 //_________________________________Observacoes______________________________________________
@@ -180,7 +187,7 @@ wire desgraca;
 	register PC( 						.clk(						clock							), 
 										.reset(						reset							), 
 										.regWrite(					PC_Write						), 
-										.DadoIn(					S								), 
+										.DadoIn(					Mux64_PC_Extend_Out				), 
 										.DadoOut(					PC_DadosOut						)
 																									);
 //_____________________________________________________________________________________________________
@@ -258,9 +265,9 @@ Instr_Reg_RISC_V Register_Intruction(	.Clk(						clock							),
 																									);
 //_____________________________________________________________________________________________________
 //_________________________________________Delocamento de 1 Bit________________________________________
-	Deslocamento Shift_Left(			.Shift(						2'd1							),
+	Deslocamento Shift_Left(			.Shift(						2'd0							),
 										.Entrada(					Sinal_Extend_Out				),
-										.N(							6'd0							),
+										.N(							6'd1							),
 										.Saida(						Shift_Left_Out					)
 																									);
 //_____________________________________________________________________________________________________
@@ -305,8 +312,8 @@ Instr_Reg_RISC_V Register_Intruction(	.Clk(						clock							),
 	mux64 Mux64_Ula_A(					.Seletor(					Mux64_Ula_A_Seletor				),
 										.A(							PC_DadosOut						),
 										.B(							Reg_A_Out						),
-										.C(							64'd254							),
-										.D(							64'd255							),
+										.C(							64'd252							),
+										.D(							64'd252							),
 										.Saida(						Mux64_Ula_A_Out					)
 																									);											  
 //_____________________________________________________________________________________________________	
@@ -332,31 +339,32 @@ Instr_Reg_RISC_V Register_Intruction(	.Clk(						clock							),
 										.menor(						menor							)
 																									);
 //_____________________________________________________________________________________________________
+
+//_________________________________________Nao esta sendo usado________________________________________
+
 //_________________________________________Registrador Saida da Ula____________________________________
 	register Reg_ULAOut( 				.clk(						clock							), 
 										.reset(						reset							), 
-										.regWrite(					Reg_ULAOut_Write				), 
+										.regWrite(					1'd1								), 
 										.DadoIn(					S								), 
-										.DadoOut(													)
+										.DadoOut(					Reg_ULAOut_Out								)
 																									);
 //_____________________________________________________________________________________________________
-
-
-
 									
-//_________________________________________Mux Entrada de PC 64 Bits _____________________________								
+//_________________________________________Mux Entrada de PC 64 Bits __________________________________								
 	mux64 Mux64_PC_Exctend(				.Seletor(					Mux64_PC_Extend_Seletor			),
 										.A(							S								),
 										.B(							Saida_Extend_8_32_Out			),
 										.C(							64'd666							),
 										.D(							64'd666							),
-										.Saida(						Mux64_PC_Extend_Out			)
+										.Saida(						Mux64_PC_Extend_Out				)
 																									);	
-
+//_________________________________________Estensao de sinal para Excecao 64 Bits ____________________
 	Sinal_Extend_8_32 Sina_8_32(		.Entrada_8_bits(			Reg_Memory_Data_Out[7:0]		),
 										.Saida_32(					Saida_Extend_8_32_Out			)
 																									);
-
+//_____________________________________________________________________________________________________
+//_________________________________________Registrador EPC que recebe a instrucao da Excesao___________
 	register EPC( 						.clk(						clock							), 
 										.reset(						reset							), 
 										.regWrite(					EPC_wr							), 
@@ -364,8 +372,7 @@ Instr_Reg_RISC_V Register_Intruction(	.Clk(						clock							),
 										.DadoOut(					EPC_Out							)
 																									);
 //_____________________________________________________________________________________________________
-
-
+//_________________________________________Registrador que Guarda a causa da Excesao PC 64 Bits _______
 	register Reg_Causa( 				.clk(						clock							), 
 										.reset(						reset							), 
 										.regWrite(					Reg_Causa_wr					), 
@@ -391,6 +398,14 @@ Instr_Reg_RISC_V Register_Intruction(	.Clk(						clock							),
 		igual_Ula		<= igual;
 		menor_Ula		<= menor;
 		maior_Ula		<= desgraca;
+		overFlow_Ula	<= overFlow;
+		Reg_EPC			<= EPC_Out;
+		Reg_Caua		<= Reg_Causa_Out;
+		Reg_ULAOut_		<= Reg_ULAOut_Out;
+		memoria_wr		<= Data_Memory_write;
+		Reg_Memory_Data_ <= Reg_Memory_Data_Out;
+		reg_wr			<= bancoRegisters_write;
+		Ld_ir			<= load_ir;
     end
 
 endmodule

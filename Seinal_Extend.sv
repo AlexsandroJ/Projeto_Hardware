@@ -5,7 +5,7 @@ module Sinal_Extend(
 
     always_comb begin
 
-        if(Sinal_In[6:0]==7'd3) begin//tipo I
+        if(Sinal_In[6:0]==7'd3 || (Sinal_In[6:0]==7'd103 && Sinal_In[14:12]==3'd0)) begin//tipo I
             Sinal_Out = { 52'd0, Sinal_In[31:20] };
         end
         else begin
@@ -25,29 +25,19 @@ module Sinal_Extend(
                 end
                 else begin
                     if(Sinal_In[6:0]==7'd99) begin //tipo SB
-                        Sinal_Out = { 51'd0, Sinal_In[31], Sinal_In[7], Sinal_In[30:25], Sinal_In[11:8], 1'd0 };
+                        Sinal_Out = { 50'd0, Sinal_In[31], Sinal_In[7], Sinal_In[30:25], Sinal_In[11:8], 2'd0 };                        
                     end
                     else begin
                         if(Sinal_In[6:0]==7'd103 && Sinal_In[14:12]!=3'd0) begin //tipo SB
-                            Sinal_Out = { 51'd0, Sinal_In[31], Sinal_In[7], Sinal_In[30:25], Sinal_In[11:8], 1'd0 };
+                            Sinal_Out = { 50'd0, Sinal_In[31], Sinal_In[7], Sinal_In[30:25], Sinal_In[11:8], 2'd0 };
                         end
                         else begin
                             if(Sinal_In[6:0]==7'd55) begin //tipo U
-                                if(Sinal_In[31]==0) begin
-                                    Sinal_Out = { 32'd0, Sinal_In[31:12], 12'd0 };
-                                end
-                                else begin
-                                    Sinal_Out = { 32'd4294967295, Sinal_In[31:12], 12'd0 };
-                                end
+                                Sinal_Out = { 32'd0, Sinal_In[31:12], 12'd0 };
                             end
                             else begin
                                 if(Sinal_In[6:0]==7'd111) begin //tipo UJ
-                                    if(Sinal_Out[31]==0) begin
-                                        Sinal_Out = { 43'd0, Sinal_In[31], Sinal_In[19:12], Sinal_In[20], Sinal_In[30:21], 1'd0 };
-                                    end
-                                    else begin
-                                        Sinal_Out = { 43'd8796093022207, Sinal_In[31], Sinal_In[19:12], Sinal_In[20], Sinal_In[30:21], 1'd0 };
-                                    end
+                                    Sinal_Out = { 42'd0, Sinal_In[31], Sinal_In[19:12], Sinal_In[20], Sinal_In[30:21], 2'd0 };                                    
                                 end
                             end
                         end
