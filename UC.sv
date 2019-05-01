@@ -38,6 +38,7 @@ module UC (
                         FLAG                    = 5'd6 , 
                         MEM_DATA                = 5'd7 , 
                         MEM_DATA_2              = 5'd8 ,
+                        ESPERA                  = 5'd9,
                         NOP                     = 5'd10, 
                         EXECECAO                = 5'd11, 
                         EXECECAO_OVEFLOW        = 5'd12 , 
@@ -45,7 +46,8 @@ module UC (
                         WAIT_MEM                = 5'd14, 
                         WAIT_EXTEND             = 5'd15 , 
                         WAIT_EPC_SOMA           = 5'd16, 
-                        WAIT_PC                 = 5'd17, 
+                        WAIT_PC                 = 5'd17,
+                        ESPERA_2                = 5'd18,
                         INICIO                  = 5'd0 } estado;
     logic flag_overFlow2;
     always_ff @(posedge clock, posedge reset) begin 
@@ -495,9 +497,8 @@ module UC (
                                 PC_Write = 1;                                                              
                             end
                         endcase
-                        bancoRegisters_wr = 0; //Para de receber valor do mux
-                        Load_ir = 1;                        
-                        estado = BUSCA;
+                        bancoRegisters_wr = 0; //Para de receber valor do mux                      
+                        estado = ESPERA;
                     end
                     MEM_INST:begin                  //escreve no rd o que vem da entrada 0(ULA) do mux            
                         Mux_Banco_Reg_Seletor = 3'd0;  //O resultado da operação(ALU_OUT) vai para datain no banco de registradores
@@ -541,14 +542,14 @@ module UC (
                         Load_ir = 1;
                         estado = BUSCA;        //Volta à busca por instrução
                     end
-                    /*CORRECAO_PC:begin
-                        Seletor_Ula = 3'd2; //Operação subtração
-                        // Selecao de PC - 4
-                        mux_A_seletor = 3'd0;
-                        mux_B_seletor = 3'd1;
-                        Load_ir = 1;
+                    ESPERA:begin
+                        PC_Write = 0;                                               
+                        estado = ESPERA_2;
+                    end
+                    ESPERA_2:begin
+                        Load_ir = 1; 
                         estado = BUSCA;
-                    end    */
+                    end                    
                     NOP:begin
                         Load_ir             = 1;
                         estado              = BUSCA;

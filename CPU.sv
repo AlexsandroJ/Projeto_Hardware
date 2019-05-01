@@ -312,8 +312,8 @@ Instr_Reg_RISC_V Register_Intruction(	.Clk(						clock							),
 	mux64 Mux64_Ula_A(					.Seletor(					Mux64_Ula_A_Seletor				),
 										.A(							PC_DadosOut						),
 										.B(							Reg_A_Out						),
-										.C(							64'd252							),
-										.D(							64'd252							),
+										.C(							64'd254							),
+										.D(							64'd255							),
 										.Saida(						Mux64_Ula_A_Out					)
 																									);											  
 //_____________________________________________________________________________________________________	
