@@ -30,21 +30,21 @@ module UC (
   
     );
     
-    enum logic [4:0]{   BUSCA                   = 5'd1 ,
-                        SELECAO                 = 5'd2 ,
-                        SALTO                   = 5'd3 , 
-                        MEM_INST                = 5'd4 , 
-                        MEM_INST_2              = 5'd5 , 
-                        FLAG                    = 5'd6 , 
-                        MEM_DATA                = 5'd7 , 
-                        MEM_DATA_2              = 5'd8 ,
+    enum logic [4:0]{   BUSCA                   = 5'd1,
+                        SELECAO                 = 5'd2,
+                        SALTO                   = 5'd3, 
+                        MEM_INST                = 5'd4, 
+                        MEM_INST_2              = 5'd5, 
+                        FLAG                    = 5'd6, 
+                        MEM_DATA                = 5'd7, 
+                        MEM_DATA_2              = 5'd8,
                         ESPERA                  = 5'd9,
                         NOP                     = 5'd10, 
                         EXECECAO                = 5'd11, 
-                        EXECECAO_OVEFLOW        = 5'd12 , 
+                        EXECECAO_OVEFLOW        = 5'd12, 
                         EXECECAO_INEXISTENTE    = 5'd13, 
                         WAIT_MEM                = 5'd14, 
-                        WAIT_EXTEND             = 5'd15 , 
+                        WAIT_EXTEND             = 5'd15, 
                         WAIT_EPC_SOMA           = 5'd16, 
                         WAIT_PC                 = 5'd17,
                         ESPERA_2                = 5'd18,
@@ -78,7 +78,8 @@ module UC (
                     BUSCA:begin
                         reset_A                     = 0;
                         Reg_Memory_Data_wr          = 0;
-                        bancoRegisters_wr = 0; //Para de receber valor do mux                        
+                        bancoRegisters_wr = 0; //Para de receber valor do mux
+                        Data_Memory_wr              = 0;                        
                         PC_Write                    = 1;
                         Seletor_Ula                 = 3'd1;
                         // Selecao de PC + 4
@@ -303,7 +304,7 @@ module UC (
                                     Seletor_Ula         = 3'd1;    //Operação soma(com constante e endereço)
                                     mux_A_seletor       = 3'd1;  //Endereço contido em rs1 sai do MUX de cima
                                     mux_B_seletor       = 3'd2;  //Valor contido em immediate sai do MUX de baixo 
-                                    estado              = MEM_DATA_2;                               
+                                    estado              = MEM_DATA;                               
                                 end
                                 else begin
                                     if(Register_Intruction_Instr31_0[14:12]==3'd2) begin //sw rs2, imm(rs1)
@@ -311,7 +312,7 @@ module UC (
                                         Seletor_Ula         = 3'd1;    //Operação soma(com constante e endereço)
                                         mux_A_seletor       = 3'd1;  //Endereço contido em rs1 sai do MUX de cima
                                         mux_B_seletor       = 3'd2;  //Valor contido em immediate sai do MUX de baixo
-                                        estado              = MEM_DATA_2;
+                                        estado              = MEM_DATA;
                                     end
                                     else begin
                                         if(Register_Intruction_Instr31_0[14:12]==3'd1) begin //sh rs2, imm(rs1)
@@ -319,7 +320,7 @@ module UC (
                                             Seletor_Ula         = 3'd1;    //Operação soma(com constante e endereço)
                                             mux_A_seletor       = 3'd1;  //Endereço contido em rs1 sai do MUX de cima
                                             mux_B_seletor       = 3'd2;  //Valor contido em immediate sai do MUX de baixo
-                                            estado              = MEM_DATA_2;
+                                            estado              = MEM_DATA;
                                         end
                                         else begin
                                             if(Register_Intruction_Instr31_0[14:12]==3'd0) begin //sb rs2, imm(rs1)
@@ -327,7 +328,7 @@ module UC (
                                                 Seletor_Ula         = 3'd1;    //Operação soma(com constante e endereço)
                                                 mux_A_seletor       = 3'd1;  //Endereço contido em rs1 sai do MUX de cima
                                                 mux_B_seletor       = 3'd2;  //Valor contido em immediate sai do MUX de baixo
-                                                estado              = MEM_DATA_2;
+                                                estado              = MEM_DATA;
                                             end
                                             else begin
                                                             
@@ -533,20 +534,25 @@ module UC (
                             end
                         end
                     end
-                    MEM_DATA:begin              //Loads
+                    MEM_DATA:begin
                         Data_Memory_wr = 0;     //Permite que o valor no endereço rs1+immediate(ALU_OUT) seja lido
-                        estado = MEM_INST_2;
+                        if(Register_Intruction_Instr31_0[6:0]==7'd3) begin //Loads
+                            estado = MEM_INST_2;
+                        end
+                        else begin //Stores
+                            estado = MEM_DATA_2;
+                        end    
                     end
                     MEM_DATA_2:begin           //Stores
                         Data_Memory_wr = 1;    //Permite a memória de dados guardar valor de rs2 no endereço rs1+immediate
                         Load_ir = 1;
                         estado = BUSCA;        //Volta à busca por instrução
                     end
-                    ESPERA:begin
+                    ESPERA:begin               //Delay pra dar tempo de PC aceitar o novo valor
                         PC_Write = 0;                                               
                         estado = ESPERA_2;
                     end
-                    ESPERA_2:begin
+                    ESPERA_2:begin             //Delay pra ficar melhor de ler o opcode na apresentação
                         Load_ir = 1; 
                         estado = BUSCA;
                     end                    
