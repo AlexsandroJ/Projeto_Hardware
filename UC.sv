@@ -48,6 +48,11 @@ module UC (
                         WAIT_EPC_SOMA           = 5'd16, 
                         WAIT_PC                 = 5'd17,
                         ESPERA_2                = 5'd18,
+                        WAI_PC_2                = 5'd19,
+                        PC_RETURN               = 5'd20,
+                        PC_BUSCA                = 5'd21,
+                        PC_CONTINUE             = 5'd22,
+                        PC_CONTINUE_WAIT        = 5'd23,
                         INICIO                  = 5'd0 } estado;
     logic flag_overFlow2;
     always_ff @(posedge clock, posedge reset) begin 
@@ -77,6 +82,7 @@ module UC (
 
 
                     BUSCA:begin
+                        EPC_wr                      = 0;
                         Reg_Causa_wr                = 0;
                         reset_A                     = 0;
                         Reg_Memory_Data_wr          = 0;
@@ -570,7 +576,7 @@ module UC (
                         Mux_Banco_Reg_Seletor       = 3'd1;
                         Load_ir                     = 0;
                         PC_Write                    = 0;
-                        EPC_wr                      = 1;
+                        EPC_wr                      = 0;
                         Reg_Causa_wr                = 0;
                         bancoRegisters_wr           = 0;
                         Seletor_Ula                 = 3'd2;
@@ -579,7 +585,16 @@ module UC (
                         Data_Memory_wr              = 0;
                         Reg_Memory_Data_wr          = 0;   
                         estado                      = WAIT_EPC_SOMA;
-                        
+                        if( flag_overFlow2 ) begin
+                            
+                            Reg_Causa_Dados_In  = 64'd1;
+                            
+                        end
+                        else begin
+                            
+                            Reg_Causa_Dados_In  = 64'd0;
+
+                        end
                     end
                     WAIT_EPC_SOMA:begin
                         
@@ -591,8 +606,7 @@ module UC (
                             PC_Write            = 1;
                             mux_A_seletor       = 3'd3; // selecionando o endereco 255
                             Seletor_Ula         = 3'd0; // carrega o valor de 255
-                            Reg_Causa_Dados_In  = 64'd1;
-                            
+                                                       
 
                         end
                         else begin
@@ -604,13 +618,12 @@ module UC (
                             PC_Write            = 1;
                             mux_A_seletor       = 3'd3; // selecionando o endereco 255
                             Seletor_Ula         = 3'd0; // carrega o valor de 255
-                            Reg_Causa_Dados_In  = 64'd0;
-
+                            
                         end
                     end   
                     EXECECAO_OVEFLOW:begin
                         EPC_wr              = 0;
-                        Reg_Causa_wr        = 1;
+                        Reg_Causa_wr        = 0;
                         mux_A_seletor       = 3'd3; // selecionando o endereco 255
                         Seletor_Ula         = 3'd0; // carrega o valor de 255
                         //Data_Memory_wr      = 1;
@@ -622,37 +635,60 @@ module UC (
                     end         
                     EXECECAO_INEXISTENTE:begin
                         EPC_wr              = 0; 
-                        Reg_Causa_wr        = 1;
+                        Reg_Causa_wr        = 0;
                         mux_A_seletor       = 3'd2; // selecionando o endereco 254
                         Seletor_Ula         = 3'd0;
                         //Data_Memory_wr      = 1;
                         //Reg_Memory_Data_wr  = 0;
                         PC_Write            = 1;
-                        Mux64_PC_Extend_Seletor = 3'd1;
+                        
                         estado              = WAIT_EXTEND;
                         
                     end
                     
                     WAIT_MEM:begin
                         PC_Write                = 1;
-                        
-                        estado              = WAIT_EXTEND;
+                        Mux64_PC_Extend_Seletor = 3'd1;
+                        estado                  = WAIT_EXTEND;
                     end
                     
                     WAIT_EXTEND:begin
                         //Reg_Memory_Data_wr      = 0;
                         //Data_Memory_wr          = 0;
-                        
+                        Mux64_PC_Extend_Seletor = 3'd1;
                         estado                  = WAIT_PC;
+                        
                         
                     end
                     WAIT_PC:begin
                         //Data_Memory_wr          = 0;
                         //Reg_Memory_Data_wr      = 0;
-                        Mux64_PC_Extend_Seletor = 3'd1;
-                        PC_Write                = 1;
-                        estado                  = BUSCA;
+                        
+                        Mux64_PC_Extend_Seletor     = 3'd2;
+                        estado                      = WAI_PC_2;
                     end
+
+                    WAI_PC_2:begin
+
+                        PC_Write                = 1;
+                        Seletor_Ula                 = 3'd1;
+                        mux_A_seletor               = 3'd0;
+                        mux_B_seletor               = 3'd1;
+                        Mux64_PC_Extend_Seletor     = 3'd0;
+                        estado                  = PC_RETURN;
+                        
+                    end
+                    PC_RETURN:begin
+                        
+                        estado                  = PC_CONTINUE;
+                        PC_Write                = 0;
+                    end
+                    
+                    PC_CONTINUE:begin
+                        PC_Write                = 0;
+                        estado                  = SELECAO;
+                    end
+                   
                 endcase
 
             end

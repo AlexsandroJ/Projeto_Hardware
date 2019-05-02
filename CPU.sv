@@ -356,7 +356,7 @@ Instr_Reg_RISC_V Register_Intruction(	.Clk(						clock														),
 	mux64 Mux64_PC_Exctend(				.Seletor(					Mux64_PC_Extend_Seletor			),
 										.A(														S														),
 										.B(														Saida_Extend_8_32_Out				),
-										.C(														64'd666											),
+										.C(														EPC_Out											),
 										.D(														64'd666											),
 										.Saida(												Mux64_PC_Extend_Out					)
 																																							);	
