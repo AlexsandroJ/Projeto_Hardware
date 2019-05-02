@@ -26,120 +26,121 @@ module CPU
 
 );
 //_________________________________Observacoes______________________________________________|
-// palavras iniciais das variaveis sao o nome do bloco em que ela e usada separada por '_'  |
-// em segida o nome especifico da entrada, o seu objetivo de uso                            |
-// exemplo: "bancoRegisters_Instuction" -> Bloco:"bancoRegisters" Uso: "Instuction"         |
-// se a primeira letra de Uso estiver em maiusculo, siginifica que e um arrey de linhas     |
-// se a primeira letra de Uso estiver em minusculo, siginifica que e um bit                 |
+	// palavras iniciais das variaveis sao o nome do bloco em que ela e usada separada por '_'  |
+	// em segida o nome especifico da entrada, o seu objetivo de uso                            |
+	// exemplo: "bancoRegisters_Instuction" -> Bloco:"bancoRegisters" Uso: "Instuction"         |
+	// se a primeira letra de Uso estiver em maiusculo, siginifica que e um arrey de linhas     |
+	// se a primeira letra de Uso estiver em minusculo, siginifica que e um bit                 |
 //__________________________________________________________________________________________|
 
-// saidas e controle regiter PC
-wire PC_Write;
-wire [63:0] PC_DadosOut;
+//_________________________________Declarações______________________________________________
+	// saidas e controle regiter PC
+	wire PC_Write;
+	wire [63:0] PC_DadosOut;
 
-// saidas e controle Memoria de instrucao
-wire Memory_Instruction_write;
-wire [31:0] Memory_Instruction_DataOut;
+	// saidas e controle Memoria de instrucao
+	wire Memory_Instruction_write;
+	wire [31:0] Memory_Instruction_DataOut;
 
-// Saidas e controle Memoria de dados
-wire Data_Memory_write;
-wire [63:0] Data_Memory_Out;
+	// Saidas e controle Memoria de dados
+	wire Data_Memory_write;
+	wire [63:0] Data_Memory_Out;
 
-// saidas registrador de dados da memoria
-wire [63:0]Reg_Memory_Data_Out;
-wire Reg_Memory_Data_wr;
+	// saidas registrador de dados da memoria
+	wire [63:0]Reg_Memory_Data_Out;
+	wire Reg_Memory_Data_wr;
 
-// Saida corte_antes
-wire [63:0]DadoIn_64;
+	// Saida corte_antes
+	wire [63:0]DadoIn_64;
 
-// Saida corte depois
-wire [63:0]Saida_Memory_Data;
-
-
-// saida mux do banco de registrador 
-wire [2:0]	Mux64_Banco_Reg_Seletor;
-wire [63:0]	Mux64_Banco_Reg_Out;
-
-// saidas e controle registrador de instrucao
-wire Register_Intruction_load_ir;
-wire [4:0] Register_Intruction_Instr19_15;
-wire [4:0] Register_Intruction_Instr24_20;
-wire [4:0] Register_Intruction_Instr11_7;
-wire [6:0] Register_Intruction_Instr6_0;
-wire [31:0] Register_Intruction_Instr31_0;
-
-// Saida Extensor de Sinal
-wire [63:0] Sinal_Extend_Out;
-
-// saida Modulo de deslocamento
-wire [63:0]Shift_Left_Out;
-
-// saidas e controle banco de Registradores
-wire bancoRegisters_write;
-wire [63:0] bancoRegisters_DataOut_1;
-wire [63:0] bancoRegisters_DataOut_2;
-
-// saidas e controle registrador A
-wire [63:0] Reg_A_Out;
-wire reset_A;
-wire Reg_A_Write;
-
-// saidas e controle registrador B
-wire [63:0] Reg_B_Out;
-wire Reg_B_Write;
+	// Saida corte depois
+	wire [63:0]Saida_Memory_Data;
 
 
-// saidas e controle Deslocamento Funcional
-wire [1:0]Shift_Control;
-wire [63:0]Shift_Funcional_Out;
+	// saida mux do banco de registrador 
+	wire [2:0]	Mux64_Banco_Reg_Seletor;
+	wire [63:0]	Mux64_Banco_Reg_Out;
 
-// saidas e controle Mux A
-wire [2:0] Mux64_Ula_A_Seletor;
-wire [63:0] Mux64_Ula_A_Out;
+	// saidas e controle registrador de instrucao
+	wire Register_Intruction_load_ir;
+	wire [4:0] Register_Intruction_Instr19_15;
+	wire [4:0] Register_Intruction_Instr24_20;
+	wire [4:0] Register_Intruction_Instr11_7;
+	wire [6:0] Register_Intruction_Instr6_0;
+	wire [31:0] Register_Intruction_Instr31_0;
 
-// saidas e controle Mux B
-wire [2:0] Mux64_Ula_B_Seletor;
-wire [63:0] Mux64_Ula_B_Out;
+	// Saida Extensor de Sinal
+	wire [63:0] Sinal_Extend_Out;
 
-// saidas e controle Da ULA
-wire [63:0] A;
-wire [63:0] B;
-wire [63:0] S;
-wire [2:0] Seletor;
-wire overFlow;
-wire negativo;
-wire z;
-wire igual;
-wire maior;
-wire menor;
+	// saida Modulo de deslocamento
+	wire [63:0]Shift_Left_Out;
 
-// saidas registrador da saida da ula
-wire [63:0]Reg_ULAOut_Out;
-wire Reg_ULAOut_Write;
+	// saidas e controle banco de Registradores
+	wire bancoRegisters_write;
+	wire [63:0] bancoRegisters_DataOut_1;
+	wire [63:0] bancoRegisters_DataOut_2;
 
-// Outros Fios usados
-wire load_ir;
+	// saidas e controle registrador A
+	wire [63:0] Reg_A_Out;
+	wire reset_A;
+	wire Reg_A_Write;
 
-// saidas e controle EPC
-wire EPC_wr;
-wire [63:0] EPC_Out;
+	// saidas e controle registrador B
+	wire [63:0] Reg_B_Out;
+	wire Reg_B_Write;
 
-// saidas e Registrador de causa
-wire Reg_Causa_wr;
-wire [63:0] Reg_Causa_Out;
-wire [63:0] Reg_Causa_Dados_In;
 
-// Saida Estensor de sinal 8 para 32
-wire [63:0] Saida_Extend_8_32_Out;
+	// saidas e controle Deslocamento Funcional
+	wire [1:0]Shift_Control;
+	wire [63:0]Shift_Funcional_Out;
 
-// Saida e controle Mux da entrada de PC para estensao de sinal
-wire [63:0] Mux64_PC_Extend_Out;
-wire [2:0] Mux64_PC_Extend_Seletor;
+	// saidas e controle Mux A
+	wire [2:0] Mux64_Ula_A_Seletor;
+	wire [63:0] Mux64_Ula_A_Out;
 
-// Debugar codigo
-wire [4:0]Situacao;
-wire desgraca;
+	// saidas e controle Mux B
+	wire [2:0] Mux64_Ula_B_Seletor;
+	wire [63:0] Mux64_Ula_B_Out;
 
+	// saidas e controle Da ULA
+	wire [63:0] A;
+	wire [63:0] B;
+	wire [63:0] S;
+	wire [2:0] Seletor;
+	wire overFlow;
+	wire negativo;
+	wire z;
+	wire igual;
+	wire maior;
+	wire menor;
+
+	// saidas registrador da saida da ula
+	wire [63:0]Reg_ULAOut_Out;
+	wire Reg_ULAOut_Write;
+
+	// Outros Fios usados
+	wire load_ir;
+
+	// saidas e controle EPC
+	wire EPC_wr;
+	wire [63:0] EPC_Out;
+
+	// saidas e Registrador de causa
+	wire Reg_Causa_wr;
+	wire [63:0] Reg_Causa_Out;
+	wire [63:0] Reg_Causa_Dados_In;
+
+	// Saida Estensor de sinal 8 para 32
+	wire [63:0] Saida_Extend_8_32_Out;
+
+	// Saida e controle Mux da entrada de PC para estensao de sinal
+	wire [63:0] Mux64_PC_Extend_Out;
+	wire [2:0] Mux64_PC_Extend_Seletor;
+
+	// Debugar codigo
+	wire [4:0]Situacao;
+	wire desgraca;
+//__________________________________________________________________________________________
 //_________________________________saidas da Unidade de Controle______________________________________
 //					PC_Write											: grava em PC
 //					Seletor_Ula 									: 3 Bits seleciona a operacao na ula
@@ -186,7 +187,7 @@ wire desgraca;
 //_________________________________________Registrador PC [In 64 Bits ] [Out 32 Bits ]_________________
 	register PC( 						.clk(						clock											), 
 										.reset(								reset											), 
-										.regWrite(						PC_Write									), 
+										.regWrite(							PC_Write									), 
 										.DadoIn(							Mux64_PC_Extend_Out				), 
 										.DadoOut(							PC_DadosOut								)
 																																		);
@@ -312,8 +313,8 @@ Instr_Reg_RISC_V Register_Intruction(	.Clk(						clock														),
 	mux64 Mux64_Ula_A(					.Seletor(					Mux64_Ula_A_Seletor				),
 										.A(							PC_DadosOut														),
 										.B(							Reg_A_Out															),
-										.C(							64'd254																),
-										.D(							64'd255																),
+										.C(							64'd252																),
+										.D(							64'd252																),
 										.Saida(					Mux64_Ula_A_Out												)
 																																					);											  
 //_____________________________________________________________________________________________________	
@@ -360,8 +361,9 @@ Instr_Reg_RISC_V Register_Intruction(	.Clk(						clock														),
 										.Saida(												Mux64_PC_Extend_Out					)
 																																							);	
 //_________________________________________Estensao de sinal para Excecao 64 Bits ____________________
-	Sinal_Extend_8_32 Sina_8_32(		.Entrada_8_bits(			Reg_Memory_Data_Out[7:0]		),
-										.Saida_32(													Saida_Extend_8_32_Out				)
+	Sinal_Extend_8_32 Sina_8_32(		.causa(						Reg_Causa_Dados_In[1:0]							),
+										.Entrada_8_bits(			Memory_Instruction_DataOut		),
+										.Saida_32(					Saida_Extend_8_32_Out				)
 																																										);
 //_____________________________________________________________________________________________________
 //_________________________________________Registrador EPC que recebe a instrucao da Excesao___________

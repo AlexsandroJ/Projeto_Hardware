@@ -69,7 +69,7 @@ module simulcao_CPU;
         if($time < 3000000 ) begin
             
             //$monitor("Mem_Inst:%d OpCode:%d Clock:%b Reset:%b PC:%d Estado:%d A:%d B:%d MuxA:%d MuxB:%d Ula:%d igual:%d Menor:%d Maior:%d OvFlo:%d Mem64:%d MuxReg:%d EPC:%d Causa:%d",Instruction[6:0],opcode[6:0],clock, reset,Pc_Out[31:0],Estado, Registrador_A[31:0], Registrador_B[31:0], MUX_A_SAIDA[31:0], MUX_B_SAIDA[31:0], Ula_Out[63:0],igual_Ula,menor_Ula,maior_Ula,overFlow_Ula, Memoria64_Out, Mux64_Banco_Reg_Out[31:0],Reg_EPC[31:0],Reg_Caua[2:0]);
-            $monitor("RD:%d OpCode:%d Clock:%b Reset:%b PC:%d Estado:%d A:%d B:%d MuxA:%d MuxB:%d Ula:%d Mem64:%d MuxReg:%d EPC:%d Causa:%d wr:%d WriteDataReg:%d IRWrite:%d ",Instruction[11:7],opcode[6:0],clock, reset,Pc_Out[31:0],Estado, Registrador_A[31:0], Registrador_B[31:0], MUX_A_SAIDA[31:0], MUX_B_SAIDA[31:0], Ula_Out[63:0], Memoria64_Out, Mux64_Banco_Reg_Out[31:0],Reg_EPC[31:0],Reg_Caua[2:0],memoria_wr,reg_wr,Ld_ir);
+            $monitor("RD:%d OpCode:%d Clock:%b Reset:%b PC:%d Estado:%d A:%d B:%d MuxA:%d MuxB:%d Ula:%d Mem64:%d MuxReg:%d EPC:%d Causa:%d wr:%d WriteDataReg:%d IRWrite:%d ",Instruction[11:7],opcode[6:0],clock, reset,Pc_Out[31:0],Estado, Registrador_A[31:0], Registrador_B[31:0], MUX_A_SAIDA[31:0], MUX_B_SAIDA[31:0], Ula_Out[63:0], Memoria64_Out, Mux64_Banco_Reg_Out[31:0],Reg_EPC[31:0],Reg_Caua[10:0],memoria_wr,reg_wr,Ld_ir);
            
             //$monitor("MenData:%d Address:%d L/S:%d WriteDataReg:%d MDR:%d Alu:%d AluOut:%d PC:%d wr:%d RegWrite:%d IRWrite:%d EPC:%d Estado:%d",Memoria64_Out,Ula_Out,memoria_wr,Mux64_Banco_Reg_Out,Reg_Memory_Data, Ula_Out,Reg_ULAOut, Pc_Out,memoria_wr,reg_wr,Ld_ir,Reg_EPC,Estado);
             
