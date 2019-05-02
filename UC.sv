@@ -77,7 +77,7 @@ module UC (
                 estado          = EXECECAO;
             end
             else begin
-            
+                
                 case(estado)
 
 
@@ -686,7 +686,10 @@ module UC (
                     
                     PC_CONTINUE:begin
                         PC_Write                = 0;
-                        estado                  = SELECAO;
+                        Load_ir                 = 1;
+                        estado                  = BUSCA;
+                        Reg_Causa_Dados_In      = 64'd666;
+                        Reg_Causa_wr            = 1;
                     end
                    
                 endcase

@@ -1,6 +1,8 @@
 exc op inexistente
-addi x7,x7,1024
-sub x9,x7,x4
-bne x0,x9,2
-jalr x0,x1,0
+ld x7,0(x0)
+addi x11,x11,10
+add x7,x7,x7
+sd x11,0(x11)
+ld x10,0(x11)
+add x10,x10,x10
 break
